@@ -910,7 +910,89 @@
     <!-- End of bodyEnd -->
 
 
-<!--__veldy_inquiry__--><script src="assets/js/veldy-inquiry.js" defer></script><!--__veldy_contact__--><script src="assets/js/veldy-contact.js" defer></script></body>
+<!--__veldy_inquiry__--><script src="assets/js/veldy-inquiry.js" defer></script><!--__veldy_contact__--><script src="assets/js/veldy-contact.js" defer></script>
+<!-- VELDY 구독 서비스 섹션 (QNA 상단에 자연스럽게 삽입) -->
+<style id="veldy-subscribe-style">
+#veldy-subscribe{background:#000;color:#fff;width:100%;font-family:"Inter Display","Inter",sans-serif;padding:110px 0 96px;box-sizing:border-box;position:relative;z-index:1}
+#veldy-subscribe *{box-sizing:border-box}
+#veldy-subscribe .vs-in{padding:0 24px}
+#veldy-subscribe .vs-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;text-transform:uppercase;letter-spacing:.01em;color:#bbb;border-bottom:1px solid rgba(255,255,255,.14);padding-bottom:16px}
+#veldy-subscribe .vs-row .l{color:#fff}
+#veldy-subscribe .vs-body{display:flex;gap:80px;margin-top:90px;flex-wrap:wrap}
+#veldy-subscribe .vs-left{flex:1 1 480px;max-width:600px}
+#veldy-subscribe .vs-eyebrow{font-size:13px;text-transform:uppercase;color:#bbb;letter-spacing:.02em;margin-bottom:22px}
+#veldy-subscribe h2{font-size:clamp(56px,7vw,104px);font-weight:600;line-height:.98;letter-spacing:-.045em;margin:0 0 26px}
+#veldy-subscribe .vs-lead{font-size:20px;line-height:1.55;font-weight:400;color:#e8e8e8;max-width:440px}
+#veldy-subscribe .vs-lead b{font-weight:600;color:#fff}
+#veldy-subscribe .vs-cta{display:inline-flex;align-items:center;gap:10px;margin-top:40px;font-size:16px;color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:14px 26px;text-decoration:none;cursor:pointer;transition:.2s}
+#veldy-subscribe .vs-cta:hover{background:#fff;color:#000}
+#veldy-subscribe .vs-right{flex:1 1 560px;max-width:760px}
+#veldy-subscribe .vs-item{display:grid;grid-template-columns:56px 1fr;gap:8px 0;padding:26px 0;border-top:1px solid rgba(255,255,255,.14)}
+#veldy-subscribe .vs-item:last-child{border-bottom:1px solid rgba(255,255,255,.14)}
+#veldy-subscribe .vs-num{font-size:14px;color:#fff;letter-spacing:.1px;padding-top:3px}
+#veldy-subscribe .vs-q{font-size:20px;font-weight:500;color:#fff;letter-spacing:-.2px}
+#veldy-subscribe .vs-a{grid-column:2;font-size:15px;color:#9a9a9a;line-height:1.6;margin-top:8px}
+@media(max-width:820px){#veldy-subscribe{padding:72px 0 64px}#veldy-subscribe .vs-body{gap:44px;margin-top:52px}#veldy-subscribe .vs-row .c{display:none}}
+</style>
+<script>
+(function(){
+  var QNA='section.framer-y84tos', reinserts=0;
+  function build(){
+    var sec=document.createElement('section');
+    sec.id='veldy-subscribe';
+    sec.innerHTML=''
+     +'<div class="vs-in">'
+     +'  <div class="vs-row"><span class="l">© SUBSCRIPTION</span><span class="c">(VELDY® — 00)</span><span class="r">FLAGSHIP SERVICE</span></div>'
+     +'  <div class="vs-body">'
+     +'    <div class="vs-left">'
+     +'      <div class="vs-eyebrow">밸디의 대표 상품</div>'
+     +'      <h2>구독 서비스</h2>'
+     +'      <div class="vs-lead"><b>1인 급여로</b> 전문 디자이너가 포함된 <b>업무팀 전체를 구독</b>하세요. 채용도, 관리도 없이 필요한 전문가 팀과 매달 함께합니다.</div>'
+     +'      <a class="vs-cta" href="mailto:veldy.official@gmail.com">구독 상담하기 →</a>'
+     +'    </div>'
+     +'    <div class="vs-right">'
+     +'      <div class="vs-item"><div class="vs-num">01</div><div class="vs-q">실력있는 전문가가 필요하신가요?</div><div class="vs-a">브랜딩·디자인·영상·마케팅까지, 검증된 전문가 팀이 프로젝트에 바로 투입됩니다.</div></div>'
+     +'      <div class="vs-item"><div class="vs-num">02</div><div class="vs-q">직원 때문에 고민이신가요?</div><div class="vs-a">채용·온보딩·퇴사와 공백 걱정 없이, 밸디가 팀을 운영하고 결과물로 책임집니다.</div></div>'
+     +'      <div class="vs-item"><div class="vs-num">03</div><div class="vs-q">고용 비용이 부담이신가요?</div><div class="vs-a">직원 1인 급여 수준의 구독료로 여러 직군의 전문가 팀을 통째로 활용하세요.</div></div>'
+     +'    </div>'
+     +'  </div>'
+     +'</div>';
+    return sec;
+  }
+  function relax(){
+    try{
+      var qna=document.querySelector(QNA); if(!qna) return;
+      qna.parentElement.style.height='auto';
+      var m=document.getElementById('main'); if(m) m.style.height='auto';
+      document.body.style.height='auto';
+      window.dispatchEvent(new Event('resize'));
+    }catch(e){}
+  }
+  function ensure(){
+    var qna=document.querySelector(QNA);
+    if(!qna) return;
+    if(document.getElementById('veldy-subscribe')) return;
+    if(reinserts>20) return;
+    reinserts++;
+    qna.parentElement.insertBefore(build(), qna);
+    relax();
+  }
+  function boot(){
+    ensure();
+    [200,600,1200,2200,3500].forEach(function(t){setTimeout(ensure,t);});
+    try{
+      var target=document.getElementById('main')||document.body;
+      var mo=new MutationObserver(function(){ if(!document.getElementById('veldy-subscribe')) ensure(); });
+      mo.observe(target,{childList:true,subtree:true});
+      setTimeout(function(){mo.disconnect();relax();},7000);
+    }catch(e){}
+  }
+  if(document.readyState==='complete') boot();
+  else window.addEventListener('load', boot);
+})();
+</script>
+
+</body>
 
 <!-- Mirrored from https://veldy.framer.website/contact by HTTrack Website Copier/3.x [XR&CO], Tue, 18 Aug 2026 06:01:05 GMT -->
 </html>
