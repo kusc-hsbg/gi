@@ -30,7 +30,7 @@
   var CSS =
 '#veldy-partners{--vp-bg:var(--token-2d91bfb1-1bb0-467e-bf37-8ef020f4f815,#000);--vp-fg:var(--token-9811e40b-3ed8-4237-98e5-61535bb22d2f,#fff);--vp-mut:var(--token-e5a511bf-849c-4ac6-b942-175c537ace13,#bbb);--vp-dim:var(--token-af1df47b-ea84-448e-bdf0-a5ce0f875a59,#999);--vp-line:var(--token-01c07c7e-a9ae-45ca-a79a-cc49e2fa5e89,rgba(187,187,187,.2));--vp-gold:#d8c36e;--vp-gold-2:#b9a04f;background:var(--vp-bg);color:var(--vp-fg);width:100%;font-family:"Inter","Inter Placeholder",sans-serif;-webkit-font-smoothing:antialiased}' +
 '#veldy-partners *{box-sizing:border-box}' +
-'#veldy-partners .vp-inner{max-width:1200px;margin:0 auto;padding:clamp(72px,10vw,140px) 24px}' +
+'#veldy-partners .vp-inner{max-width:1480px;margin:0 auto;padding:clamp(72px,10vw,140px) 24px}' +
 '#veldy-partners .vp-labelrow{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--vp-line);padding-top:18px;margin-bottom:clamp(48px,7vw,96px)}' +
 '#veldy-partners .vp-eyebrow{margin:0;font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--vp-dim)}' +
 '#veldy-partners .vp-kicker{margin:0 0 22px;font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--vp-gold)}' +
