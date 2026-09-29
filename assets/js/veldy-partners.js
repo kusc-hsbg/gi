@@ -1,23 +1,10 @@
 /*
- * veldy-partners.js — independent PARTNERS (subscription) section
+ * veldy-partners.js — full PARTNERS (subscription) section
  *
- * Presents the veldy.co.kr/Partnership content as a section that matches THIS
- * site's own visual language exactly — pure black canvas, white Inter Display
- * headings, muted grey secondary text, hairline 0.2 divider lines, the three-up
- * "© Label / (VELDY® — n) / LABEL" header row, and outlined pill buttons — i.e.
- * the same components/typography the native Framer sections (FAQ, Contact, …)
- * use. No gold, no bespoke accent. Type sizes/weights/colours are lifted from
- * the site's own style presets:
- *   label   → Inter Display 13/400 #fff
- *   heading → Inter Display 49/500 #fff, -0.8px   (preset sng7in)
- *   number  → Inter Display 14/400 #fff           (preset 8vm16z)
- *   item    → Inter Display 19/500 #fff           (preset 14w8e6o)
- *
- * The section carries its own markup + styles and is kept OUTSIDE Framer's React
- * tree, injected directly above the FAQ section (".framer-122h8qz") and
- * re-anchored via a MutationObserver so hydration/re-renders can't remove it.
- * The "지금 구독하기" CTA links to contact.html, which veldy-inquiry.js delegates
- * on to open the PROJECT INQUIRY form.
+ * All content from veldy.co.kr/Partnership, styled to match THIS site's visual
+ * language: black canvas, white Inter Display headings, muted grey body, hairline
+ * dividers, outlined pill buttons. Injected above FAQ (.framer-122h8qz) outside
+ * Framer's React tree, re-anchored via MutationObserver.
  */
 (function () {
   var FAQ_SEL = '.framer-122h8qz';
@@ -30,73 +17,278 @@
     '교정·교열·윤문 에디터', '촬영 감독', '영상 편집자', '번역가', '출판 담당자'
   ];
 
+  var SERVICES = [
+    { icon: 'folder', title: 'BI · CI', desc: '로고 / 명함 / 가이드북 제작' },
+    { icon: 'megaphone', title: '광고 콘텐츠', desc: '카드뉴스 / SNS 콘텐츠 / 상세페이지' },
+    { icon: 'printer', title: '디지털 인쇄', desc: '포스터 / 리플렛 / 라벨 등' },
+    { icon: 'package', title: '패키지', desc: '단상자 / 파우치 등' },
+    { icon: 'book', title: '편집디자인', desc: '카달로그 / 책자 등' },
+    { icon: 'chat', title: '마케팅 전략 기획', desc: '홍보 로드맵 제안' },
+    { icon: 'quote', title: 'PPT', desc: '회사 / 제품 / 서비스 소개서 및 제안서' },
+    { icon: 'pen', title: '그래픽', desc: '일러스트 / 그래픽 소스 개발' },
+    { icon: 'video', title: '영상 편집', desc: '포토 촬영 및 영상 편집' }
+  ];
+
+  var COMPANIES = [
+    '서울시50플러스재단', 'LOTTE', '관세청', 'EVERLAND', 'WATERBOMB',
+    'CELLTRION', 'DELTA', '부추찜닭', '서대문구청', 'PAK’S'
+  ];
+
+  var SVG_PATHS = {
+    folder: '<path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h7a2 2 0 012 2z"/>',
+    megaphone: '<path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 010 7.07"/>',
+    printer: '<path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/>',
+    package: '<path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/>',
+    book: '<path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2zM22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>',
+    chat: '<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>',
+    quote: '<path d="M6 17h3l2-4V7H5v6h3M14 17h3l2-4V7h-6v6h3"/>',
+    pen: '<path d="M17 3a2.83 2.83 0 114 4L7.5 20.5 2 22l1.5-5.5z"/>',
+    video: '<path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/>'
+  };
+
+  function svgIcon(name) {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' + (SVG_PATHS[name] || '') + '</svg>';
+  }
+
+  /* ── CSS ─────────────────────────────────────────────────────── */
   var CSS =
+/* base */
 '#veldy-partners{--vp-bg:var(--token-2d91bfb1-1bb0-467e-bf37-8ef020f4f815,#000);--vp-fg:var(--token-9811e40b-3ed8-4237-98e5-61535bb22d2f,#fff);--vp-mut:var(--token-af1df47b-ea84-448e-bdf0-a5ce0f875a59,#999);--vp-mut2:var(--token-e5a511bf-849c-4ac6-b942-175c537ace13,#bbb);--vp-line:var(--token-01c07c7e-a9ae-45ca-a79a-cc49e2fa5e89,rgba(187,187,187,.2));background:var(--vp-bg);color:var(--vp-fg);width:100%;font-family:"Inter","Inter Placeholder",sans-serif;-webkit-font-smoothing:antialiased}' +
 '#veldy-partners *{box-sizing:border-box}' +
 '#veldy-partners .vp-inner{max-width:1480px;margin:0 auto;padding:clamp(80px,9vw,140px) 24px}' +
-/* three-up header row: © PARTNERS / (VELDY® — 구독) / SUBSCRIPTION */
+/* meta row */
 '#veldy-partners .vp-meta{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;align-items:center;border-top:1px solid var(--vp-line);padding-top:16px}' +
-'#veldy-partners .vp-meta+ .vp-meta{border-top:1px solid var(--vp-line)}' +
-'#veldy-partners .vp-meta span{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:13px;font-weight:400;line-height:13px;letter-spacing:0}' +
+'#veldy-partners .vp-meta span{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:13px;font-weight:400;line-height:13px}' +
 '#veldy-partners .vp-meta .m1{color:var(--vp-fg);justify-self:start}' +
 '#veldy-partners .vp-meta .m2{color:var(--vp-mut);justify-self:center;text-align:center}' +
 '#veldy-partners .vp-meta .m3{color:var(--vp-mut);justify-self:end;text-align:right}' +
 /* hero */
 '#veldy-partners .vp-hero{margin-top:clamp(40px,5vw,72px)}' +
 '#veldy-partners .vp-h{margin:0;font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-weight:500;font-size:clamp(30px,4.6vw,49px);line-height:1.32;letter-spacing:-.8px;color:var(--vp-fg)}' +
+'#veldy-partners .vp-h em{font-style:normal}' +
 '#veldy-partners .vp-lede{margin:26px 0 0;max-width:52ch;font-size:clamp(15px,1.5vw,17px);line-height:1.65;color:var(--vp-mut2)}' +
 '#veldy-partners .vp-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(30px,3.5vw,42px)}' +
-'#veldy-partners .vp-btn{display:inline-flex;align-items:center;gap:.5em;padding:14px 26px;border-radius:100px;font-size:14px;font-weight:500;letter-spacing:.02em;text-decoration:none;cursor:pointer;border:1px solid rgba(255,255,255,.4);background:transparent;color:var(--vp-fg);transition:background .2s ease,color .2s ease,border-color .2s ease}' +
+'#veldy-partners .vp-btn{display:inline-flex;align-items:center;gap:.5em;padding:14px 26px;border-radius:100px;font-size:14px;font-weight:500;letter-spacing:.02em;text-decoration:none;cursor:pointer;border:1px solid rgba(255,255,255,.4);background:transparent;color:var(--vp-fg);transition:background .2s,color .2s,border-color .2s}' +
 '#veldy-partners .vp-btn:hover{background:var(--vp-fg);color:var(--vp-bg);border-color:var(--vp-fg)}' +
 '#veldy-partners .vp-btn.mut{border-color:rgba(255,255,255,.18);color:var(--vp-mut2)}' +
 '#veldy-partners .vp-btn.mut:hover{border-color:var(--vp-fg);color:var(--vp-fg)}' +
-/* two-column list block (mirrors the FAQ layout) */
+/* WHY SUBSCRIBE */
+'#veldy-partners .vp-whysub{text-align:center;margin-top:clamp(80px,10vw,160px);padding:clamp(60px,8vw,120px) 0}' +
+'#veldy-partners .vp-label{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(16px,1.8vw,22px);font-weight:700;color:var(--vp-fg);margin:0 0 clamp(28px,4vw,48px);letter-spacing:.08em}' +
+'#veldy-partners .vp-q{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(24px,3.2vw,36px);font-weight:400;line-height:1.5;color:var(--vp-mut2);margin:0}' +
+'#veldy-partners .vp-q strong{font-weight:700;color:var(--vp-fg)}' +
+/* right-aligned block */
+'#veldy-partners .vp-right{text-align:right;margin-top:clamp(80px,10vw,160px);padding:clamp(60px,8vw,120px) 0}' +
+'#veldy-partners .vp-right .vp-h{font-size:clamp(26px,3.4vw,36px);font-weight:700}' +
+'#veldy-partners .vp-right .vp-sub{margin:clamp(20px,3vw,36px) 0 0;font-size:clamp(14px,1.3vw,16px);line-height:2;color:var(--vp-mut2)}' +
+/* icons grid */
+'#veldy-partners .vp-icons{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(40px,5vw,72px);margin-top:clamp(60px,8vw,100px);padding:clamp(40px,5vw,80px) 0}' +
+'#veldy-partners .vp-ic{text-align:center}' +
+'#veldy-partners .vp-ic-circle{display:inline-flex;align-items:center;justify-content:center;width:clamp(80px,8vw,110px);height:clamp(80px,8vw,110px);border-radius:50%;border:1.5px solid rgba(255,255,255,.3);background:transparent;color:#fff;margin-bottom:clamp(16px,2vw,24px)}' +
+'#veldy-partners .vp-ic-circle svg{width:38%;height:38%}' +
+'#veldy-partners .vp-ic-title{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(15px,1.5vw,18px);font-weight:700;color:var(--vp-fg);margin:0 0 8px}' +
+'#veldy-partners .vp-ic-desc{font-size:clamp(13px,1.2vw,16px);color:var(--vp-mut2);margin:0}' +
+/* two-column block */
 '#veldy-partners .vp-block{margin-top:clamp(72px,9vw,132px)}' +
 '#veldy-partners .vp-cols{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.55fr);gap:clamp(32px,5vw,72px);margin-top:clamp(40px,5vw,64px)}' +
-'#veldy-partners .vp-colhead{align-self:start}' +
-'#veldy-partners .vp-colhead .vp-h{font-size:clamp(26px,3.4vw,40px);line-height:1.2}' +
-'#veldy-partners .vp-colhead p{margin:20px 0 0;font-size:15px;line-height:1.65;color:var(--vp-mut2);max-width:34ch}' +
+/* reasons (left column) */
+'#veldy-partners .vp-reasons{align-self:start}' +
+'#veldy-partners .vp-rh{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(14px,1.4vw,18px);font-weight:700;color:var(--vp-mut2);margin:0 0 clamp(28px,3vw,40px)}' +
+'#veldy-partners .vp-reason{margin-bottom:clamp(32px,4vw,56px)}' +
+'#veldy-partners .vp-reason-no{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(22px,2.6vw,30px);font-weight:700;color:var(--vp-fg);margin:0 0 10px}' +
+'#veldy-partners .vp-reason-t{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(20px,2.4vw,30px);font-weight:700;color:var(--vp-fg);margin:0;line-height:1.35}' +
+/* role list (right column) */
 '#veldy-partners .vp-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--vp-line)}' +
 '#veldy-partners .vp-item{display:flex;align-items:baseline;gap:clamp(20px,3vw,56px);padding:clamp(16px,1.7vw,22px) 0;border-bottom:1px solid var(--vp-line)}' +
-'#veldy-partners .vp-no{flex:none;width:2ch;font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:14px;font-weight:400;line-height:25px;letter-spacing:.1px;color:var(--vp-mut)}' +
-'#veldy-partners .vp-name{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(17px,1.7vw,19px);font-weight:500;line-height:1.3;letter-spacing:0;color:var(--vp-fg)}' +
-'#veldy-partners .vp-why{list-style:none;margin:0;padding:0}' +
-'#veldy-partners .vp-why li{position:relative;padding:10px 0 10px 20px;font-size:15px;line-height:1.6;color:var(--vp-mut2)}' +
-'#veldy-partners .vp-why li:before{content:"";position:absolute;left:0;top:18px;width:6px;height:6px;border-radius:50%;background:var(--vp-mut)}' +
-'@media (max-width:810px){#veldy-partners .vp-cols{grid-template-columns:1fr;gap:28px}#veldy-partners .vp-meta{grid-template-columns:1fr auto;gap:8px}#veldy-partners .vp-meta .m2{display:none}}';
+'#veldy-partners .vp-no{flex:none;width:2ch;font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:14px;font-weight:400;line-height:25px;color:var(--vp-mut)}' +
+'#veldy-partners .vp-name{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(17px,1.7vw,19px);font-weight:500;line-height:1.3;color:var(--vp-fg)}' +
+/* scrolling ticker */
+'#veldy-partners .vp-ticker{overflow:hidden;white-space:nowrap;margin-top:clamp(60px,8vw,120px);padding:clamp(24px,3vw,40px) 0;border-top:1px solid var(--vp-line);border-bottom:1px solid var(--vp-line)}' +
+'#veldy-partners .vp-ticker-track{display:inline-flex;animation:vpScroll 30s linear infinite}' +
+'#veldy-partners .vp-ticker-item{flex:none;padding:0 clamp(24px,3vw,48px);font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(13px,1.3vw,16px);font-weight:600;color:var(--vp-mut);letter-spacing:.05em}' +
+'@keyframes vpScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}' +
+/* WHY VELDY */
+'#veldy-partners .vp-wv{text-align:center;margin-top:clamp(80px,10vw,140px)}' +
+'#veldy-partners .vp-wv-heading{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(26px,3.4vw,36px);font-weight:700;color:var(--vp-fg);margin:0 0 clamp(40px,5vw,72px);line-height:1.4}' +
+'#veldy-partners .vp-wv-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,40px);text-align:left}' +
+'#veldy-partners .vp-wv-col{padding:clamp(20px,2.5vw,32px);border:1px solid var(--vp-line);border-radius:12px}' +
+'#veldy-partners .vp-wv-ct{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(16px,1.6vw,22px);font-weight:700;color:var(--vp-fg);margin:0 0 clamp(16px,2vw,24px)}' +
+'#veldy-partners .vp-wv-ci{font-size:clamp(14px,1.3vw,18px);color:var(--vp-mut2);margin:8px 0;line-height:1.5}' +
+/* utilize section */
+'#veldy-partners .vp-util{text-align:center;margin-top:clamp(80px,10vw,140px)}' +
+'#veldy-partners .vp-util-sm{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(20px,2.6vw,36px);font-weight:400;color:var(--vp-mut2);margin:0}' +
+'#veldy-partners .vp-util-lg{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-weight:500;font-size:clamp(30px,4.6vw,49px);line-height:1.32;letter-spacing:-.8px;color:var(--vp-fg);margin:8px 0 0}' +
+/* agency section */
+'#veldy-partners .vp-agency{text-align:center;margin-top:clamp(60px,8vw,120px)}' +
+'#veldy-partners .vp-agency-label{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(14px,1.4vw,18px);font-weight:700;color:var(--vp-mut2);letter-spacing:.08em;margin:0 0 16px;font-style:italic}' +
+'#veldy-partners .vp-agency-desc{font-size:clamp(14px,1.3vw,20px);line-height:1.65;color:var(--vp-mut2);margin:clamp(20px,3vw,36px) 0 0}' +
+/* quotes (right-aligned) */
+'#veldy-partners .vp-quotes{margin-top:clamp(60px,8vw,100px)}' +
+'#veldy-partners .vp-quote{text-align:right;padding:clamp(20px,2.5vw,32px) 0;border-bottom:1px solid var(--vp-line);font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(14px,1.4vw,18px);font-weight:700;color:var(--vp-fg);line-height:1.5}' +
+/* banner */
+'#veldy-partners .vp-banner{margin-top:clamp(80px,10vw,140px);padding-top:clamp(40px,5vw,72px)}' +
+'#veldy-partners .vp-banner-label{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(14px,1.4vw,18px);font-weight:700;color:var(--vp-mut2);margin:0 0 16px}' +
+'#veldy-partners .vp-banner .vp-h{margin-bottom:clamp(24px,3vw,36px)}' +
+/* reference link */
+'#veldy-partners .vp-ref{margin-top:clamp(56px,7vw,96px);padding-top:20px;border-top:1px solid var(--vp-line);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}' +
+'#veldy-partners .vp-ref-text{font-size:14px;color:var(--vp-mut2)}' +
+'#veldy-partners .vp-ref .vp-btn{padding:12px 22px;font-size:13px}' +
+/* mobile */
+'@media(max-width:810px){' +
+'#veldy-partners .vp-cols{grid-template-columns:1fr;gap:28px}' +
+'#veldy-partners .vp-meta{grid-template-columns:1fr auto;gap:8px}' +
+'#veldy-partners .vp-meta .m2{display:none}' +
+'#veldy-partners .vp-icons{grid-template-columns:repeat(2,1fr);gap:28px}' +
+'#veldy-partners .vp-wv-cols{grid-template-columns:1fr;gap:16px}' +
+'}';
 
+  /* ── helpers ──────────────────────────────────────────────────── */
   function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
   function meta(a, b, c) {
     return '<div class="vp-meta"><span class="m1">' + a + '</span><span class="m2">' + b + '</span><span class="m3">' + c + '</span></div>';
   }
 
+  /* ── HTML builder ────────────────────────────────────────────── */
   function buildHTML() {
     var roleRows = ROLES.map(function (r, i) {
       return '<li class="vp-item"><span class="vp-no">' + pad2(i + 1) + '</span><span class="vp-name">' + r + '</span></li>';
     }).join('');
 
+    var iconGrid = SERVICES.map(function (s) {
+      return '<div class="vp-ic"><div class="vp-ic-circle">' + svgIcon(s.icon) + '</div>' +
+        '<p class="vp-ic-title">' + s.title + '</p><p class="vp-ic-desc">' + s.desc + '</p></div>';
+    }).join('');
+
+    var tickerItems = COMPANIES.concat(COMPANIES).map(function (c) {
+      return '<span class="vp-ticker-item">' + c + '</span>';
+    }).join('');
+
     return '<div class="vp-inner">' +
-      // ── hero block ─────────────────────────────────────────────
+
+      /* ── 1. HERO ─────────────────────────────────────────────── */
       meta('&copy; PARTNERS', '(VELDY&reg; &mdash; 구독)', 'SUBSCRIPTION') +
       '<div class="vp-hero">' +
-      '<h2 class="vp-h">1인 급여로 전문 디자이너가<br>포함된 업무팀을 구독하세요.</h2>' +
-      '<p class="vp-lede">한 명을 채용하는 비용으로 브랜딩·디자인·마케팅·콘텐츠 전문가 팀 전체를 매월 구독합니다. 필요한 만큼 쓰고, 필요 없을 땐 멈추면 됩니다 — 채용·4대보험·관리 부담 없이.</p>' +
-      '<div class="vp-actions"><a class="vp-btn" href="contact.html">지금 구독하기</a>' +
-      '<a class="vp-btn mut" href="https://pf.kakao.com/_WYExcs" target="_blank" rel="noopener">카카오톡 상담</a></div>' +
+        '<h2 class="vp-h">1인 급여로 전문 디자이너가<br>포함된 업무팀을 구독하세요.</h2>' +
+        '<p class="vp-lede">한 명을 채용하는 비용으로 브랜딩·디자인·마케팅·콘텐츠 전문가 팀 전체를 매월 구독합니다. 필요한 만큼 쓰고, 필요 없을 땐 멈추면 됩니다 — 채용·4대보험·관리 부담 없이.</p>' +
+        '<div class="vp-actions">' +
+          '<a class="vp-btn" href="contact.html">지금 구독하기</a>' +
+          '<a class="vp-btn mut" href="https://pf.kakao.com/_WYExcs" target="_blank" rel="noopener">카카오톡 상담</a>' +
+        '</div>' +
       '</div>' +
-      // ── team roster block (mirrors the FAQ two-column layout) ──
+
+      /* ── 2. WHY SUBSCRIBE ────────────────────────────────────── */
+      '<div class="vp-whysub">' +
+        '<p class="vp-label">WHY SUBSCRIBE?</p>' +
+        '<p class="vp-q">실력있는 전문가가 <strong>필요하신가요?</strong></p>' +
+        '<p class="vp-q">직원 때문에 <strong>고민이신가요?</strong></p>' +
+        '<p class="vp-q">고용 비용이 <strong>부담이신가요?</strong></p>' +
+      '</div>' +
+
+      /* ── 3. RIGHT-ALIGNED BLOCK ──────────────────────────────── */
+      '<div class="vp-right">' +
+        '<h3 class="vp-h">1인 급여로 각 분야 전문가로<br>구성된 팀과 함께하세요</h3>' +
+        '<p class="vp-sub">디자이너, 에디터, 마케터, 영상 편집자 등<br>' +
+          '필요한 분야 전문가를 모두 고용할 수 있는 방법<br>' +
+          '수정할 때 눈치 보지 않고 원하는 만큼 만족할 때까지</p>' +
+      '</div>' +
+
+      /* ── 4. 9 ICONS GRID ─────────────────────────────────────── */
+      '<div class="vp-icons">' + iconGrid + '</div>' +
+
+      /* ── 5. TWO-COLUMN: REASONS + ROLES ──────────────────────── */
       '<div class="vp-block">' +
-      meta('&copy; THE TEAM', '(VELDY&reg; &mdash; 21)', 'ROLES') +
-      '<div class="vp-cols">' +
-      '<div class="vp-colhead"><h3 class="vp-h">구독에 포함된<br>전문가 팀.</h3>' +
-      '<p>브랜딩부터 마케팅·콘텐츠·영상·출판까지, 21개 직군의 전문가가 하나의 팀으로 프로젝트를 책임집니다.</p>' +
-      '<ul class="vp-why"><li>실력 있는 전문가가 필요하신가요?</li><li>직원 채용·관리가 부담이신가요?</li><li>고용 비용이 부담이신가요?</li></ul></div>' +
-      '<ul class="vp-list">' + roleRows + '</ul>' +
-      '</div></div>' +
+        meta('&copy; THE TEAM', '(VELDY&reg; &mdash; 21)', 'ROLES') +
+        '<div class="vp-cols">' +
+          '<div class="vp-reasons">' +
+            '<p class="vp-rh">고용 대신 구독해야 하는 이유</p>' +
+            '<div class="vp-reason">' +
+              '<p class="vp-reason-no">01</p>' +
+              '<p class="vp-reason-t">노 인턴<em>!</em></p>' +
+              '<p class="vp-reason-t">업무 적응기간이 필요 없습니다</p>' +
+            '</div>' +
+            '<div class="vp-reason">' +
+              '<p class="vp-reason-no">02</p>' +
+              '<p class="vp-reason-t">역량이 부족한 직원을</p>' +
+              '<p class="vp-reason-t">고용하게 될 위험이 없습니다</p>' +
+            '</div>' +
+            '<div class="vp-reason">' +
+              '<p class="vp-reason-no">03</p>' +
+              '<p class="vp-reason-t">해고로 인한 부담이 없습니다</p>' +
+              '<p class="vp-reason-t">필요한 기간만큼만 구독하면 됩니다</p>' +
+            '</div>' +
+          '</div>' +
+          '<ul class="vp-list">' + roleRows + '</ul>' +
+        '</div>' +
+      '</div>' +
+
+      /* ── 6. SCROLLING TICKER ─────────────────────────────────── */
+      '<div class="vp-ticker"><div class="vp-ticker-track">' + tickerItems + '</div></div>' +
+
+      /* ── 7. WHY VELDY (no emoji) ─────────────────────────────── */
+      '<div class="vp-wv">' +
+        '<p class="vp-label">WHY VELDY?</p>' +
+        '<p class="vp-wv-heading">기업들이 밸디의<br>전문가 팀을 구독하는 이유</p>' +
+        '<div class="vp-wv-cols">' +
+          '<div class="vp-wv-col">' +
+            '<p class="vp-wv-ct">01 확실한 일정관리</p>' +
+            '<p class="vp-wv-ci">스케줄 관리</p>' +
+            '<p class="vp-wv-ci">업무현황 보고</p>' +
+            '<p class="vp-wv-ci">카카오톡 상시 소통</p>' +
+          '</div>' +
+          '<div class="vp-wv-col">' +
+            '<p class="vp-wv-ct">02 꼼꼼한 아카이빙</p>' +
+            '<p class="vp-wv-ci">브랜드 자료</p>' +
+            '<p class="vp-wv-ci">요청 사항</p>' +
+            '<p class="vp-wv-ci">수행 비서 서비스</p>' +
+          '</div>' +
+          '<div class="vp-wv-col">' +
+            '<p class="vp-wv-ct">03 합리적인 비용</p>' +
+            '<p class="vp-wv-ci">3개월 단기 or 연간 구독</p>' +
+            '<p class="vp-wv-ci">1인 급여로 전문가팀 구독</p>' +
+            '<p class="vp-wv-ci">적립금 차감 멤버십 제도</p>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+
+      /* ── 8. UTILIZE ──────────────────────────────────────────── */
+      '<div class="vp-util">' +
+        '<p class="vp-util-sm">밸디 전문가팀</p>' +
+        '<h3 class="vp-util-lg">이렇게 활용하세요</h3>' +
+      '</div>' +
+
+      /* ── 9. AGENCY + 시기별 ──────────────────────────────────── */
+      '<div class="vp-agency">' +
+        '<p class="vp-agency-label">VELDY BRANDING AGENCY</p>' +
+        '<h3 class="vp-util-lg">시기별 필요한 업무 의뢰</h3>' +
+        '<p class="vp-agency-desc">밸디는 브랜딩 영역 전반의 전문인력을 갖추고 있어<br>업무에 필요한 전문가를 시기에 맞게 투입시켜드립니다</p>' +
+      '</div>' +
+
+      /* ── 10. QUOTES (right-aligned) ──────────────────────────── */
+      '<div class="vp-quotes">' +
+        '<p class="vp-quote">&ldquo;지금 외부에 있어서요. OO프로젝트 파일 거래처로 보내주세요.&rdquo;</p>' +
+        '<p class="vp-quote">&ldquo;제가 깜빡하고 자료를 못가지고 왔어요. OO파일 이메일로 보내주세요.&rdquo;</p>' +
+        '<p class="vp-quote">&ldquo;이번 브로슈어는 어떤 종이 재질로 해야 좋을까요?&rdquo;</p>' +
+        '<p class="vp-quote">&ldquo;거래처에서 의뢰를 받았는데, 무슨말인지 모르겠어요. 상담 부탁드립니다.&rdquo;</p>' +
+      '</div>' +
+
+      /* ── 11. BANNER ──────────────────────────────────────────── */
+      '<div class="vp-banner">' +
+        '<p class="vp-banner-label">PARTNERS</p>' +
+        '<h3 class="vp-h">외주업체가 아닙니다<em>!</em> 파트너입니다.</h3>' +
+        '<div class="vp-actions"><a class="vp-btn" href="contact.html">지금 구독하기</a></div>' +
+      '</div>' +
+
+      /* ── 12. REF LINK ────────────────────────────────────────── */
+      '<div class="vp-ref">' +
+        '<span class="vp-ref-text">구독 요금 및 결제 방식에 대한 자세한 안내</span>' +
+        '<a class="vp-btn" href="https://veldy.co.kr/Partnership" target="_blank" rel="noopener">결제 안내 보기 &rarr;</a>' +
+      '</div>' +
+
       '</div>';
   }
 
+  /* ── injection logic (outside Framer's React tree) ───────────── */
   function ensureStyle() {
     var el = document.getElementById('veldy-partners-style');
     if (el) { if (el.textContent !== CSS) el.textContent = CSS; return; }
@@ -127,10 +319,10 @@
   function place() {
     ensureStyle();
     var faq = document.querySelector(FAQ_SEL);
-    if (!faq || !faq.parentNode) return;           // FAQ not rendered yet — try again later
-    if (placed()) return;                          // already anchored, nothing to do
+    if (!faq || !faq.parentNode) return;
+    if (placed()) return;
     var node = getNode();
-    if (observer) observer.disconnect();           // don't retrigger on our own insertion
+    if (observer) observer.disconnect();
     faq.parentNode.insertBefore(node, faq);
     if (observer) observer.observe(document.documentElement, { childList: true, subtree: true });
   }
