@@ -87,7 +87,7 @@
 '#veldy-partners .vp-ic-desc{font-size:clamp(11px,1vw,14px);color:var(--vp-mut2);margin:0}' +
 /* two-column block */
 '#veldy-partners .vp-block{margin-top:clamp(72px,9vw,132px)}' +
-'#veldy-partners .vp-cols{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.55fr);gap:clamp(32px,5vw,72px);margin-top:clamp(40px,5vw,64px)}' +
+'#veldy-partners .vp-cols{display:grid;grid-template-columns:minmax(0,.65fr) minmax(0,1.35fr);gap:clamp(32px,5vw,72px);margin-top:clamp(40px,5vw,64px)}' +
 /* reasons (left column) */
 '#veldy-partners .vp-reasons{align-self:start}' +
 '#veldy-partners .vp-rh{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(14px,1.4vw,18px);font-weight:700;color:var(--vp-mut);margin:0 0 clamp(28px,3vw,40px)}' +
