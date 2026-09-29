@@ -95,7 +95,7 @@
 '#veldy-partners .vp-reason-no{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(22px,2.6vw,30px);font-weight:700;color:var(--vp-mut);margin:0 0 10px}' +
 '#veldy-partners .vp-reason-t{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(20px,2.4vw,30px);font-weight:700;color:var(--vp-fg);margin:0;line-height:1.35}' +
 /* role list (right column) — right-aligned */
-'#veldy-partners .vp-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--vp-line)}' +
+'#veldy-partners .vp-list{list-style:none;margin:0;padding:0 0 0 clamp(40px,5vw,80px);border-top:1px solid var(--vp-line)}' +
 '#veldy-partners .vp-item{display:flex;align-items:baseline;justify-content:flex-start;gap:clamp(20px,3vw,56px);padding:clamp(16px,1.7vw,22px) 0;border-bottom:1px solid var(--vp-line);text-align:left}' +
 '#veldy-partners .vp-no{flex:none;font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:14px;font-weight:400;line-height:25px;color:var(--vp-mut)}' +
 '#veldy-partners .vp-name{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(17px,1.7vw,19px);font-weight:500;line-height:1.3;color:var(--vp-fg)}' +
@@ -127,7 +127,7 @@
 '#veldy-partners .vp-banner{margin-top:clamp(80px,10vw,140px);padding-top:clamp(40px,5vw,72px)}' +
 '#veldy-partners .vp-banner-label{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(14px,1.4vw,18px);font-weight:700;color:var(--vp-mut2);margin:0 0 16px}' +
 '#veldy-partners .vp-banner .vp-h{margin-bottom:clamp(24px,3vw,36px)}' +
-'#veldy-partners .vp-banner .vp-h .vp-indent{display:block;padding-left:clamp(140px,15vw,260px)}' +
+'#veldy-partners .vp-banner .vp-h .vp-newline{display:block}' +
 /* tools section */
 '#veldy-partners .vp-tools{margin-top:clamp(56px,7vw,96px);padding-top:20px;border-top:1px solid var(--vp-line)}' +
 '#veldy-partners .vp-tools-row{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,48px);margin-top:clamp(24px,3vw,40px)}' +
@@ -146,7 +146,6 @@
 '#veldy-partners .vp-icons{grid-template-columns:repeat(2,1fr);gap:20px}' +
 '#veldy-partners .vp-wv-cols{grid-template-columns:1fr;gap:16px}' +
 '#veldy-partners .vp-tools-row{grid-template-columns:1fr;gap:16px}' +
-'#veldy-partners .vp-banner .vp-h .vp-indent{padding-left:0}' +
 '}';
 
   /* ── helpers ──────────────────────────────────────────────────── */
@@ -289,7 +288,7 @@
       /* ── 11. BANNER — indent after ! ─────────────────────────── */
       '<div class="vp-banner">' +
         '<p class="vp-banner-label">PARTNERS</p>' +
-        '<h3 class="vp-h">외주업체가 아닙니다<em>!</em><br><span class="vp-indent">파트너입니다.</span></h3>' +
+        '<h3 class="vp-h">외주업체가 아닙니다<em>!</em><br><span class="vp-newline">파트너입니다.</span></h3>' +
         '<div class="vp-actions"><a class="vp-btn" href="contact.html">지금 구독하기</a></div>' +
       '</div>' +
 
