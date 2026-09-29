@@ -113,15 +113,16 @@
 '#veldy-partners .vp-wv-col{padding:clamp(20px,2.5vw,32px);border:1px solid var(--vp-line);border-radius:12px}' +
 '#veldy-partners .vp-wv-ct{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(16px,1.6vw,22px);font-weight:700;color:var(--vp-fg);margin:0 0 clamp(16px,2vw,24px)}' +
 '#veldy-partners .vp-wv-ci{font-size:clamp(14px,1.3vw,18px);color:var(--vp-mut2);margin:8px 0;line-height:1.5}' +
-/* utilize section — hero heading style */
-'#veldy-partners .vp-util{text-align:left;margin-top:clamp(80px,10vw,140px)}' +
+/* utilize + quotes — two-column layout */
+'#veldy-partners .vp-util-layout{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,5vw,72px);margin-top:clamp(80px,10vw,140px);align-items:start}' +
+'#veldy-partners .vp-util{text-align:left}' +
 '#veldy-partners .vp-util-sm{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-weight:500;font-size:clamp(30px,4.6vw,49px);line-height:1.32;letter-spacing:-.8px;color:var(--vp-mut2);margin:0}' +
 '#veldy-partners .vp-util-lg{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-weight:500;font-size:clamp(30px,4.6vw,49px);line-height:1.32;letter-spacing:-.8px;color:var(--vp-fg);margin:8px 0 0}' +
 /* agency section — small body text, no label */
 '#veldy-partners .vp-agency{text-align:left;margin-top:clamp(20px,2.5vw,36px)}' +
 '#veldy-partners .vp-agency-body{font-size:clamp(15px,1.5vw,17px);line-height:1.65;color:var(--vp-mut2);margin:0}' +
 /* quotes — left-aligned, same X coordinate */
-'#veldy-partners .vp-quotes{margin-top:clamp(60px,8vw,100px)}' +
+'#veldy-partners .vp-quotes{margin:0}' +
 '#veldy-partners .vp-quote{text-align:left;padding:clamp(20px,2.5vw,32px) 0;border-bottom:1px solid var(--vp-line);font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(14px,1.4vw,18px);font-weight:700;color:var(--vp-fg);line-height:1.5}' +
 /* banner */
 '#veldy-partners .vp-banner{margin-top:clamp(80px,10vw,140px);padding-top:clamp(40px,5vw,72px)}' +
@@ -140,6 +141,7 @@
 /* mobile */
 '@media(max-width:810px){' +
 '#veldy-partners .vp-sub-layout{grid-template-columns:1fr;gap:40px}' +
+'#veldy-partners .vp-util-layout{grid-template-columns:1fr;gap:32px}' +
 '#veldy-partners .vp-cols{grid-template-columns:1fr;gap:28px}' +
 '#veldy-partners .vp-meta{grid-template-columns:1fr auto;gap:8px}' +
 '#veldy-partners .vp-meta .m2{display:none}' +
@@ -264,25 +266,25 @@
         '</div>' +
       '</div>' +
 
-      /* ── 8. UTILIZE — hero heading style ─────────────────────── */
-      '<div class="vp-util">' +
-        '<p class="vp-util-sm">밸디 전문가팀</p>' +
-        '<h3 class="vp-util-lg">이렇게 활용하세요</h3>' +
-      '</div>' +
-
-      /* ── 9. 시기별 — small body, 3 lines, no VELDY BRANDING ── */
-      '<div class="vp-agency">' +
-        '<p class="vp-agency-body">시기별 필요한 업무 의뢰</p>' +
-        '<p class="vp-agency-body">밸디는 브랜딩 영역 전반의 전문인력을 갖추고 있어</p>' +
-        '<p class="vp-agency-body">업무에 필요한 전문가를 시기에 맞게 투입시켜드립니다</p>' +
-      '</div>' +
-
-      /* ── 10. QUOTES — same X position ────────────────────────── */
-      '<div class="vp-quotes">' +
-        '<p class="vp-quote">&ldquo;지금 외부에 있어서요. OO프로젝트 파일 거래처로 보내주세요.&rdquo;</p>' +
-        '<p class="vp-quote">&ldquo;제가 깜빡하고 자료를 못가지고 왔어요. OO파일 이메일로 보내주세요.&rdquo;</p>' +
-        '<p class="vp-quote">&ldquo;이번 브로슈어는 어떤 종이 재질로 해야 좋을까요?&rdquo;</p>' +
-        '<p class="vp-quote">&ldquo;거래처에서 의뢰를 받았는데, 무슨말인지 모르겠어요. 상담 부탁드립니다.&rdquo;</p>' +
+      /* ── 8. UTILIZE (left) + QUOTES (right) ──────────────────── */
+      '<div class="vp-util-layout">' +
+        '<div>' +
+          '<div class="vp-util">' +
+            '<p class="vp-util-sm">밸디 전문가팀</p>' +
+            '<h3 class="vp-util-lg">이렇게 활용하세요</h3>' +
+          '</div>' +
+          '<div class="vp-agency">' +
+            '<p class="vp-agency-body">시기별 필요한 업무 의뢰</p>' +
+            '<p class="vp-agency-body">밸디는 브랜딩 영역 전반의 전문인력을 갖추고 있어</p>' +
+            '<p class="vp-agency-body">업무에 필요한 전문가를 시기에 맞게 투입시켜드립니다</p>' +
+          '</div>' +
+        '</div>' +
+        '<div class="vp-quotes">' +
+          '<p class="vp-quote">&ldquo;지금 외부에 있어서요. OO프로젝트 파일 거래처로 보내주세요.&rdquo;</p>' +
+          '<p class="vp-quote">&ldquo;제가 깜빡하고 자료를 못가지고 왔어요. OO파일 이메일로 보내주세요.&rdquo;</p>' +
+          '<p class="vp-quote">&ldquo;이번 브로슈어는 어떤 종이 재질로 해야 좋을까요?&rdquo;</p>' +
+          '<p class="vp-quote">&ldquo;거래처에서 의뢰를 받았는데, 무슨말인지 모르겠어요. 상담 부탁드립니다.&rdquo;</p>' +
+        '</div>' +
       '</div>' +
 
       /* ── 11. BANNER — indent after ! ─────────────────────────── */
