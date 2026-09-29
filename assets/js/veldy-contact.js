@@ -135,10 +135,44 @@
         n.removeAttribute('data-framer-appear-id'); n.style.opacity = '1'; n.style.transform = 'none';
       });
       relabelText(el, 'Contact');
-    } else if (mode === 'btt') {
-      el = document.createElement('a');
-      el.className = 'vc-pill';
-      el.appendChild(buildRollingLabel('Contact'));
+    } else if (mode === 'btt' && anchor) {
+      el = anchor.cloneNode(true);
+      el.removeAttribute('href');
+      el.removeAttribute('target');
+      el.removeAttribute('data-framer-appear-id');
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      [].forEach.call(el.querySelectorAll('[data-framer-appear-id]'), function (n) {
+        n.removeAttribute('data-framer-appear-id'); n.style.opacity = '1'; n.style.transform = 'none';
+      });
+      // Replace all visible text spans with "Contact"
+      var allSpans = el.querySelectorAll('span');
+      var letters = [];
+      allSpans.forEach(function(sp) {
+        if (sp.children.length === 0 && sp.textContent.trim().length === 1) letters.push(sp);
+      });
+      var contactText = 'Contact';
+      if (letters.length > 0) {
+        // Rolling Text component: each letter is a separate span
+        // Keep first N spans for "Contact", remove the rest within each text block
+        var textBlocks = el.querySelectorAll('[data-framer-component-type="RollingText"]');
+        if (textBlocks.length === 0) textBlocks = el.querySelectorAll('p, [style*="display"]');
+        textBlocks.forEach(function(tb) {
+          var spans = [];
+          tb.querySelectorAll('span').forEach(function(s) {
+            if (s.children.length === 0 && s.textContent.trim().length <= 1) spans.push(s);
+          });
+          for (var ci = 0; ci < spans.length; ci++) {
+            if (ci < contactText.length) {
+              spans[ci].textContent = contactText[ci];
+            } else {
+              spans[ci].style.display = 'none';
+            }
+          }
+        });
+      } else {
+        relabelText(el, 'Contact');
+      }
     } else {
       el = document.createElement('a');
       el.appendChild(buildRollingLabel('Contact'));
@@ -184,8 +218,7 @@
       el.style.top = (r.bottom + window.scrollY + 10) + 'px';
       el.style.left = (r.left + window.scrollX) + 'px';
     } else if (a.mode === 'btt') {
-      // centered below the BACK TO TOP pill button
-      el.style.fontSize = '14px';
+      // cloned BTT button — center below original
       el.style.top = (r.bottom + window.scrollY + 16) + 'px';
       var cx = r.left + r.width / 2;
       el.style.left = (cx + window.scrollX - el.offsetWidth / 2) + 'px';
