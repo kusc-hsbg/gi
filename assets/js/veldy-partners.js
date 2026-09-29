@@ -115,10 +115,10 @@
 '#veldy-partners .vp-wv-ci{font-size:clamp(14px,1.3vw,18px);color:var(--vp-mut2);margin:8px 0;line-height:1.5}' +
 /* utilize section — hero heading style */
 '#veldy-partners .vp-util{text-align:left;margin-top:clamp(80px,10vw,140px)}' +
-'#veldy-partners .vp-util-sm{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(15px,1.5vw,17px);line-height:1.65;color:var(--vp-mut2);margin:0}' +
+'#veldy-partners .vp-util-sm{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-weight:500;font-size:clamp(30px,4.6vw,49px);line-height:1.32;letter-spacing:-.8px;color:var(--vp-mut2);margin:0}' +
 '#veldy-partners .vp-util-lg{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-weight:500;font-size:clamp(30px,4.6vw,49px);line-height:1.32;letter-spacing:-.8px;color:var(--vp-fg);margin:8px 0 0}' +
 /* agency section — small body text, no label */
-'#veldy-partners .vp-agency{text-align:left;margin-top:clamp(60px,8vw,120px)}' +
+'#veldy-partners .vp-agency{text-align:left;margin-top:clamp(20px,2.5vw,36px)}' +
 '#veldy-partners .vp-agency-body{font-size:clamp(15px,1.5vw,17px);line-height:1.65;color:var(--vp-mut2);margin:0}' +
 /* quotes — left-aligned, same X coordinate */
 '#veldy-partners .vp-quotes{margin-top:clamp(60px,8vw,100px)}' +
