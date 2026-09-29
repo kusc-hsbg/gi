@@ -44,7 +44,16 @@
       'text-shadow:0 var(--vc-line,' + LINE + 'px) 0 var(--vc-c2);' +
       'transition:transform ' + ROLL_DUR + 's ' + ROLL_EASE + ';' +
       '-webkit-backface-visibility:hidden;backface-visibility:hidden}' +
-      '#vc-contact:hover .vc-ch{transform:translateY(calc(-1 * var(--vc-line,' + LINE + 'px)))}';
+      '#vc-contact:hover .vc-ch{transform:translateY(calc(-1 * var(--vc-line,' + LINE + 'px)))}' +
+      '#vc-contact.vc-pill{display:inline-flex;align-items:center;justify-content:center;' +
+      'padding:15px 24px;border-radius:100px;border:1px solid rgba(255,255,255,.35);' +
+      'background:transparent;color:#fff;font-family:"Inter Display","Inter Display Placeholder",sans-serif;' +
+      'font-size:14px;font-weight:500;letter-spacing:.02em;white-space:nowrap;line-height:1;' +
+      'text-decoration:none;transition:background .2s,color .2s,border-color .2s}' +
+      '#vc-contact.vc-pill:hover{background:#fff;color:#000;border-color:#fff}' +
+      '#vc-contact.vc-pill .vc-roll{height:auto;line-height:1}' +
+      '#vc-contact.vc-pill .vc-ch{text-shadow:0 1.2em 0 #000}' +
+      '#vc-contact.vc-pill:hover .vc-ch{text-shadow:0 1.2em 0 #fff}';
     var s = document.createElement('style');
     s.id = 'veldy-contact-style';
     s.textContent = css;
@@ -126,6 +135,10 @@
         n.removeAttribute('data-framer-appear-id'); n.style.opacity = '1'; n.style.transform = 'none';
       });
       relabelText(el, 'Contact');
+    } else if (mode === 'btt') {
+      el = document.createElement('a');
+      el.className = 'vc-pill';
+      el.appendChild(buildRollingLabel('Contact'));
     } else {
       el = document.createElement('a');
       el.appendChild(buildRollingLabel('Contact'));
@@ -140,7 +153,6 @@
     el.style.cursor = 'pointer';
     el.addEventListener('click', openInquiry);
     document.body.appendChild(el);
-    // primary clone must be in the DOM before we can measure its line-height
     if (mode === 'primary') { try { makePrimaryRolling(el); } catch (e) {} }
     return el;
   }

@@ -1,10 +1,5 @@
 /*
  * veldy-partners.js — full PARTNERS (subscription) section
- *
- * All content from veldy.co.kr/Partnership, styled to match THIS site's visual
- * language: black canvas, white Inter Display headings, muted grey body, hairline
- * dividers, outlined pill buttons. Injected above FAQ (.framer-122h8qz) outside
- * Framer's React tree, re-anchored via MutationObserver.
  */
 (function () {
   var FAQ_SEL = '.framer-122h8qz';
@@ -30,6 +25,12 @@
   ];
 
   var LOGO_COUNT = 37;
+
+  var TOOLS = [
+    { id: 'monday', logo: 'assets/img/tools/monday.png', detail: 'assets/img/tools/monday-detail.png' },
+    { id: 'flow', logo: 'assets/img/tools/flow.png', detail: 'assets/img/tools/flow-detail.png' },
+    { id: 'gdrive', logo: 'assets/img/tools/gdrive.png', detail: 'assets/img/tools/gdrive-detail.png' }
+  ];
 
   var SVG_PATHS = {
     folder: '<path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h7a2 2 0 012 2z"/>',
@@ -69,8 +70,8 @@
 '#veldy-partners .vp-btn:hover{background:var(--vp-fg);color:var(--vp-bg);border-color:var(--vp-fg)}' +
 '#veldy-partners .vp-btn.mut{border-color:rgba(255,255,255,.18);color:var(--vp-mut2)}' +
 '#veldy-partners .vp-btn.mut:hover{border-color:var(--vp-fg);color:var(--vp-fg)}' +
-/* WHY SUBSCRIBE */
-'#veldy-partners .vp-whysub{text-align:center;margin-top:clamp(80px,10vw,160px);padding:clamp(60px,8vw,120px) 0}' +
+/* WHY SUBSCRIBE — left aligned */
+'#veldy-partners .vp-whysub{text-align:left;margin-top:clamp(80px,10vw,160px);padding:clamp(60px,8vw,120px) 0}' +
 '#veldy-partners .vp-label{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(16px,1.8vw,22px);font-weight:700;color:var(--vp-fg);margin:0 0 clamp(28px,4vw,48px);letter-spacing:.08em}' +
 '#veldy-partners .vp-q{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(24px,3.2vw,36px);font-weight:400;line-height:1.5;color:var(--vp-mut2);margin:0}' +
 '#veldy-partners .vp-q strong{font-weight:700;color:var(--vp-fg)}' +
@@ -90,17 +91,18 @@
 '#veldy-partners .vp-cols{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.55fr);gap:clamp(32px,5vw,72px);margin-top:clamp(40px,5vw,64px)}' +
 /* reasons (left column) */
 '#veldy-partners .vp-reasons{align-self:start}' +
-'#veldy-partners .vp-rh{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(14px,1.4vw,18px);font-weight:700;color:var(--vp-mut2);margin:0 0 clamp(28px,3vw,40px)}' +
+'#veldy-partners .vp-rh{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(14px,1.4vw,18px);font-weight:700;color:var(--vp-mut);margin:0 0 clamp(28px,3vw,40px)}' +
 '#veldy-partners .vp-reason{margin-bottom:clamp(32px,4vw,56px)}' +
 '#veldy-partners .vp-reason-no{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(22px,2.6vw,30px);font-weight:700;color:var(--vp-fg);margin:0 0 10px}' +
 '#veldy-partners .vp-reason-t{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(20px,2.4vw,30px);font-weight:700;color:var(--vp-fg);margin:0;line-height:1.35}' +
-/* role list (right column) */
+/* role list (right column) — right-aligned */
 '#veldy-partners .vp-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--vp-line)}' +
-'#veldy-partners .vp-item{display:flex;align-items:baseline;gap:clamp(20px,3vw,56px);padding:clamp(16px,1.7vw,22px) 0;border-bottom:1px solid var(--vp-line)}' +
-'#veldy-partners .vp-no{flex:none;width:2ch;font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:14px;font-weight:400;line-height:25px;color:var(--vp-mut)}' +
+'#veldy-partners .vp-item{display:flex;align-items:baseline;justify-content:flex-end;gap:clamp(20px,3vw,56px);padding:clamp(16px,1.7vw,22px) 0;border-bottom:1px solid var(--vp-line);text-align:right}' +
+'#veldy-partners .vp-no{flex:none;font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:14px;font-weight:400;line-height:25px;color:var(--vp-mut)}' +
 '#veldy-partners .vp-name{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(17px,1.7vw,19px);font-weight:500;line-height:1.3;color:var(--vp-fg)}' +
-/* scrolling ticker */
-'#veldy-partners .vp-ticker{overflow:hidden;white-space:nowrap;margin-top:clamp(60px,8vw,120px);padding:clamp(16px,2vw,28px) 0;border-top:1px solid var(--vp-line);border-bottom:1px solid var(--vp-line)}' +
+/* scrolling ticker — white bg, full bleed */
+'#veldy-partners .vp-ticker-wrap{position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;width:100vw;background:#fff;margin-top:clamp(60px,8vw,120px)}' +
+'#veldy-partners .vp-ticker{overflow:hidden;white-space:nowrap;padding:clamp(16px,2vw,28px) 0}' +
 '#veldy-partners .vp-ticker-track{display:inline-flex;align-items:center;animation:vpScroll 40s linear infinite}' +
 '#veldy-partners .vp-ticker-item{flex:none;padding:0 clamp(16px,2vw,32px)}' +
 '#veldy-partners .vp-ticker-item img{height:clamp(50px,6vw,80px);width:auto;display:block}' +
@@ -112,25 +114,30 @@
 '#veldy-partners .vp-wv-col{padding:clamp(20px,2.5vw,32px);border:1px solid var(--vp-line);border-radius:12px}' +
 '#veldy-partners .vp-wv-ct{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(16px,1.6vw,22px);font-weight:700;color:var(--vp-fg);margin:0 0 clamp(16px,2vw,24px)}' +
 '#veldy-partners .vp-wv-ci{font-size:clamp(14px,1.3vw,18px);color:var(--vp-mut2);margin:8px 0;line-height:1.5}' +
-/* utilize section */
+/* utilize section — hero heading style */
 '#veldy-partners .vp-util{text-align:left;margin-top:clamp(80px,10vw,140px)}' +
-'#veldy-partners .vp-util-sm{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(20px,2.6vw,36px);font-weight:400;color:var(--vp-mut2);margin:0}' +
+'#veldy-partners .vp-util-sm{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(15px,1.5vw,17px);line-height:1.65;color:var(--vp-mut2);margin:0}' +
 '#veldy-partners .vp-util-lg{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-weight:500;font-size:clamp(30px,4.6vw,49px);line-height:1.32;letter-spacing:-.8px;color:var(--vp-fg);margin:8px 0 0}' +
-/* agency section */
+/* agency section — small body text, no label */
 '#veldy-partners .vp-agency{text-align:left;margin-top:clamp(60px,8vw,120px)}' +
-'#veldy-partners .vp-agency-label{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(14px,1.4vw,18px);font-weight:700;color:var(--vp-mut2);letter-spacing:.08em;margin:0 0 16px;font-style:italic}' +
-'#veldy-partners .vp-agency-desc{font-size:clamp(14px,1.3vw,20px);line-height:1.65;color:var(--vp-mut2);margin:clamp(20px,3vw,36px) 0 0}' +
-/* quotes (right-aligned) */
+'#veldy-partners .vp-agency-body{font-size:clamp(15px,1.5vw,17px);line-height:1.65;color:var(--vp-mut2);margin:0}' +
+/* quotes — left-aligned, same X coordinate */
 '#veldy-partners .vp-quotes{margin-top:clamp(60px,8vw,100px)}' +
-'#veldy-partners .vp-quote{text-align:right;padding:clamp(20px,2.5vw,32px) 0;border-bottom:1px solid var(--vp-line);font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(14px,1.4vw,18px);font-weight:700;color:var(--vp-fg);line-height:1.5}' +
+'#veldy-partners .vp-quote{text-align:left;padding:clamp(20px,2.5vw,32px) 0;border-bottom:1px solid var(--vp-line);font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(14px,1.4vw,18px);font-weight:700;color:var(--vp-fg);line-height:1.5}' +
 /* banner */
 '#veldy-partners .vp-banner{margin-top:clamp(80px,10vw,140px);padding-top:clamp(40px,5vw,72px)}' +
 '#veldy-partners .vp-banner-label{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(14px,1.4vw,18px);font-weight:700;color:var(--vp-mut2);margin:0 0 16px}' +
 '#veldy-partners .vp-banner .vp-h{margin-bottom:clamp(24px,3vw,36px)}' +
-/* reference link */
-'#veldy-partners .vp-ref{margin-top:clamp(56px,7vw,96px);padding-top:20px;border-top:1px solid var(--vp-line);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}' +
-'#veldy-partners .vp-ref-text{font-size:14px;color:var(--vp-mut2)}' +
-'#veldy-partners .vp-ref .vp-btn{padding:12px 22px;font-size:13px}' +
+'#veldy-partners .vp-banner .vp-h .vp-indent{display:inline-block;text-indent:2em}' +
+/* tools section */
+'#veldy-partners .vp-tools{margin-top:clamp(56px,7vw,96px);padding-top:20px;border-top:1px solid var(--vp-line)}' +
+'#veldy-partners .vp-tools-row{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,48px);margin-top:clamp(24px,3vw,40px)}' +
+'#veldy-partners .vp-tool{cursor:pointer;text-align:center;padding:clamp(24px,3vw,40px) 0;border:1px solid var(--vp-line);border-radius:12px;transition:border-color .2s}' +
+'#veldy-partners .vp-tool:hover{border-color:var(--vp-fg)}' +
+'#veldy-partners .vp-tool img{height:clamp(28px,3vw,44px);width:auto;display:inline-block}' +
+'#veldy-partners .vp-tool-detail{margin-top:clamp(20px,2.5vw,32px);display:none}' +
+'#veldy-partners .vp-tool-detail.active{display:block}' +
+'#veldy-partners .vp-tool-detail img{width:100%;border-radius:12px;border:1px solid var(--vp-line)}' +
 /* mobile */
 '@media(max-width:810px){' +
 '#veldy-partners .vp-cols{grid-template-columns:1fr;gap:28px}' +
@@ -138,6 +145,7 @@
 '#veldy-partners .vp-meta .m2{display:none}' +
 '#veldy-partners .vp-icons{grid-template-columns:repeat(2,1fr);gap:28px}' +
 '#veldy-partners .vp-wv-cols{grid-template-columns:1fr;gap:16px}' +
+'#veldy-partners .vp-tools-row{grid-template-columns:1fr;gap:16px}' +
 '}';
 
   /* ── helpers ──────────────────────────────────────────────────── */
@@ -165,6 +173,14 @@
     }
     var tickerItems = logoItems.concat(logoItems).join('');
 
+    var toolsRow = TOOLS.map(function (t) {
+      return '<div class="vp-tool" data-tool="' + t.id + '"><img src="' + t.logo + '" alt="' + t.id + '"></div>';
+    }).join('');
+
+    var toolDetails = TOOLS.map(function (t) {
+      return '<div class="vp-tool-detail" data-tool-detail="' + t.id + '"><img src="' + t.detail + '" alt="' + t.id + ' detail"></div>';
+    }).join('');
+
     return '<div class="vp-inner">' +
 
       /* ── 1. HERO ─────────────────────────────────────────────── */
@@ -178,7 +194,7 @@
         '</div>' +
       '</div>' +
 
-      /* ── 2. WHY SUBSCRIBE ────────────────────────────────────── */
+      /* ── 2. WHY SUBSCRIBE — left aligned ─────────────────────── */
       '<div class="vp-whysub">' +
         '<p class="vp-label">WHY SUBSCRIBE?</p>' +
         '<p class="vp-q">실력있는 전문가가 <strong>필요하신가요?</strong></p>' +
@@ -197,7 +213,7 @@
       /* ── 4. 9 ICONS GRID ─────────────────────────────────────── */
       '<div class="vp-icons">' + iconGrid + '</div>' +
 
-      /* ── 5. TWO-COLUMN: REASONS + ROLES ──────────────────────── */
+      /* ── 5. TWO-COLUMN: REASONS + ROLES (right-aligned list) ── */
       '<div class="vp-block">' +
         meta('&copy; THE TEAM', '(VELDY&reg; &mdash; 21)', 'ROLES') +
         '<div class="vp-cols">' +
@@ -223,10 +239,10 @@
         '</div>' +
       '</div>' +
 
-      /* ── 6. SCROLLING TICKER ─────────────────────────────────── */
-      '<div class="vp-ticker"><div class="vp-ticker-track">' + tickerItems + '</div></div>' +
+      /* ── 6. SCROLLING TICKER — white bg, full bleed ──────────── */
+      '<div class="vp-ticker-wrap"><div class="vp-ticker"><div class="vp-ticker-track">' + tickerItems + '</div></div></div>' +
 
-      /* ── 7. WHY VELDY (no emoji) ─────────────────────────────── */
+      /* ── 7. WHY VELDY ────────────────────────────────────────── */
       '<div class="vp-wv">' +
         '<p class="vp-label">WHY VELDY?</p>' +
         '<p class="vp-wv-heading">기업들이 밸디의<br>전문가 팀을 구독하는 이유</p>' +
@@ -252,20 +268,20 @@
         '</div>' +
       '</div>' +
 
-      /* ── 8. UTILIZE ──────────────────────────────────────────── */
+      /* ── 8. UTILIZE — hero heading style ─────────────────────── */
       '<div class="vp-util">' +
         '<p class="vp-util-sm">밸디 전문가팀</p>' +
         '<h3 class="vp-util-lg">이렇게 활용하세요</h3>' +
       '</div>' +
 
-      /* ── 9. AGENCY + 시기별 ──────────────────────────────────── */
+      /* ── 9. 시기별 — small body, 3 lines, no VELDY BRANDING ── */
       '<div class="vp-agency">' +
-        '<p class="vp-agency-label">VELDY BRANDING AGENCY</p>' +
-        '<h3 class="vp-util-lg">시기별 필요한 업무 의뢰</h3>' +
-        '<p class="vp-agency-desc">밸디는 브랜딩 영역 전반의 전문인력을 갖추고 있어<br>업무에 필요한 전문가를 시기에 맞게 투입시켜드립니다</p>' +
+        '<p class="vp-agency-body">시기별 필요한 업무 의뢰</p>' +
+        '<p class="vp-agency-body">밸디는 브랜딩 영역 전반의 전문인력을 갖추고 있어</p>' +
+        '<p class="vp-agency-body">업무에 필요한 전문가를 시기에 맞게 투입시켜드립니다</p>' +
       '</div>' +
 
-      /* ── 10. QUOTES (right-aligned) ──────────────────────────── */
+      /* ── 10. QUOTES — same X position ────────────────────────── */
       '<div class="vp-quotes">' +
         '<p class="vp-quote">&ldquo;지금 외부에 있어서요. OO프로젝트 파일 거래처로 보내주세요.&rdquo;</p>' +
         '<p class="vp-quote">&ldquo;제가 깜빡하고 자료를 못가지고 왔어요. OO파일 이메일로 보내주세요.&rdquo;</p>' +
@@ -273,20 +289,32 @@
         '<p class="vp-quote">&ldquo;거래처에서 의뢰를 받았는데, 무슨말인지 모르겠어요. 상담 부탁드립니다.&rdquo;</p>' +
       '</div>' +
 
-      /* ── 11. BANNER ──────────────────────────────────────────── */
+      /* ── 11. BANNER — indent after ! ─────────────────────────── */
       '<div class="vp-banner">' +
         '<p class="vp-banner-label">PARTNERS</p>' +
-        '<h3 class="vp-h">외주업체가 아닙니다<em>!</em> 파트너입니다.</h3>' +
+        '<h3 class="vp-h">외주업체가 아닙니다<em>!</em><br><span class="vp-indent">파트너입니다.</span></h3>' +
         '<div class="vp-actions"><a class="vp-btn" href="contact.html">지금 구독하기</a></div>' +
       '</div>' +
 
-      /* ── 12. REF LINK ────────────────────────────────────────── */
-      '<div class="vp-ref">' +
-        '<span class="vp-ref-text">구독 요금 및 결제 방식에 대한 자세한 안내</span>' +
-        '<a class="vp-btn" href="https://veldy.co.kr/Partnership" target="_blank" rel="noopener">결제 안내 보기 &rarr;</a>' +
+      /* ── 12. TOOLS — monday / flow / gdrive ──────────────────── */
+      '<div class="vp-tools">' +
+        '<div class="vp-tools-row">' + toolsRow + '</div>' +
+        toolDetails +
       '</div>' +
 
       '</div>';
+  }
+
+  /* ── tool detail toggle ──────────────────────────────────────── */
+  function initTools(root) {
+    root.querySelectorAll('.vp-tool').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var id = btn.getAttribute('data-tool');
+        root.querySelectorAll('.vp-tool-detail').forEach(function (d) {
+          d.classList.toggle('active', d.getAttribute('data-tool-detail') === id && !d.classList.contains('active'));
+        });
+      });
+    });
   }
 
   /* ── injection logic (outside Framer's React tree) ───────────── */
@@ -307,6 +335,7 @@
     sec.setAttribute('data-framer-name', 'Partners');
     sec.setAttribute('data-vldy-independent', '1');
     sec.innerHTML = buildHTML();
+    initTools(sec);
     return sec;
   }
 
