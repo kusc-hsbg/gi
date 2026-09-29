@@ -145,12 +145,14 @@
     return el;
   }
 
-  // Pick the Kakao link to sit under. On contact.html the prominent contact-section
-  // list (Instagram / email / phone / kakao, "Primary" links) takes priority; on the
-  // other pages we fall back to the footer social row.
   function findAnchor() {
+    // On contact.html the prominent contact-section list takes priority
     var prim = [].slice.call(document.querySelectorAll('a[href*="pf.kakao.com"][data-framer-name="Primary"]')).filter(visible)[0];
     if (prim) return { el: prim, mode: 'primary' };
+    // On main page, anchor below "Back To Top" button
+    var btt = [].slice.call(document.querySelectorAll('a[href="./#top"][data-framer-name="Primary"]')).filter(visible)[0];
+    if (btt) return { el: btt, mode: 'btt' };
+    // Fallback: footer Kakao link
     var foot = [].slice.call(document.querySelectorAll('a.framer-12fazzh[href*="pf.kakao.com"]')).filter(visible)[0];
     if (foot) return { el: foot, mode: 'footer' };
     return null;
@@ -169,6 +171,12 @@
       el.style.width = r.width + 'px';
       el.style.top = (r.bottom + window.scrollY + 10) + 'px';
       el.style.left = (r.left + window.scrollX) + 'px';
+    } else if (a.mode === 'btt') {
+      // centered below the BACK TO TOP pill button
+      el.style.fontSize = '14px';
+      el.style.top = (r.bottom + window.scrollY + 16) + 'px';
+      var cx = r.left + r.width / 2;
+      el.style.left = (cx + window.scrollX - el.offsetWidth / 2) + 'px';
     } else {
       // match the footer social row: 14px, grey, right-aligned so it can't overflow
       el.style.height = r.height + 'px';

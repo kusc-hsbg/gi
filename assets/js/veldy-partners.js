@@ -29,10 +29,7 @@
     { icon: 'video', title: '영상 편집', desc: '포토 촬영 및 영상 편집' }
   ];
 
-  var COMPANIES = [
-    '서울시50플러스재단', 'LOTTE', '관세청', 'EVERLAND', 'WATERBOMB',
-    'CELLTRION', 'DELTA', '부추찜닭', '서대문구청', 'PAK’S'
-  ];
+  var LOGO_COUNT = 37;
 
   var SVG_PATHS = {
     folder: '<path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h7a2 2 0 012 2z"/>',
@@ -103,9 +100,11 @@
 '#veldy-partners .vp-no{flex:none;width:2ch;font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:14px;font-weight:400;line-height:25px;color:var(--vp-mut)}' +
 '#veldy-partners .vp-name{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(17px,1.7vw,19px);font-weight:500;line-height:1.3;color:var(--vp-fg)}' +
 /* scrolling ticker */
-'#veldy-partners .vp-ticker{overflow:hidden;white-space:nowrap;margin-top:clamp(60px,8vw,120px);padding:clamp(24px,3vw,40px) 0;border-top:1px solid var(--vp-line);border-bottom:1px solid var(--vp-line)}' +
-'#veldy-partners .vp-ticker-track{display:inline-flex;animation:vpScroll 30s linear infinite}' +
-'#veldy-partners .vp-ticker-item{flex:none;padding:0 clamp(24px,3vw,48px);font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(13px,1.3vw,16px);font-weight:600;color:var(--vp-mut);letter-spacing:.05em}' +
+'#veldy-partners .vp-ticker{overflow:hidden;white-space:nowrap;margin-top:clamp(60px,8vw,120px);padding:clamp(16px,2vw,28px) 0;border-top:1px solid var(--vp-line);border-bottom:1px solid var(--vp-line)}' +
+'#veldy-partners .vp-ticker-track{display:inline-flex;align-items:center;animation:vpScroll 40s linear infinite}' +
+'#veldy-partners .vp-ticker-item{flex:none;padding:0 clamp(16px,2vw,32px)}' +
+'#veldy-partners .vp-ticker-item img{height:clamp(50px,6vw,80px);width:auto;display:block;filter:grayscale(1) invert(1) brightness(1.8);opacity:.55;transition:opacity .3s}' +
+'#veldy-partners .vp-ticker-item img:hover{opacity:1}' +
 '@keyframes vpScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}' +
 /* WHY VELDY */
 '#veldy-partners .vp-wv{text-align:center;margin-top:clamp(80px,10vw,140px)}' +
@@ -160,9 +159,12 @@
         '<p class="vp-ic-title">' + s.title + '</p><p class="vp-ic-desc">' + s.desc + '</p></div>';
     }).join('');
 
-    var tickerItems = COMPANIES.concat(COMPANIES).map(function (c) {
-      return '<span class="vp-ticker-item">' + c + '</span>';
-    }).join('');
+    var logoItems = [];
+    for (var li = 1; li <= LOGO_COUNT; li++) {
+      var idx = (li < 10 ? '0' : '') + li;
+      logoItems.push('<span class="vp-ticker-item"><img src="assets/img/logos/logo-' + idx + '.png" alt="" loading="lazy"></span>');
+    }
+    var tickerItems = logoItems.concat(logoItems).join('');
 
     return '<div class="vp-inner">' +
 
