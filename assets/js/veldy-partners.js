@@ -103,22 +103,21 @@
 '#veldy-partners .vp-ticker{overflow:hidden;white-space:nowrap;margin-top:clamp(60px,8vw,120px);padding:clamp(16px,2vw,28px) 0;border-top:1px solid var(--vp-line);border-bottom:1px solid var(--vp-line)}' +
 '#veldy-partners .vp-ticker-track{display:inline-flex;align-items:center;animation:vpScroll 40s linear infinite}' +
 '#veldy-partners .vp-ticker-item{flex:none;padding:0 clamp(16px,2vw,32px)}' +
-'#veldy-partners .vp-ticker-item img{height:clamp(50px,6vw,80px);width:auto;display:block;filter:grayscale(1) invert(1) brightness(1.8);opacity:.55;transition:opacity .3s}' +
-'#veldy-partners .vp-ticker-item img:hover{opacity:1}' +
+'#veldy-partners .vp-ticker-item img{height:clamp(50px,6vw,80px);width:auto;display:block}' +
 '@keyframes vpScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}' +
 /* WHY VELDY */
-'#veldy-partners .vp-wv{text-align:center;margin-top:clamp(80px,10vw,140px)}' +
+'#veldy-partners .vp-wv{text-align:left;margin-top:clamp(80px,10vw,140px)}' +
 '#veldy-partners .vp-wv-heading{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(26px,3.4vw,36px);font-weight:700;color:var(--vp-fg);margin:0 0 clamp(40px,5vw,72px);line-height:1.4}' +
 '#veldy-partners .vp-wv-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,40px);text-align:left}' +
 '#veldy-partners .vp-wv-col{padding:clamp(20px,2.5vw,32px);border:1px solid var(--vp-line);border-radius:12px}' +
 '#veldy-partners .vp-wv-ct{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(16px,1.6vw,22px);font-weight:700;color:var(--vp-fg);margin:0 0 clamp(16px,2vw,24px)}' +
 '#veldy-partners .vp-wv-ci{font-size:clamp(14px,1.3vw,18px);color:var(--vp-mut2);margin:8px 0;line-height:1.5}' +
 /* utilize section */
-'#veldy-partners .vp-util{text-align:center;margin-top:clamp(80px,10vw,140px)}' +
+'#veldy-partners .vp-util{text-align:left;margin-top:clamp(80px,10vw,140px)}' +
 '#veldy-partners .vp-util-sm{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(20px,2.6vw,36px);font-weight:400;color:var(--vp-mut2);margin:0}' +
 '#veldy-partners .vp-util-lg{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-weight:500;font-size:clamp(30px,4.6vw,49px);line-height:1.32;letter-spacing:-.8px;color:var(--vp-fg);margin:8px 0 0}' +
 /* agency section */
-'#veldy-partners .vp-agency{text-align:center;margin-top:clamp(60px,8vw,120px)}' +
+'#veldy-partners .vp-agency{text-align:left;margin-top:clamp(60px,8vw,120px)}' +
 '#veldy-partners .vp-agency-label{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(14px,1.4vw,18px);font-weight:700;color:var(--vp-mut2);letter-spacing:.08em;margin:0 0 16px;font-style:italic}' +
 '#veldy-partners .vp-agency-desc{font-size:clamp(14px,1.3vw,20px);line-height:1.65;color:var(--vp-mut2);margin:clamp(20px,3vw,36px) 0 0}' +
 /* quotes (right-aligned) */
