@@ -70,22 +70,21 @@
 '#veldy-partners .vp-btn:hover{background:var(--vp-fg);color:var(--vp-bg);border-color:var(--vp-fg)}' +
 '#veldy-partners .vp-btn.mut{border-color:rgba(255,255,255,.18);color:var(--vp-mut2)}' +
 '#veldy-partners .vp-btn.mut:hover{border-color:var(--vp-fg);color:var(--vp-fg)}' +
-/* WHY SUBSCRIBE — left aligned */
-'#veldy-partners .vp-whysub{text-align:left;margin-top:clamp(80px,10vw,160px);padding:clamp(60px,8vw,120px) 0}' +
+/* WHY SUBSCRIBE + icons — two-column layout */
+'#veldy-partners .vp-sub-layout{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,5vw,72px);margin-top:clamp(80px,10vw,160px);padding:clamp(60px,8vw,120px) 0;align-items:start}' +
+'#veldy-partners .vp-sub-left{text-align:left}' +
 '#veldy-partners .vp-label{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(16px,1.8vw,22px);font-weight:700;color:var(--vp-fg);margin:0 0 clamp(28px,4vw,48px);letter-spacing:.08em}' +
 '#veldy-partners .vp-q{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(24px,3.2vw,36px);font-weight:400;line-height:1.5;color:var(--vp-mut2);margin:0}' +
 '#veldy-partners .vp-q strong{font-weight:700;color:var(--vp-fg)}' +
-/* right-aligned block */
-'#veldy-partners .vp-right{text-align:right;margin-top:clamp(80px,10vw,160px);padding:clamp(60px,8vw,120px) 0}' +
-'#veldy-partners .vp-right .vp-h{font-size:clamp(26px,3.4vw,36px);font-weight:700}' +
-'#veldy-partners .vp-right .vp-sub{margin:clamp(20px,3vw,36px) 0 0;font-size:clamp(14px,1.3vw,16px);line-height:2;color:var(--vp-mut2)}' +
-/* icons grid */
-'#veldy-partners .vp-icons{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(40px,5vw,72px);margin-top:clamp(60px,8vw,100px);padding:clamp(40px,5vw,80px) 0}' +
+'#veldy-partners .vp-sub-heading{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(26px,3.4vw,36px);font-weight:700;color:var(--vp-fg);margin:clamp(40px,5vw,72px) 0 0;line-height:1.32;text-align:left}' +
+'#veldy-partners .vp-sub-desc{margin:clamp(20px,3vw,36px) 0 0;font-size:clamp(14px,1.3vw,16px);line-height:2;color:var(--vp-mut2);text-align:left}' +
+/* icons grid (right column) */
+'#veldy-partners .vp-icons{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,3vw,40px)}' +
 '#veldy-partners .vp-ic{text-align:center}' +
-'#veldy-partners .vp-ic-circle{display:inline-flex;align-items:center;justify-content:center;width:clamp(80px,8vw,110px);height:clamp(80px,8vw,110px);border-radius:50%;border:1.5px solid rgba(255,255,255,.3);background:transparent;color:#fff;margin-bottom:clamp(16px,2vw,24px)}' +
+'#veldy-partners .vp-ic-circle{display:inline-flex;align-items:center;justify-content:center;width:clamp(60px,6vw,85px);height:clamp(60px,6vw,85px);border-radius:50%;border:1.5px solid rgba(255,255,255,.3);background:transparent;color:#fff;margin-bottom:clamp(10px,1.5vw,16px)}' +
 '#veldy-partners .vp-ic-circle svg{width:38%;height:38%}' +
-'#veldy-partners .vp-ic-title{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(15px,1.5vw,18px);font-weight:700;color:var(--vp-fg);margin:0 0 8px}' +
-'#veldy-partners .vp-ic-desc{font-size:clamp(13px,1.2vw,16px);color:var(--vp-mut2);margin:0}' +
+'#veldy-partners .vp-ic-title{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(13px,1.3vw,16px);font-weight:700;color:var(--vp-fg);margin:0 0 4px}' +
+'#veldy-partners .vp-ic-desc{font-size:clamp(11px,1vw,14px);color:var(--vp-mut2);margin:0}' +
 /* two-column block */
 '#veldy-partners .vp-block{margin-top:clamp(72px,9vw,132px)}' +
 '#veldy-partners .vp-cols{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.55fr);gap:clamp(32px,5vw,72px);margin-top:clamp(40px,5vw,64px)}' +
@@ -93,11 +92,11 @@
 '#veldy-partners .vp-reasons{align-self:start}' +
 '#veldy-partners .vp-rh{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(14px,1.4vw,18px);font-weight:700;color:var(--vp-mut);margin:0 0 clamp(28px,3vw,40px)}' +
 '#veldy-partners .vp-reason{margin-bottom:clamp(32px,4vw,56px)}' +
-'#veldy-partners .vp-reason-no{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(22px,2.6vw,30px);font-weight:700;color:var(--vp-fg);margin:0 0 10px}' +
+'#veldy-partners .vp-reason-no{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(22px,2.6vw,30px);font-weight:700;color:var(--vp-mut);margin:0 0 10px}' +
 '#veldy-partners .vp-reason-t{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(20px,2.4vw,30px);font-weight:700;color:var(--vp-fg);margin:0;line-height:1.35}' +
 /* role list (right column) — right-aligned */
 '#veldy-partners .vp-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--vp-line)}' +
-'#veldy-partners .vp-item{display:flex;align-items:baseline;justify-content:flex-end;gap:clamp(20px,3vw,56px);padding:clamp(16px,1.7vw,22px) 0;border-bottom:1px solid var(--vp-line);text-align:right}' +
+'#veldy-partners .vp-item{display:flex;align-items:baseline;justify-content:flex-start;gap:clamp(20px,3vw,56px);padding:clamp(16px,1.7vw,22px) 0;border-bottom:1px solid var(--vp-line);text-align:left}' +
 '#veldy-partners .vp-no{flex:none;font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:14px;font-weight:400;line-height:25px;color:var(--vp-mut)}' +
 '#veldy-partners .vp-name{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(17px,1.7vw,19px);font-weight:500;line-height:1.3;color:var(--vp-fg)}' +
 /* scrolling ticker — white bg, full bleed */
@@ -128,7 +127,7 @@
 '#veldy-partners .vp-banner{margin-top:clamp(80px,10vw,140px);padding-top:clamp(40px,5vw,72px)}' +
 '#veldy-partners .vp-banner-label{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(14px,1.4vw,18px);font-weight:700;color:var(--vp-mut2);margin:0 0 16px}' +
 '#veldy-partners .vp-banner .vp-h{margin-bottom:clamp(24px,3vw,36px)}' +
-'#veldy-partners .vp-banner .vp-h .vp-indent{display:inline-block;text-indent:2em}' +
+'#veldy-partners .vp-banner .vp-h .vp-indent{display:block;padding-left:clamp(140px,15vw,260px)}' +
 /* tools section */
 '#veldy-partners .vp-tools{margin-top:clamp(56px,7vw,96px);padding-top:20px;border-top:1px solid var(--vp-line)}' +
 '#veldy-partners .vp-tools-row{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,48px);margin-top:clamp(24px,3vw,40px)}' +
@@ -140,12 +139,14 @@
 '#veldy-partners .vp-tool-detail img{width:100%;border-radius:12px;border:1px solid var(--vp-line)}' +
 /* mobile */
 '@media(max-width:810px){' +
+'#veldy-partners .vp-sub-layout{grid-template-columns:1fr;gap:40px}' +
 '#veldy-partners .vp-cols{grid-template-columns:1fr;gap:28px}' +
 '#veldy-partners .vp-meta{grid-template-columns:1fr auto;gap:8px}' +
 '#veldy-partners .vp-meta .m2{display:none}' +
-'#veldy-partners .vp-icons{grid-template-columns:repeat(2,1fr);gap:28px}' +
+'#veldy-partners .vp-icons{grid-template-columns:repeat(2,1fr);gap:20px}' +
 '#veldy-partners .vp-wv-cols{grid-template-columns:1fr;gap:16px}' +
 '#veldy-partners .vp-tools-row{grid-template-columns:1fr;gap:16px}' +
+'#veldy-partners .vp-banner .vp-h .vp-indent{padding-left:0}' +
 '}';
 
   /* ── helpers ──────────────────────────────────────────────────── */
@@ -194,24 +195,20 @@
         '</div>' +
       '</div>' +
 
-      /* ── 2. WHY SUBSCRIBE — left aligned ─────────────────────── */
-      '<div class="vp-whysub">' +
-        '<p class="vp-label">WHY SUBSCRIBE?</p>' +
-        '<p class="vp-q">실력있는 전문가가 <strong>필요하신가요?</strong></p>' +
-        '<p class="vp-q">직원 때문에 <strong>고민이신가요?</strong></p>' +
-        '<p class="vp-q">고용 비용이 <strong>부담이신가요?</strong></p>' +
+      /* ── 2. WHY SUBSCRIBE (left) + 9 ICONS (right) ────────────── */
+      '<div class="vp-sub-layout">' +
+        '<div class="vp-sub-left">' +
+          '<p class="vp-label">WHY SUBSCRIBE?</p>' +
+          '<p class="vp-q">실력있는 전문가가 <strong>필요하신가요?</strong></p>' +
+          '<p class="vp-q">직원 때문에 <strong>고민이신가요?</strong></p>' +
+          '<p class="vp-q">고용 비용이 <strong>부담이신가요?</strong></p>' +
+          '<h3 class="vp-sub-heading">1인 급여로 각 분야 전문가로<br>구성된 팀과 함께하세요</h3>' +
+          '<p class="vp-sub-desc">디자이너, 에디터, 마케터, 영상 편집자 등<br>' +
+            '필요한 분야 전문가를 모두 고용할 수 있는 방법<br>' +
+            '수정할 때 눈치 보지 않고 원하는 만큼 만족할 때까지</p>' +
+        '</div>' +
+        '<div class="vp-icons">' + iconGrid + '</div>' +
       '</div>' +
-
-      /* ── 3. RIGHT-ALIGNED BLOCK ──────────────────────────────── */
-      '<div class="vp-right">' +
-        '<h3 class="vp-h">1인 급여로 각 분야 전문가로<br>구성된 팀과 함께하세요</h3>' +
-        '<p class="vp-sub">디자이너, 에디터, 마케터, 영상 편집자 등<br>' +
-          '필요한 분야 전문가를 모두 고용할 수 있는 방법<br>' +
-          '수정할 때 눈치 보지 않고 원하는 만큼 만족할 때까지</p>' +
-      '</div>' +
-
-      /* ── 4. 9 ICONS GRID ─────────────────────────────────────── */
-      '<div class="vp-icons">' + iconGrid + '</div>' +
 
       /* ── 5. TWO-COLUMN: REASONS + ROLES (right-aligned list) ── */
       '<div class="vp-block">' +
