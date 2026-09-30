@@ -1,191 +1,145 @@
 (function () {
   var PROJECTS = [
-    {
-      slug: 'patchking',
-      title: 'PATCHKING',
-      category: 'Brand Identity / Streetwear',
-      image: 'assets/img/projects/patchking.svg',
-      href: 'work/patchking.html',
-      statement: '스트리트의 시선을 사로잡는 디자인, PATCHKING®. 로고와 캐릭터, 비주얼 시스템을 패치와 굿즈, 의류까지 확장했습니다.'
-    },
-    {
-      slug: 'teoljabi',
-      title: '국민털잡이',
-      category: 'Brand & Editorial / Beauty',
-      image: 'assets/img/projects/teoljabi.svg',
-      href: 'work/teoljabi.html',
-      statement: '합리적인 가격과 직관적인 사용성을 중심으로 누구나 쉽게 접근할 수 있는 셀프 왁싱 브랜드 경험을 정리했습니다.'
-    },
-    {
-      slug: 'soulju',
-      title: 'SOULJU',
-      category: 'Brand Identity / Hospitality',
-      image: 'assets/img/projects/soulju.svg',
-      href: 'work/soulju.html',
-      statement: '딥그린을 중심으로 메뉴, 사이니지, 그래픽 터치포인트 전반을 하나의 환대 경험으로 연결했습니다.'
-    },
-    {
-      slug: 'bibimcha',
-      title: 'BIBIMCHA',
-      category: 'Brand Identity / F&B',
-      image: 'assets/img/projects/bibimcha.svg',
-      href: 'work/bibimcha.html',
-      statement: 'Your Bowl, Your Rules. 고객의 방식대로 완성되는 한 그릇을 빠르고 대담한 브랜드 경험으로 설계했습니다.'
-    },
-    {
-      slug: 'davinci-code',
-      title: 'DAVINCI CODE',
-      category: 'Brand Identity / Beauty',
-      image: 'assets/img/projects/davinci-code.svg',
-      href: 'work/davinci-code.html',
-      statement: '다빈치의 비례와 조형 언어를 현대적인 선케어 혁신과 결합해 철학, 키비주얼, 제품 스토리까지 이어지는 아이덴티티를 구축했습니다.'
-    }
+    {slug:'patchking',title:'PATCHKING',category:'Branding Design',image:'assets/img/projects/patchking.svg',href:'work/patchking.html',count:'06'},
+    {slug:'teoljabi',title:'TEOLJABI',category:'Branding Design',image:'assets/img/projects/teoljabi.svg',href:'work/teoljabi.html',count:'07'},
+    {slug:'soulju',title:'SOULJU',category:'Branding Design',image:'assets/img/projects/soulju.svg',href:'work/soulju.html',count:'08'},
+    {slug:'bibimcha',title:'BIBIMCHA',category:'Branding Design',image:'assets/img/projects/bibimcha.svg',href:'work/bibimcha.html',count:'09'},
+    {slug:'davinci-code',title:'DAVINCI CODE',category:'Branding Design',image:'assets/img/projects/davinci-code.svg',href:'work/davinci-code.html',count:'10'}
   ];
 
-  function ensureStyle() {
-    if (document.getElementById('veldy-projects-style')) return;
-    var style = document.createElement('style');
-    style.id = 'veldy-projects-style';
-    style.textContent =
+  var DISABLED_JOURNAL=[
+    'article/hemingway-audio.html','article/soulju.html','article/raven-claw.html','article/essel.html'
+  ];
+
+  function ensureStyle(){
+    if(document.getElementById('veldy-projects-style'))return;
+    var s=document.createElement('style');
+    s.id='veldy-projects-style';
+    s.textContent=
       '.vpj-home-more,.vpj-work-more{box-sizing:border-box;color:#fff;font-family:"Inter Display","Inter Display Placeholder",Arial,sans-serif}' +
       '.vpj-home-more *,.vpj-work-more *{box-sizing:border-box}' +
-      '.vpj-home-more{position:relative;max-width:1480px;height:920px;margin:0 auto;padding:72px 24px 100px;overflow:hidden}' +
-      '.vpj-scatter-card{position:absolute;display:block;color:#fff;text-decoration:none;transition:transform .45s cubic-bezier(.2,.7,.2,1),opacity .3s ease}' +
-      '.vpj-scatter-card:hover{z-index:20;transform:translateY(-10px) rotate(0deg)!important}' +
-      '.vpj-scatter-media{width:100%;height:100%;overflow:hidden;border-radius:10px;background:#111}' +
-      '.vpj-scatter-media img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .55s ease}' +
-      '.vpj-scatter-card:hover img{transform:scale(1.035)}' +
-      '.vpj-scatter-meta{display:flex;justify-content:space-between;gap:16px;padding-top:10px;font-size:14px;line-height:1.25}' +
-      '.vpj-scatter-meta span:last-child{color:#999;text-align:right}' +
-      '.vpj-scatter-card:nth-child(1){left:3%;top:85px;width:30%;height:310px;transform:rotate(-4deg)}' +
-      '.vpj-scatter-card:nth-child(2){left:38%;top:18px;width:25%;height:270px;transform:rotate(2.5deg)}' +
-      '.vpj-scatter-card:nth-child(3){right:3%;top:135px;width:28%;height:330px;transform:rotate(-2deg)}' +
-      '.vpj-scatter-card:nth-child(4){left:18%;bottom:80px;width:27%;height:300px;transform:rotate(3deg)}' +
-      '.vpj-scatter-card:nth-child(5){right:20%;bottom:34px;width:31%;height:315px;transform:rotate(-3.5deg)}' +
-      '.vpj-work-more{width:100%;padding:48px 0 120px}' +
-      '.vpj-work-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:56px 24px;width:100%}' +
+      '.vpj-home-more{max-width:1480px;margin:0 auto;padding:90px 24px 150px;display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:80px;column-gap:24px;row-gap:34px}' +
+      '.vpj-scatter-card{display:block;color:#fff;text-decoration:none;min-width:0}' +
+      '.vpj-scatter-card:nth-child(1){grid-column:1/6;grid-row:1/6}' +
+      '.vpj-scatter-card:nth-child(2){grid-column:8/13;grid-row:2/7}' +
+      '.vpj-scatter-card:nth-child(3){grid-column:3/8;grid-row:7/12}' +
+      '.vpj-scatter-card:nth-child(4){grid-column:8/13;grid-row:8/13}' +
+      '.vpj-scatter-card:nth-child(5){grid-column:1/6;grid-row:13/18}' +
+      '.vpj-scatter-media{width:100%;height:calc(100% - 42px);min-height:260px;overflow:hidden;border-radius:10px;background:#111}' +
+      '.vpj-scatter-media img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s ease}' +
+      '.vpj-scatter-card:hover img{transform:scale(1.025)}' +
+      '.vpj-scatter-meta{display:grid;grid-template-columns:1fr auto;gap:18px;padding-top:13px;font-size:14px;line-height:1.25}' +
+      '.vpj-scatter-count{text-align:right}' +
+      '.vpj-work-more{width:100%;padding:80px 0 160px}' +
+      '.vpj-work-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;row-gap:110px;width:100%;align-items:start}' +
       '.vpj-work-card{display:block;color:#fff;text-decoration:none;min-width:0}' +
-      '.vpj-work-img{aspect-ratio:1.38/1;border-radius:10px;overflow:hidden;background:#111}' +
+      '.vpj-work-card:nth-child(1){grid-column:1/7}' +
+      '.vpj-work-card:nth-child(2){grid-column:8/13;margin-top:140px}' +
+      '.vpj-work-card:nth-child(3){grid-column:2/7;margin-top:10px}' +
+      '.vpj-work-card:nth-child(4){grid-column:7/13;margin-top:150px}' +
+      '.vpj-work-card:nth-child(5){grid-column:1/7;margin-top:20px}' +
+      '.vpj-work-img{aspect-ratio:1.17/1;border-radius:10px;overflow:hidden;background:#111}' +
       '.vpj-work-img img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s ease}' +
-      '.vpj-work-card:hover img{transform:scale(1.025)}' +
-      '.vpj-work-meta{display:grid;grid-template-columns:1fr auto;gap:18px;padding:14px 0 0;border-bottom:1px solid rgba(187,187,187,.2);padding-bottom:18px}' +
-      '.vpj-work-title{font-size:19px;font-weight:500;line-height:1.25}' +
-      '.vpj-work-cat{font-size:14px;color:#999;text-align:right;line-height:1.35}' +
+      '.vpj-work-card:hover img{transform:scale(1.02)}' +
+      '.vpj-work-meta{display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0 0}' +
+      '.vpj-work-title,.vpj-work-count{font-size:19px;font-weight:500;line-height:1.25}' +
+      '.vpj-work-count{text-align:right}' +
       '@media(max-width:809.98px){' +
-        '.vpj-home-more{height:auto;padding:42px 20px 70px;display:grid;grid-template-columns:1fr;gap:32px;overflow:visible}' +
-        '.vpj-scatter-card{position:relative!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;width:100%!important;height:auto!important;transform:none!important}' +
-        '.vpj-scatter-media{aspect-ratio:1.35/1;height:auto}' +
-        '.vpj-scatter-meta{font-size:13px}' +
-        '.vpj-work-more{padding:30px 0 80px}' +
-        '.vpj-work-grid{grid-template-columns:1fr;gap:38px}' +
+        '.vpj-home-more{padding:50px 20px 80px;display:grid;grid-template-columns:1fr;grid-auto-rows:auto;gap:42px}' +
+        '.vpj-scatter-card:nth-child(n){grid-column:auto;grid-row:auto}' +
+        '.vpj-scatter-media{height:auto;min-height:0;aspect-ratio:1.22/1}' +
+        '.vpj-scatter-meta{font-size:14px}' +
+        '.vpj-work-more{padding:45px 0 100px}' +
+        '.vpj-work-grid{display:grid;grid-template-columns:1fr;row-gap:62px}' +
+        '.vpj-work-card:nth-child(n){grid-column:auto;margin-top:0}' +
+        '.vpj-work-img{aspect-ratio:1.2/1}' +
+        '.vpj-work-title,.vpj-work-count{font-size:16px}' +
+        'section[data-framer-name="Client"] .framer-xrlw7a img{transform:scale(1.28)!important}' +
       '}';
-    document.head.appendChild(style);
+    (document.head||document.documentElement).appendChild(s);
   }
 
-  var DISABLED_JOURNAL = [
-    'article/hemingway-audio.html',
-    'article/soulju.html',
-    'article/raven-claw.html',
-    'article/essel.html'
-  ];
-
-  function isDisabledJournalHref(href) {
-    return DISABLED_JOURNAL.some(function (x) { return href === x || href.endsWith('/' + x); });
+  function isDisabledJournalHref(href){
+    return DISABLED_JOURNAL.some(function(x){return href===x||href.endsWith('/'+x);});
   }
-
-  function disableJournalLinks() {
-    var disabled = DISABLED_JOURNAL;
-    disabled.forEach(function (href) {
-      [].slice.call(document.querySelectorAll('a[href="' + href + '"]')).forEach(function (a) {
-        a.removeAttribute('href');
-        a.setAttribute('aria-disabled', 'true');
-        a.style.cursor = 'default';
-        a.querySelectorAll('[data-framer-cursor]').forEach(function (n) {
-          n.removeAttribute('data-framer-cursor');
-          n.style.cursor = 'default';
-        });
-        a.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); });
+  function disableJournalLinks(){
+    DISABLED_JOURNAL.forEach(function(href){
+      [].slice.call(document.querySelectorAll('a[href="'+href+'"]')).forEach(function(a){
+        a.removeAttribute('href');a.setAttribute('aria-disabled','true');a.style.cursor='default';
+        a.querySelectorAll('[data-framer-cursor]').forEach(function(n){n.removeAttribute('data-framer-cursor');n.style.cursor='default';});
       });
     });
   }
 
-  function makeScatterCard(p) {
-    var a = document.createElement('a');
-    a.className = 'vpj-scatter-card';
-    a.href = p.href;
-    a.innerHTML =
-      '<div class="vpj-scatter-media"><img loading="lazy" src="' + p.image + '" alt="' + p.title + '"></div>' +
-      '<div class="vpj-scatter-meta"><span>' + p.title + '</span><span>' + p.category + '</span></div>';
+  function makeCard(p,home){
+    var a=document.createElement('a');
+    a.className=home?'vpj-scatter-card':'vpj-work-card';
+    a.href=p.href;
+    a.innerHTML=home
+      ? '<div class="vpj-scatter-media"><img loading="lazy" src="'+p.image+'" alt="'+p.title+'"></div><div class="vpj-scatter-meta"><span>'+p.title+'</span><span class="vpj-scatter-count">('+p.count+')</span></div>'
+      : '<div class="vpj-work-img"><img loading="lazy" src="'+p.image+'" alt="'+p.title+'"></div><div class="vpj-work-meta"><div class="vpj-work-title">'+p.title+'</div><div class="vpj-work-count">('+p.count+')</div></div>';
     return a;
   }
 
-  function injectHome() {
-    if (document.getElementById('vpj-home-more')) return;
-    var target = document.querySelector('[data-framer-name="Scroll Animation Section"]');
-    if (!target) return;
-    var section = document.createElement('section');
-    section.id = 'vpj-home-more';
-    section.className = 'vpj-home-more';
-    PROJECTS.forEach(function (p) { section.appendChild(makeScatterCard(p)); });
-    target.insertAdjacentElement('afterend', section);
+  function injectHome(){
+    if(document.getElementById('vpj-home-more'))return;
+    var target=document.querySelector('[data-framer-name="Scroll Animation Section"]');
+    if(!target)return;
+    var section=document.createElement('section');section.id='vpj-home-more';section.className='vpj-home-more';
+    PROJECTS.forEach(function(p){section.appendChild(makeCard(p,true));});
+    target.insertAdjacentElement('afterend',section);
   }
 
-  function injectWork() {
-    if (document.getElementById('vpj-work-more')) return;
-    var container = document.querySelector('[data-framer-name="Work"] [data-framer-name="Container"]');
-    if (!container) return;
+  function injectWork(){
+    if(document.getElementById('vpj-work-more'))return;
+    var container=document.querySelector('[data-framer-name="Work"] [data-framer-name="Container"]');
+    if(!container)return;
+    var num=container.querySelector('[data-framer-name="Number"] h3');
+    if(num)num.textContent='(10)';
+    var section=document.createElement('section');section.id='vpj-work-more';section.className='vpj-work-more';
+    var grid=document.createElement('div');grid.className='vpj-work-grid';
+    PROJECTS.forEach(function(p){grid.appendChild(makeCard(p,false));});
+    section.appendChild(grid);container.appendChild(section);
+  }
 
-    var num = container.querySelector('[data-framer-name="Number"] h3');
-    if (num && /^\(5\)$/.test((num.textContent || '').trim())) num.textContent = '(10)';
+  function fixClients(){
+    if(window.matchMedia&&window.matchMedia('(max-width:809.98px)').matches){
+      var h=document.querySelector('section[data-framer-name="Client"] [data-framer-name="Responsive Heading"] [data-framer-name="Number"] h3');
+      if(h)h.textContent='(5)';
+    }
+  }
 
-    var section = document.createElement('section');
-    section.id = 'vpj-work-more';
-    section.className = 'vpj-work-more';
-    var grid = document.createElement('div');
-    grid.className = 'vpj-work-grid';
-
-    PROJECTS.forEach(function (p, idx) {
-      var a = document.createElement('a');
-      a.className = 'vpj-work-card';
-      a.href = p.href;
-      a.innerHTML =
-        '<div class="vpj-work-img"><img loading="lazy" src="' + p.image + '" alt="' + p.title + '"></div>' +
-        '<div class="vpj-work-meta"><div class="vpj-work-title">' + p.title + '</div>' +
-        '<div class="vpj-work-cat">' + p.category + '<br>(' + String(idx + 6).padStart(2, '0') + ')</div></div>';
-      grid.appendChild(a);
+  function tightenLogoMarquees(){
+    [].slice.call(document.querySelectorAll('ul')).forEach(function(ul){
+      var lis=ul.children||[];
+      if(lis.length<4)return;
+      var imgs=ul.querySelectorAll('img');
+      if(imgs.length<4)return;
+      var cs=getComputedStyle(ul);
+      var anc=ul.parentElement;
+      var acs=anc?getComputedStyle(anc):null;
+      if(cs.display.indexOf('flex')===-1)return;
+      if((acs&&acs.overflow==='hidden')||ul.closest('[style*="overflow:hidden"]')){
+        ul.style.setProperty('gap','16px','important');
+        ul.style.setProperty('column-gap','16px','important');
+      }
     });
-    section.appendChild(grid);
-    container.appendChild(section);
   }
 
-  function run() {
+  function run(){
     ensureStyle();
-    var path = location.pathname.toLowerCase();
-    if (path.endsWith('/index.html') || path.endsWith('/farmer/') || path === '/') {
-      disableJournalLinks();
-      injectHome();
-    }
-    if (path.endsWith('/work.html')) injectWork();
+    var path=location.pathname.toLowerCase();
+    if(path.endsWith('/index.html')||path.endsWith('/farmer/')||path==='/'){disableJournalLinks();injectHome();fixClients();tightenLogoMarquees();}
+    if(path.endsWith('/work.html'))injectWork();
   }
 
-  document.addEventListener('click', function (e) {
-    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
-    if (!a) return;
-    var href = a.getAttribute('href') || '';
-    if (isDisabledJournalHref(href)) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-    }
-  }, true);
+  document.addEventListener('click',function(e){
+    var a=e.target&&e.target.closest?e.target.closest('a[href]'):null;if(!a)return;
+    var href=a.getAttribute('href')||'';
+    if(isDisabledJournalHref(href)){e.preventDefault();e.stopImmediatePropagation();}
+  },true);
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
-  else run();
-
-  setTimeout(run, 500);
-  setTimeout(run, 1400);
-  try {
-    new MutationObserver(function () {
-      if (location.pathname.toLowerCase().endsWith('/index.html')) disableJournalLinks();
-    }).observe(document.documentElement, {childList:true, subtree:true});
-  } catch (e) {}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
+  [400,1000,1800].forEach(function(t){setTimeout(run,t);});
+  try{new MutationObserver(function(){fixClients();tightenLogoMarquees();}).observe(document.documentElement,{childList:true,subtree:true});}catch(e){}
 })();
