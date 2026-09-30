@@ -83,11 +83,11 @@
 
   function injectHome(){
     if(document.getElementById('vpj-home-more'))return;
-    var target=document.querySelector('[data-framer-name="Scroll Animation Section"]');
-    if(!target)return;
+    var cards=document.querySelector('section[data-framer-name="Work"] [data-framer-name="Cards"]');
+    if(!cards)return;
     var section=document.createElement('section');section.id='vpj-home-more';section.className='vpj-home-more';
     PROJECTS.forEach(function(p){section.appendChild(makeCard(p,true));});
-    target.insertAdjacentElement('afterend',section);
+    cards.insertAdjacentElement('afterend',section);
   }
 
   function injectWork(){
