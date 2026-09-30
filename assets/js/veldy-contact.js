@@ -53,7 +53,7 @@
       '#vc-contact.vc-pill:hover{background:#fff;color:#000;border-color:#fff}' +
       '#vc-contact.vc-pill .vc-roll{height:auto;line-height:1}' +
       '#vc-contact.vc-pill .vc-ch{text-shadow:0 1.2em 0 #000}' +
-      '#vc-contact.vc-pill:hover .vc-ch{text-shadow:0 1.2em 0 #fff}';
+      '#vc-contact.vc-pill:hover .vc-ch{text-shadow:0 1.2em 0 #fff}' +'#vc-contact .vc-btt-label{margin:0;font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:23px;font-weight:700;letter-spacing:-.3px;line-height:20px;text-transform:uppercase;color:#fff;white-space:nowrap}' +'#vc-contact:hover .vc-btt-label{color:#000}';
     var s = document.createElement('style');
     s.id = 'veldy-contact-style';
     s.textContent = css;
@@ -136,43 +136,15 @@
       });
       relabelText(el, 'Contact');
     } else if (mode === 'btt' && anchor) {
-      el = anchor.cloneNode(true);
-      el.removeAttribute('href');
-      el.removeAttribute('target');
-      el.removeAttribute('data-framer-appear-id');
-      el.style.opacity = '1';
-      el.style.transform = 'none';
-      [].forEach.call(el.querySelectorAll('[data-framer-appear-id]'), function (n) {
-        n.removeAttribute('data-framer-appear-id'); n.style.opacity = '1'; n.style.transform = 'none';
-      });
-      // Replace all visible text spans with "Contact"
-      var allSpans = el.querySelectorAll('span');
-      var letters = [];
-      allSpans.forEach(function(sp) {
-        if (sp.children.length === 0 && sp.textContent.trim().length === 1) letters.push(sp);
-      });
-      var contactText = 'Contact';
-      if (letters.length > 0) {
-        // Rolling Text component: each letter is a separate span
-        // Keep first N spans for "Contact", remove the rest within each text block
-        var textBlocks = el.querySelectorAll('[data-framer-component-type="RollingText"]');
-        if (textBlocks.length === 0) textBlocks = el.querySelectorAll('p, [style*="display"]');
-        textBlocks.forEach(function(tb) {
-          var spans = [];
-          tb.querySelectorAll('span').forEach(function(s) {
-            if (s.children.length === 0 && s.textContent.trim().length <= 1) spans.push(s);
-          });
-          for (var ci = 0; ci < spans.length; ci++) {
-            if (ci < contactText.length) {
-              spans[ci].textContent = contactText[ci];
-            } else {
-              spans[ci].style.display = 'none';
-            }
-          }
-        });
-      } else {
-        relabelText(el, 'Contact');
-      }
+      el = document.createElement('a');
+      el.className = anchor.className;
+      el.setAttribute('data-border', anchor.getAttribute('data-border') || 'true');
+      el.setAttribute('data-framer-name', 'Primary');
+      el.innerHTML =
+        '<div class="framer-1sl4ib4" data-framer-name="Filler" style="background-color:var(--token-9811e40b-3ed8-4237-98e5-61535bb22d2f, rgb(255,255,255));border-radius:30px"></div>' +
+        '<div class="framer-ultjt1-container"><div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;overflow:hidden;padding:12px 18px;box-sizing:border-box">' +
+        '<p class="vc-btt-label">CONTACT</p></div></div>';
+      el.style.cssText = anchor.getAttribute('style') || '';
     } else {
       el = document.createElement('a');
       el.appendChild(buildRollingLabel('Contact'));
@@ -196,7 +168,7 @@
     var prim = [].slice.call(document.querySelectorAll('a[href*="pf.kakao.com"][data-framer-name="Primary"]')).filter(visible)[0];
     if (prim) return { el: prim, mode: 'primary' };
     // On main page, anchor below "Back To Top" button
-    var btt = [].slice.call(document.querySelectorAll('a[href="./#top"][data-framer-name="Primary"]')).filter(visible)[0];
+    var btt = [].slice.call(document.querySelectorAll('a[href="index.html#top"][data-framer-name="Primary"],a[href="./#top"][data-framer-name="Primary"],a[href="#top"][data-framer-name="Primary"]')).filter(visible)[0];
     if (btt) return { el: btt, mode: 'btt' };
     // Fallback: footer Kakao link
     var foot = [].slice.call(document.querySelectorAll('a.framer-12fazzh[href*="pf.kakao.com"]')).filter(visible)[0];
@@ -218,13 +190,13 @@
       el.style.top = (r.bottom + window.scrollY + 10) + 'px';
       el.style.left = (r.left + window.scrollX) + 'px';
     } else if (a.mode === 'btt') {
-      // cloned BTT button — preserve the original button's exact footprint and flex layout
+      // cloned BTT style — place directly below without drifting
       el.style.display = 'inline-flex';
       el.style.width = r.width + 'px';
       el.style.height = r.height + 'px';
       el.style.alignItems = 'center';
       el.style.justifyContent = 'center';
-      el.style.top = (r.bottom + window.scrollY + 16) + 'px';
+      el.style.top = (r.bottom + window.scrollY + 12) + 'px';
       el.style.left = (r.left + window.scrollX) + 'px';
     } else {
       // match the footer social row: 14px, grey, right-aligned so it can't overflow
