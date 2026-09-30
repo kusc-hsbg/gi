@@ -108,8 +108,8 @@
 '#veldy-partners .vp-reasons{align-self:start}' +
 '#veldy-partners .vp-rh{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(26px,3.4vw,36px);font-weight:700;line-height:1.32;letter-spacing:normal;color:var(--vp-fg);margin:0 0 clamp(28px,3vw,40px)}' +
 '#veldy-partners .vp-reason{margin-bottom:clamp(32px,4vw,56px)}' +
-'#veldy-partners .vp-reason-no{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(22px,2.6vw,30px);font-weight:700;color:var(--vp-mut);margin:0 0 10px}' +
-'#veldy-partners .vp-reason-t{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(20px,2.4vw,30px);font-weight:700;color:var(--vp-fg);margin:0;line-height:1.35}' +
+'#veldy-partners .vp-reason-no{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(18px,2vw,24px);font-weight:600;color:var(--vp-mut);margin:0 0 8px}' +
+'#veldy-partners .vp-reason-t{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(18px,2.1vw,26px);font-weight:600;color:var(--vp-fg);margin:0;line-height:1.4}' +
 /* role list (right column) — right-aligned */
 '#veldy-partners .vp-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--vp-line)}' +
 '#veldy-partners .vp-item{display:flex;align-items:baseline;justify-content:flex-start;gap:clamp(20px,3vw,56px);padding:clamp(16px,1.7vw,22px) 0;border-bottom:1px solid var(--vp-line);text-align:left}' +
