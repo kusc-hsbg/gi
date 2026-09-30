@@ -237,6 +237,26 @@
       el.style.left = 'auto';
       el.style.right = 'auto';
       el.style.bottom = 'auto';
+      if (window.matchMedia && window.matchMedia('(max-width:809.98px)').matches) {
+        var br = a.el.getBoundingClientRect();
+        var bcs = getComputedStyle(a.el);
+        el.style.setProperty('width', br.width + 'px', 'important');
+        el.style.setProperty('height', br.height + 'px', 'important');
+        el.style.setProperty('min-width', br.width + 'px', 'important');
+        el.style.setProperty('padding', bcs.padding, 'important');
+        el.style.setProperty('font-size', bcs.fontSize, 'important');
+        el.style.setProperty('line-height', bcs.lineHeight, 'important');
+        el.style.setProperty('border-radius', bcs.borderRadius, 'important');
+        el.style.setProperty('margin-top', '10px', 'important');
+        var roll = el.querySelector('.vc-btt-roll');
+        if (roll) {
+          roll.style.setProperty('height', bcs.lineHeight, 'important');
+          roll.style.setProperty('line-height', bcs.lineHeight, 'important');
+        }
+      } else {
+        el.style.removeProperty('width');
+        el.style.removeProperty('min-width');
+      }
     } else {
       // match the footer social row: 14px, grey, right-aligned so it can't overflow
       el.style.height = r.height + 'px';
