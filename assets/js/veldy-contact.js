@@ -53,7 +53,7 @@
       '#vc-contact.vc-pill:hover{background:#fff;color:#000;border-color:#fff}' +
       '#vc-contact.vc-pill .vc-roll{height:auto;line-height:1}' +
       '#vc-contact.vc-pill .vc-ch{text-shadow:0 1.2em 0 #000}' +
-      '#vc-contact.vc-pill:hover .vc-ch{text-shadow:0 1.2em 0 #fff}' +'#vc-contact .vc-btt-roll{overflow:hidden!important}' +'#vc-contact .vc-btt-roll span{transition:transform .5s cubic-bezier(.82,.08,.29,1)!important}' +'#vc-contact.hover .vc-btt-roll span,#vc-contact:hover .vc-btt-roll span{transform:translateY(-20px)!important}';
+      '#vc-contact.vc-pill:hover .vc-ch{text-shadow:0 1.2em 0 #fff}' +'#vc-contact.vc-btt-independent{position:relative!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;flex:none!important;height:46px!important;padding:0 16px!important;margin:-24px 0 0 0!important;border:2px solid #fff!important;border-radius:259px!important;background:transparent!important;color:#fff!important;overflow:hidden!important;box-sizing:border-box!important;font-family:"Inter Display","Inter Display Placeholder",sans-serif!important;font-size:23px!important;font-weight:700!important;letter-spacing:-.3px!important;line-height:20px!important;text-transform:uppercase!important;text-decoration:none!important;transition:background-color .28s ease,color .28s ease!important}' +'#vc-contact.vc-btt-independent:hover{background:#fff!important;color:#000!important}' +'#vc-contact.vc-btt-independent .vc-btt-roll{display:flex!important;overflow:hidden!important;height:20px!important;line-height:20px!important;margin:0!important;padding:0!important;white-space:nowrap!important;text-shadow:0 20px 0 #000!important}' +'#vc-contact.vc-btt-independent .vc-btt-roll span{display:block!important;flex:none!important;color:inherit!important;font:inherit!important;line-height:20px!important;white-space:pre!important;transition:transform .5s cubic-bezier(.82,.08,.29,1)!important}' +'#vc-contact.vc-btt-independent:hover .vc-btt-roll span{transform:translateY(-20px)!important}';
     var s = document.createElement('style');
     s.id = 'veldy-contact-style';
     s.textContent = css;
@@ -136,42 +136,21 @@
       });
       relabelText(el, 'Contact');
     } else if (mode === 'btt' && anchor) {
-      // Exact Back To Top clone: preserve structure, border, filler and typography.
-      el = anchor.cloneNode(true);
-      el.removeAttribute('href');
-      el.removeAttribute('target');
-      el.removeAttribute('data-framer-appear-id');
-      el.style.opacity = '1';
-      el.style.transform = 'none';
-      [].forEach.call(el.querySelectorAll('[data-framer-appear-id]'), function (n) {
-        n.removeAttribute('data-framer-appear-id');
-        n.style.opacity = '1';
-        n.style.transform = 'none';
-      });
-
-      // Rebuild the original rolling-text spans with CONTACT while preserving
-      // Back To Top's typography, text-shadow copy and clipping behavior.
-      var rp = el.querySelector('p[class*="rolling-text-inner-"]');
-      if (rp) {
-        rp.classList.add('vc-btt-roll');
-        var firstSpan = rp.querySelector('span');
-        var baseStyle = firstSpan ? firstSpan.getAttribute('style') || '' : '';
-        rp.textContent = '';
-        var label = 'CONTACT';
-        for (var ri = 0; ri < label.length; ri++) {
-          var sp = document.createElement('span');
-          sp.setAttribute('style', baseStyle);
-          sp.textContent = label.charAt(ri);
-          sp.style.transition = 'transform .5s cubic-bezier(.82,.08,.29,1)';
-          sp.style.transitionDelay = ((0.5 / label.length) * ri * 0.35).toFixed(3) + 's';
-          rp.appendChild(sp);
-        }
+      // Fully independent footer Contact. Do not inherit any Framer/BTT classes,
+      // so Back To Top hover/re-render can never alter this button.
+      el = document.createElement('a');
+      el.className = 'vc-btt-independent';
+      var rp = document.createElement('p');
+      rp.className = 'vc-btt-roll';
+      rp.setAttribute('aria-hidden', 'true');
+      var label = 'CONTACT';
+      for (var ri = 0; ri < label.length; ri++) {
+        var sp = document.createElement('span');
+        sp.textContent = label.charAt(ri);
+        sp.style.transitionDelay = ((0.5 / label.length) * ri * 0.35).toFixed(3) + 's';
+        rp.appendChild(sp);
       }
-
-      // Mirror Framer's hover variant locally so the filler expansion and rolling
-      // text use exactly the same timing every time.
-      el.addEventListener('mouseenter', function () { el.classList.add('hover'); });
-      el.addEventListener('mouseleave', function () { el.classList.remove('hover'); });
+      el.appendChild(rp);
     } else {
       el = document.createElement('a');
       el.appendChild(buildRollingLabel('Contact'));
@@ -191,8 +170,6 @@
       el.style.left = 'auto';
       el.style.right = 'auto';
       el.style.bottom = 'auto';
-      el.style.margin = '-24px 0 0 0';
-      el.style.flex = 'none';
       footerColumn.insertBefore(el, anchorWrap.nextSibling);
     } else {
       el.style.position = 'absolute';
@@ -230,11 +207,8 @@
       el.style.top = (r.bottom + window.scrollY + 10) + 'px';
       el.style.left = (r.left + window.scrollX) + 'px';
     } else if (a.mode === 'btt') {
-      // Normal-flow sibling of Back To Top. Never recompute left/top on hover.
-      el.style.display = 'flex';
-      el.style.position = 'relative';
-      el.style.top = 'auto';
-      el.style.left = 'auto';
+      // Independent normal-flow sibling: intentionally unaffected by BTT hover state.
+      el.style.display = 'inline-flex';
     } else {
       // match the footer social row: 14px, grey, right-aligned so it can't overflow
       el.style.height = r.height + 'px';
