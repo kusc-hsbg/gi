@@ -148,11 +148,31 @@
     <!-- End of headEnd -->
 	
 <style data-local-nobadge>#__framer-badge-container,.__framer-badge{display:none!important}[data-framer-name="Loader"]{display:none!important}</style><style id="veldy-layout-tuning">
+/* VALUE CHAIN MEDICAL image override: bind the requested photo to the card that contains the medical logo */
+.framer-RIdoQ:has(img[src*="XZcKSMY09UkxRqOodNcLmW9Nhjo"]) .framer-144g2sq{
+  background-image:url("https://images.unsplash.com/photo-1583088580009-2d947c3e90a6?q=80&w=778&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")!important;
+  background-size:cover!important;
+  background-position:center!important;
+}
+.framer-RIdoQ:has(img[src*="XZcKSMY09UkxRqOodNcLmW9Nhjo"]) .framer-144g2sq [data-framer-background-image-wrapper="true"]>img{
+  opacity:0!important;
+}
+
 @media (min-width:1200px){
   /* FAQ: align right column to the same 50/50 vertical axis used by project split layouts */
   .framer-8qUek .framer-z6xuga{gap:0!important;align-items:flex-start!important}
   .framer-8qUek .framer-sdbg06{flex:0 0 50%!important;width:50%!important;max-width:none!important}
   .framer-8qUek .framer-1s9lvga-container{flex:0 0 50%!important;width:50%!important}
+  /* restore the Clarifying Deliverable image above the heading after the 50/50 alignment override */
+  .framer-8qUek .framer-sdbg06 .framer-1t26hkh-container{
+    position:relative!important;
+    top:auto!important;
+    left:auto!important;
+    margin:0 0 18px 0!important;
+    flex:none!important;
+    width:136px!important;
+    height:198px!important;
+  }
 }
 @media (max-width:809.98px){
   /* Team list: keep two roles on each row on mobile, matching the desktop pairing */
