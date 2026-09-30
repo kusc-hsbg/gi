@@ -44,6 +44,22 @@
     video: '<path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/>'
   };
 
+  var MEDICAL_IMAGE = 'https://images.unsplash.com/photo-1583088580009-2d947c3e90a6?q=80&w=778&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
+
+  function enforceMedicalImage(root) {
+    var scope = root && root.querySelectorAll ? root : document;
+    var imgs = scope.querySelectorAll ? scope.querySelectorAll('img') : [];
+    for (var mi = 0; mi < imgs.length; mi++) {
+      var img = imgs[mi];
+      var src = img.getAttribute('src') || '';
+      var srcset = img.getAttribute('srcset') || '';
+      if (src.indexOf('qIQDXiQH2EAOXDhBR2Der0XY') !== -1 || srcset.indexOf('qIQDXiQH2EAOXDhBR2Der0XY') !== -1) {
+        img.removeAttribute('srcset');
+        img.setAttribute('src', MEDICAL_IMAGE);
+      }
+    }
+  }
+
   function svgIcon(name) {
     return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' + (SVG_PATHS[name] || '') + '</svg>';
   }
@@ -90,7 +106,7 @@
 '#veldy-partners .vp-cols{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:clamp(40px,5vw,64px)}' +
 /* reasons (left column) */
 '#veldy-partners .vp-reasons{align-self:start}' +
-'#veldy-partners .vp-rh{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(14px,1.4vw,18px);font-weight:700;color:var(--vp-mut);margin:0 0 clamp(28px,3vw,40px)}' +
+'#veldy-partners .vp-rh{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(26px,3.4vw,36px);font-weight:700;line-height:1.32;letter-spacing:normal;color:var(--vp-fg);margin:0 0 clamp(28px,3vw,40px)}' +
 '#veldy-partners .vp-reason{margin-bottom:clamp(32px,4vw,56px)}' +
 '#veldy-partners .vp-reason-no{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(22px,2.6vw,30px);font-weight:700;color:var(--vp-mut);margin:0 0 10px}' +
 '#veldy-partners .vp-reason-t{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(20px,2.4vw,30px);font-weight:700;color:var(--vp-fg);margin:0;line-height:1.35}' +
@@ -101,10 +117,10 @@
 '#veldy-partners .vp-name{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(17px,1.7vw,19px);font-weight:500;line-height:1.3;color:var(--vp-fg)}' +
 /* scrolling ticker — white bg, full bleed */
 '#veldy-partners .vp-ticker-wrap{position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;width:100vw;background:#fff;margin-top:clamp(60px,8vw,120px)}' +
-'#veldy-partners .vp-ticker{overflow:hidden;white-space:nowrap;padding:clamp(16px,2vw,28px) 0}' +
+'#veldy-partners .vp-ticker{overflow:hidden;white-space:nowrap;height:clamp(112px,12vw,176px);padding:0;display:flex;align-items:center}' +
 '#veldy-partners .vp-ticker-track{display:inline-flex;align-items:center;animation:vpScroll 40s linear infinite}' +
 '#veldy-partners .vp-ticker-item{flex:none;padding:0 clamp(16px,2vw,32px)}' +
-'#veldy-partners .vp-ticker-item img{height:clamp(80px,8vw,120px);width:auto;display:block}' +
+'#veldy-partners .vp-ticker-item img{height:clamp(100px,10vw,150px);max-height:calc(100% - 16px);width:auto;display:block}' +
 '@keyframes vpScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}' +
 /* WHY VELDY */
 '#veldy-partners .vp-wv{text-align:left;margin-top:clamp(80px,10vw,140px)}' +
