@@ -19,13 +19,8 @@
       '#vp-home-clones>a:nth-child(3),#vp-work-clones>a:nth-child(3){grid-column:8 / span 5;margin-top:110px!important}' +
       '#vp-home-clones>a:nth-child(4),#vp-work-clones>a:nth-child(4){grid-column:3 / span 7}' +
       '#vp-home-clones>a:nth-child(5),#vp-work-clones>a:nth-child(5){grid-column:8 / span 5}' +
-      '#vp-home-clones [data-framer-name="Top"],#vp-work-clones [data-framer-name="Top"]{aspect-ratio:1.16/1!important;height:auto!important;min-height:0!important;overflow:hidden!important}' +
-      '#vp-home-clones .vp-project-davinci-code [data-framer-name="Top"],#vp-home-clones .vp-project-teoljabi [data-framer-name="Top"]{aspect-ratio:1/1!important}' +
-      '#vp-home-clones .vp-project-davinci-code [data-framer-name="Image/Video"] img,#vp-home-clones .vp-project-teoljabi [data-framer-name="Image/Video"] img{object-position:center center!important}' +
-      '#vp-home-clones .vp-project-patchking [data-framer-name="Image/Video"] img{object-position:center center!important}' +
-      '#vp-home-clones .vp-project-soulju [data-framer-name="Image/Video"] img{object-position:center center!important}' +
-      '#vp-home-clones .vp-project-patchking [data-framer-name="Top"]{aspect-ratio:3/4!important}' +
-      '#vp-home-clones .vp-project-soulju [data-framer-name="Top"]{aspect-ratio:2/1!important}' +
+      '#vp-home-clones [data-framer-name="Top"]{aspect-ratio:auto!important;min-height:0!important;overflow:hidden!important}' +
+      '#vp-home-clones .vp-project-davinci-code [data-framer-name="Image/Video"] img,#vp-home-clones .vp-project-teoljabi [data-framer-name="Image/Video"] img,#vp-home-clones .vp-project-patchking [data-framer-name="Image/Video"] img,#vp-home-clones .vp-project-soulju [data-framer-name="Image/Video"] img{object-position:center center!important}' +
       '#vp-home-clones [data-framer-name="Image/Video"],#vp-work-clones [data-framer-name="Image/Video"],#vp-home-clones [data-framer-name="Inner Image"],#vp-work-clones [data-framer-name="Inner Image"]{position:absolute!important;inset:0!important;width:100%!important;height:100%!important}' +
       '#vp-home-clones [data-framer-name="Inner Image"],#vp-work-clones [data-framer-name="Inner Image"]{z-index:2!important;display:flex!important;align-items:center!important;justify-content:center!important;pointer-events:none!important;overflow:visible!important}' +
       '#vp-home-clones [data-framer-name="Inner Image"]>[data-framer-name="Image"],#vp-work-clones [data-framer-name="Inner Image"]>[data-framer-name="Image"]{position:relative!important;width:50%!important;height:50%!important;flex:none!important;border-radius:10px!important;overflow:hidden!important}' +
@@ -100,6 +95,28 @@
     return host;
   }
 
+  function resizeHomeCards(){
+    var host=document.getElementById('vp-home-clones');if(!host)return;
+    var ratios={
+      'davinci-code':1,
+      'patchking':3/4,
+      'soulju':2,
+      'teoljabi':1
+    };
+    Object.keys(ratios).forEach(function(slug){
+      var card=host.querySelector('.vp-project-'+slug);if(!card)return;
+      var w=card.getBoundingClientRect().width||card.offsetWidth||0;if(!w)return;
+      var total=Math.round(w/ratios[slug]+39);
+      card.querySelectorAll(':scope > .ssr-variant > div').forEach(function(box){
+        box.style.setProperty('height',total+'px','important');
+        box.style.setProperty('min-height',total+'px','important');
+      });
+      card.querySelectorAll(':scope > .ssr-variant > div > [data-framer-name="Primary"],:scope > .ssr-variant > div > [data-framer-name="Secondary"]').forEach(function(comp){
+        comp.style.setProperty('height','100%','important');
+      });
+    });
+  }
+
   function findTemplate(sec){
     return sec.querySelector('a[data-framer-name="Project"][href="work/crystaloz.html"]') ||
            sec.querySelector('a[data-framer-name="Project"][href$="/work/crystaloz.html"]') ||
@@ -112,6 +129,8 @@
     var cards=sec.querySelector('[data-framer-name="Cards"]');if(!cards)return;
     var template=findTemplate(sec);if(!template)return;
     cards.appendChild(buildHost('vp-home-clones',template));
+    requestAnimationFrame(resizeHomeCards);
+    setTimeout(resizeHomeCards,120);
   }
 
   function injectWork(){
@@ -138,5 +157,6 @@
   }
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
-  [80,250,600,1200,2500,5000].forEach(function(t){setTimeout(run,t);});
+  [80,250,600,1200,2500,5000].forEach(function(t){setTimeout(function(){run();resizeHomeCards();},t);});
+  window.addEventListener('resize',function(){requestAnimationFrame(resizeHomeCards);});
 })();
