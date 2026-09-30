@@ -92,9 +92,15 @@
     if(document.getElementById('vp-home-clones'))return;
     var sec=document.querySelector('section[data-framer-name="Work"]');if(!sec)return;
     var cards=sec.querySelector('[data-framer-name="Cards"]');if(!cards)return;
-    var crystal=sec.querySelector('a[href="work/crystaloz.html"]');if(!crystal)return;
+    var crystal=sec.querySelector('a[href="work/crystaloz.html"],a[href$="/work/crystaloz.html"]');
+    if(!crystal){
+      crystal=[].slice.call(sec.querySelectorAll('a[data-framer-name="Project"]')).filter(function(a){
+        return /Crystal\s*OZ/i.test(a.textContent||'');
+      })[0];
+    }
+    if(!crystal)return;
     var host=buildGallery(crystal,'');host.id='vp-home-clones';
-    cards.insertAdjacentElement('afterend',host);
+    cards.appendChild(host);
   }
 
   function injectWork(){
@@ -117,9 +123,12 @@
 
   function run(){
     ensureStyle();
-    var path=location.pathname.toLowerCase();
-    if(path.endsWith('/index.html')||path.endsWith('/farmer/')||path==='/'){disableJournal();injectHome();clients();}
-    if(path.endsWith('/work.html'))injectWork();
+    var path=(location.pathname||'').toLowerCase().replace(/\/+$/,'');
+    var file=(path.split('/').pop()||'');
+    var isHome=(file===''||file==='index.html'||file==='farmer');
+    var isWork=(file==='work.html');
+    if(isHome){disableJournal();injectHome();clients();}
+    if(isWork)injectWork();
   }
 
   document.addEventListener('click',function(e){
@@ -129,5 +138,12 @@
   },true);
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
-  [250,700,1400,2600].forEach(function(t){setTimeout(run,t);});
+  [100,300,700,1400,2600,5000,9000].forEach(function(t){setTimeout(run,t);});
+  try{
+    new MutationObserver(function(){
+      var path=(location.pathname||'').toLowerCase();
+      if((path==='/'||/\/index\.html$/.test(path)||/\/farmer\/?$/.test(path))&&!document.getElementById('vp-home-clones'))run();
+      if(/\/work\.html$/.test(path)&&!document.getElementById('vp-work-clones'))run();
+    }).observe(document.documentElement,{childList:true,subtree:true});
+  }catch(e){}
 })();
