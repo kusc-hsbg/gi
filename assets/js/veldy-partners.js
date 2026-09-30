@@ -9,19 +9,19 @@
     '모션 그래픽 디자이너', '시각 디자이너', '웹 디자이너', '패키지 디자이너',
     '웹사이트 프로듀서', '비즈니스 컨설턴트', '마케팅 어드바이저', '마케팅 매니저',
     '프로젝트 매니저', '브랜드 저널리스트', '콘텐츠 작가', '콘텐츠 PD',
-    '교정·교열·윤문 에디터', '촬영 감독', '영상 편집자', '번역가', '출판 담당자'
+    '교정·교열·윤문 에디터', '촬영 감독', '영상 편집자', '번역가'
   ];
 
   var SERVICES = [
-    { icon: 'folder', title: 'BI · CI', desc: '로고 / 명함 / 가이드북 제작' },
-    { icon: 'megaphone', title: '광고 콘텐츠', desc: '카드뉴스 / SNS 콘텐츠 / 상세페이지' },
+    { icon: 'folder', title: 'BI • CI • BX', desc: '로고 및 브랜딩' },
+    { icon: 'megaphone', title: '광고 콘텐츠', desc: 'SNS 콘텐츠 / 상세페이지' },
     { icon: 'printer', title: '디지털 인쇄', desc: '포스터 / 리플렛 / 라벨 등' },
-    { icon: 'package', title: '패키지', desc: '단상자 / 파우치 등' },
+    { icon: 'package', title: '패키지', desc: '디자인 및 제작 대행' },
     { icon: 'book', title: '편집디자인', desc: '카달로그 / 책자 등' },
-    { icon: 'chat', title: '마케팅 전략 기획', desc: '홍보 로드맵 제안' },
-    { icon: 'quote', title: 'PPT', desc: '회사 / 제품 / 서비스 소개서 및 제안서' },
-    { icon: 'pen', title: '그래픽', desc: '일러스트 / 그래픽 소스 개발' },
-    { icon: 'video', title: '영상 편집', desc: '포토 촬영 및 영상 편집' }
+    { icon: 'chat', title: '마케팅 전략 기획', desc: '로드맵 제안' },
+    { icon: 'quote', title: 'PPT', desc: '하단에 브리핑 자료 까지' },
+    { icon: 'pen', title: '그래픽', desc: '일러스트 / 소스 개발' },
+    { icon: 'video', title: '영상 편집', desc: '촬영 및 편집' }
   ];
 
   var LOGO_COUNT = 37;
@@ -104,7 +104,7 @@
 '#veldy-partners .vp-ticker{overflow:hidden;white-space:nowrap;padding:clamp(16px,2vw,28px) 0}' +
 '#veldy-partners .vp-ticker-track{display:inline-flex;align-items:center;animation:vpScroll 40s linear infinite}' +
 '#veldy-partners .vp-ticker-item{flex:none;padding:0 clamp(16px,2vw,32px)}' +
-'#veldy-partners .vp-ticker-item img{height:clamp(50px,6vw,80px);width:auto;display:block}' +
+'#veldy-partners .vp-ticker-item img{height:clamp(64px,7vw,96px);width:auto;display:block}' +
 '@keyframes vpScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}' +
 /* WHY VELDY */
 '#veldy-partners .vp-wv{text-align:left;margin-top:clamp(80px,10vw,140px)}' +
@@ -145,7 +145,8 @@
 '#veldy-partners .vp-cols{grid-template-columns:1fr;gap:28px}' +
 '#veldy-partners .vp-meta{grid-template-columns:1fr auto;gap:8px}' +
 '#veldy-partners .vp-meta .m2{display:none}' +
-'#veldy-partners .vp-icons{grid-template-columns:repeat(2,1fr);gap:20px}' +
+'#veldy-partners .vp-icons{grid-template-columns:repeat(3,1fr);gap:20px}' +
+'#veldy-partners .vp-ic-desc{display:none}' +
 '#veldy-partners .vp-wv-cols{grid-template-columns:1fr;gap:16px}' +
 '#veldy-partners .vp-tools-row{grid-template-columns:1fr;gap:16px}' +
 '}';
@@ -213,7 +214,7 @@
 
       /* ── 5. TWO-COLUMN: REASONS + ROLES (right-aligned list) ── */
       '<div class="vp-block">' +
-        meta('&copy; THE TEAM', '(VELDY&reg; &mdash; 21)', 'ROLES') +
+        meta('&copy; THE TEAM', '(VELDY&reg; &mdash; 20)', 'ROLES') +
         '<div class="vp-cols">' +
           '<div class="vp-reasons">' +
             '<p class="vp-rh">고용 대신 구독해야 하는 이유</p>' +
