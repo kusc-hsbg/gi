@@ -71,7 +71,7 @@
 '#veldy-partners .vp-btn.mut{border-color:rgba(255,255,255,.18);color:var(--vp-mut2)}' +
 '#veldy-partners .vp-btn.mut:hover{border-color:var(--vp-fg);color:var(--vp-fg)}' +
 /* WHY SUBSCRIBE + icons — two-column layout */
-'#veldy-partners .vp-sub-layout{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,5vw,72px);margin-top:clamp(80px,10vw,160px);padding:clamp(60px,8vw,120px) 0;align-items:start}' +
+'#veldy-partners .vp-sub-layout{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:clamp(80px,10vw,160px);padding:clamp(60px,8vw,120px) 0;align-items:start}' +
 '#veldy-partners .vp-sub-left{text-align:left}' +
 '#veldy-partners .vp-label{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(16px,1.8vw,22px);font-weight:700;color:var(--vp-fg);margin:0 0 clamp(28px,4vw,48px);letter-spacing:.08em}' +
 '#veldy-partners .vp-q{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(24px,3.2vw,36px);font-weight:400;line-height:1.5;color:var(--vp-mut2);margin:0}' +
@@ -87,7 +87,7 @@
 '#veldy-partners .vp-ic-desc{font-size:clamp(11px,1vw,14px);color:var(--vp-mut2);margin:0}' +
 /* two-column block */
 '#veldy-partners .vp-block{margin-top:clamp(72px,9vw,132px)}' +
-'#veldy-partners .vp-cols{display:grid;grid-template-columns:minmax(0,.65fr) minmax(0,1.35fr);gap:clamp(32px,5vw,72px);margin-top:clamp(40px,5vw,64px)}' +
+'#veldy-partners .vp-cols{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:clamp(40px,5vw,64px)}' +
 /* reasons (left column) */
 '#veldy-partners .vp-reasons{align-self:start}' +
 '#veldy-partners .vp-rh{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(14px,1.4vw,18px);font-weight:700;color:var(--vp-mut);margin:0 0 clamp(28px,3vw,40px)}' +
@@ -95,7 +95,7 @@
 '#veldy-partners .vp-reason-no{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(22px,2.6vw,30px);font-weight:700;color:var(--vp-mut);margin:0 0 10px}' +
 '#veldy-partners .vp-reason-t{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(20px,2.4vw,30px);font-weight:700;color:var(--vp-fg);margin:0;line-height:1.35}' +
 /* role list (right column) — right-aligned */
-'#veldy-partners .vp-list{list-style:none;margin:0;padding:0 0 0 clamp(40px,5vw,80px);border-top:1px solid var(--vp-line)}' +
+'#veldy-partners .vp-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--vp-line)}' +
 '#veldy-partners .vp-item{display:flex;align-items:baseline;justify-content:flex-start;gap:clamp(20px,3vw,56px);padding:clamp(16px,1.7vw,22px) 0;border-bottom:1px solid var(--vp-line);text-align:left}' +
 '#veldy-partners .vp-no{flex:none;font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:14px;font-weight:400;line-height:25px;color:var(--vp-mut)}' +
 '#veldy-partners .vp-name{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(17px,1.7vw,19px);font-weight:500;line-height:1.3;color:var(--vp-fg)}' +
@@ -104,7 +104,7 @@
 '#veldy-partners .vp-ticker{overflow:hidden;white-space:nowrap;padding:clamp(16px,2vw,28px) 0}' +
 '#veldy-partners .vp-ticker-track{display:inline-flex;align-items:center;animation:vpScroll 40s linear infinite}' +
 '#veldy-partners .vp-ticker-item{flex:none;padding:0 clamp(16px,2vw,32px)}' +
-'#veldy-partners .vp-ticker-item img{height:clamp(64px,7vw,96px);width:auto;display:block}' +
+'#veldy-partners .vp-ticker-item img{height:clamp(80px,8vw,120px);width:auto;display:block}' +
 '@keyframes vpScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}' +
 /* WHY VELDY */
 '#veldy-partners .vp-wv{text-align:left;margin-top:clamp(80px,10vw,140px)}' +
@@ -114,10 +114,10 @@
 '#veldy-partners .vp-wv-ct{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(16px,1.6vw,22px);font-weight:700;color:var(--vp-fg);margin:0 0 clamp(16px,2vw,24px)}' +
 '#veldy-partners .vp-wv-ci{font-size:clamp(14px,1.3vw,18px);color:var(--vp-mut2);margin:8px 0;line-height:1.5}' +
 /* utilize + quotes — two-column layout */
-'#veldy-partners .vp-util-layout{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,5vw,72px);margin-top:clamp(80px,10vw,140px);align-items:start}' +
+'#veldy-partners .vp-util-layout{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:clamp(80px,10vw,140px);align-items:start}' +
 '#veldy-partners .vp-util{text-align:left}' +
-'#veldy-partners .vp-util-sm{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-weight:500;font-size:clamp(30px,4.6vw,49px);line-height:1.32;letter-spacing:-.8px;color:var(--vp-mut2);margin:0}' +
-'#veldy-partners .vp-util-lg{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-weight:500;font-size:clamp(30px,4.6vw,49px);line-height:1.32;letter-spacing:-.8px;color:var(--vp-fg);margin:8px 0 0}' +
+'#veldy-partners .vp-util-sm{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-weight:700;font-size:clamp(26px,3.4vw,36px);line-height:1.32;letter-spacing:normal;color:var(--vp-mut2);margin:0}' +
+'#veldy-partners .vp-util-lg{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-weight:700;font-size:clamp(26px,3.4vw,36px);line-height:1.32;letter-spacing:normal;color:var(--vp-fg);margin:8px 0 0}' +
 /* agency section — small body text, no label */
 '#veldy-partners .vp-agency{text-align:left;margin-top:clamp(20px,2.5vw,36px)}' +
 '#veldy-partners .vp-agency-body{font-size:clamp(15px,1.5vw,17px);line-height:1.65;color:var(--vp-mut2);margin:0}' +
@@ -127,7 +127,7 @@
 /* banner */
 '#veldy-partners .vp-banner{margin-top:clamp(80px,10vw,140px);padding-top:clamp(40px,5vw,72px)}' +
 '#veldy-partners .vp-banner-label{font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:clamp(14px,1.4vw,18px);font-weight:700;color:var(--vp-mut2);margin:0 0 16px}' +
-'#veldy-partners .vp-banner .vp-h{margin-bottom:clamp(24px,3vw,36px)}' +
+'#veldy-partners .vp-banner .vp-h{margin-bottom:clamp(24px,3vw,36px);font-size:clamp(26px,3.4vw,36px);font-weight:700;line-height:1.32;letter-spacing:normal}' +
 '#veldy-partners .vp-banner .vp-h .vp-newline{display:block}' +
 /* tools section */
 '#veldy-partners .vp-tools{margin-top:clamp(56px,7vw,96px);padding-top:20px;border-top:1px solid var(--vp-line)}' +
