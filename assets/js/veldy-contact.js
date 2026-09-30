@@ -218,10 +218,14 @@
       el.style.top = (r.bottom + window.scrollY + 10) + 'px';
       el.style.left = (r.left + window.scrollX) + 'px';
     } else if (a.mode === 'btt') {
-      // cloned BTT button — center below original
+      // cloned BTT button — preserve the original button's exact footprint and flex layout
+      el.style.display = 'inline-flex';
+      el.style.width = r.width + 'px';
+      el.style.height = r.height + 'px';
+      el.style.alignItems = 'center';
+      el.style.justifyContent = 'center';
       el.style.top = (r.bottom + window.scrollY + 16) + 'px';
-      var cx = r.left + r.width / 2;
-      el.style.left = (cx + window.scrollX - el.offsetWidth / 2) + 'px';
+      el.style.left = (r.left + window.scrollX) + 'px';
     } else {
       // match the footer social row: 14px, grey, right-aligned so it can't overflow
       el.style.height = r.height + 'px';
