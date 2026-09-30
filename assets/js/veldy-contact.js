@@ -275,11 +275,25 @@
     });
   }
 
+  function tightenLogoStrips() {
+    [].slice.call(document.querySelectorAll('ul')).forEach(function (ul) {
+      var imgs = ul.querySelectorAll('img');
+      if (imgs.length < 4) return;
+      var cs = getComputedStyle(ul);
+      if (cs.display.indexOf('flex') === -1) return;
+      var p = ul.parentElement;
+      var pcs = p ? getComputedStyle(p) : null;
+      if (!((pcs && pcs.overflow === 'hidden') || ul.closest('[style*="overflow:hidden"]'))) return;
+      ul.style.setProperty('gap', '14px', 'important');
+      ul.style.setProperty('column-gap', '14px', 'important');
+    });
+  }
+
   var pending = false;
   function apply() {
     if (pending) return;
     pending = true;
-    requestAnimationFrame(function () { pending = false; try { position(); fixEmailLinks(); } catch (e) {} });
+    requestAnimationFrame(function () { pending = false; try { position(); fixEmailLinks(); tightenLogoStrips(); } catch (e) {} });
   }
 
   function schedule() {
