@@ -162,20 +162,12 @@
     el.style.zIndex = '2147483000';
     el.style.cursor = 'pointer';
     el.addEventListener('click', openInquiry);
-    if (mode === 'btt' && anchor && anchor.parentElement && anchor.parentElement.parentElement) {
-      var anchorWrap = anchor.parentElement;
-      var footerColumn = anchorWrap.parentElement;
-      el.style.position = 'relative';
-      el.style.top = 'auto';
-      el.style.left = 'auto';
-      el.style.right = 'auto';
-      el.style.bottom = 'auto';
-      footerColumn.insertBefore(el, anchorWrap.nextSibling);
-    } else {
-      el.style.position = 'absolute';
-      el.style.margin = '0';
-      document.body.appendChild(el);
-    }
+    // Keep Contact outside Framer's managed DOM. Framer replaces the Back To Top
+    // subtree during hover state changes; placing Contact inside that subtree makes
+    // it disappear or collapse. Body-level placement fully decouples the two.
+    el.style.position = 'absolute';
+    el.style.margin = '0';
+    document.body.appendChild(el);
     if (mode === 'primary') { try { makePrimaryRolling(el); } catch (e) {} }
     return el;
   }
@@ -197,7 +189,11 @@
   // coordinates so it scrolls naturally with the page.
   function position() {
     var a = findAnchor();
-    if (!a) { var ex = document.getElementById('vc-contact'); if (ex) ex.style.display = 'none'; return; }
+    if (!a) {
+      // During Framer hover transitions the source button can briefly be replaced.
+      // Keep the existing Contact exactly where it is instead of hiding it.
+      return;
+    }
     var el = getEl(a.mode, a.el);
     var r = a.el.getBoundingClientRect();
     el.style.display = 'block';
@@ -207,8 +203,13 @@
       el.style.top = (r.bottom + window.scrollY + 10) + 'px';
       el.style.left = (r.left + window.scrollX) + 'px';
     } else if (a.mode === 'btt') {
-      // Independent normal-flow sibling: intentionally unaffected by BTT hover state.
+      // Independent body-level button. Recenter below Back To Top without inheriting
+      // any of its hover-state layout or DOM replacement behavior.
       el.style.display = 'inline-flex';
+      el.style.position = 'absolute';
+      el.style.top = (r.bottom + window.scrollY + 12) + 'px';
+      var ew = el.offsetWidth || r.width;
+      el.style.left = (r.left + window.scrollX + (r.width - ew) / 2) + 'px';
     } else {
       // match the footer social row: 14px, grey, right-aligned so it can't overflow
       el.style.height = r.height + 'px';
