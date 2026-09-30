@@ -1,10 +1,10 @@
 (function(){
   var PROJECTS=[
-    {title:'Davinci Code',count:'06',category:'Branding Design',href:'work/davinci-code.html',bg:'https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/6779242cd6cc1.png',center:'https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/7043c842a2b54.png'},
-    {title:'Patchking',count:'07',category:'Brand Identity',href:'work/patchking.html',bg:'https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/7b536b7ec8290.png',center:'https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/71fc83a8043be.png'},
-    {title:'Soulju',count:'08',category:'BI·CI & Profile',href:'work/soulju.html',bg:'https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/66d0b5485ebc9.png',center:'https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/5e1323c7de71e.png'},
-    {title:'Teoljabi',count:'09',category:'Web Site & Branding',href:'work/teoljabi.html',bg:'https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/91fee34ffc57c.jpg',center:'https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/8647f8504f55a.jpg'},
-    {title:'Bibimcha',count:'10',category:'Branding Design',href:'work/bibimcha.html',bg:'https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/af0ba9bf48dfc.png',center:'https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/0881de41247e0.png'}
+    {slug:'davinci-code',title:'Davinci Code',count:'06',category:'Branding Design',href:'work/davinci-code.html',bg:'https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/6779242cd6cc1.png',center:'https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/7043c842a2b54.png'},
+    {slug:'patchking',title:'Patchking',count:'07',category:'Brand Identity',href:'work/patchking.html',bg:'https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/7b536b7ec8290.png',center:'https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/71fc83a8043be.png'},
+    {slug:'soulju',title:'Soulju',count:'08',category:'BI·CI & Profile',href:'work/soulju.html',bg:'https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/66d0b5485ebc9.png',center:'https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/5e1323c7de71e.png'},
+    {slug:'teoljabi',title:'Teoljabi',count:'09',category:'Web Site & Branding',href:'work/teoljabi.html',bg:'https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/91fee34ffc57c.jpg',center:'https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/8647f8504f55a.jpg'},
+    {slug:'bibimcha',title:'Bibimcha',count:'10',category:'Branding Design',href:'work/bibimcha.html',bg:'https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/af0ba9bf48dfc.png',center:'https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/0881de41247e0.png'}
   ];
 
   function ensureStyle(){
@@ -19,6 +19,9 @@
       '#vp-home-clones>a:nth-child(4),#vp-work-clones>a:nth-child(4){grid-column:3 / span 7}' +
       '#vp-home-clones>a:nth-child(5),#vp-work-clones>a:nth-child(5){grid-column:8 / span 5}' +
       '#vp-home-clones [data-framer-name="Top"],#vp-work-clones [data-framer-name="Top"]{aspect-ratio:1.16/1!important;height:auto!important;min-height:0!important;overflow:hidden!important}' +
+      '#vp-home-clones .vp-project-davinci-code [data-framer-name="Top"],#vp-home-clones .vp-project-teoljabi [data-framer-name="Top"]{aspect-ratio:1/1!important}' +
+      '#vp-home-clones .vp-project-patchking [data-framer-name="Top"]{aspect-ratio:4/5!important}' +
+      '#vp-home-clones .vp-project-soulju [data-framer-name="Top"]{aspect-ratio:16/9!important}' +
       '#vp-home-clones [data-framer-name="Image/Video"],#vp-work-clones [data-framer-name="Image/Video"],#vp-home-clones [data-framer-name="Inner Image"],#vp-work-clones [data-framer-name="Inner Image"]{position:absolute!important;inset:0!important;width:100%!important;height:100%!important}' +
       '#vp-home-clones [data-framer-name="Inner Image"],#vp-work-clones [data-framer-name="Inner Image"]{z-index:2!important;display:flex!important;align-items:center!important;justify-content:center!important;pointer-events:none!important;overflow:visible!important}' +
       '#vp-home-clones [data-framer-name="Inner Image"]>[data-framer-name="Image"],#vp-work-clones [data-framer-name="Inner Image"]>[data-framer-name="Image"]{position:relative!important;width:50%!important;height:50%!important;flex:none!important;border-radius:10px!important;overflow:hidden!important}' +
@@ -57,6 +60,7 @@
   function prepareTemplate(template,p){
     var clone=template.cloneNode(true);
     clone.classList.add('vp-framer-clone');
+    if(p.slug)clone.classList.add('vp-project-'+p.slug);
     clone.setAttribute('href',p.href);
     clone.querySelectorAll('[id]').forEach(function(n){n.removeAttribute('id');});
     clone.querySelectorAll('[data-framer-appear-id]').forEach(function(n){n.removeAttribute('data-framer-appear-id');});
@@ -112,9 +116,10 @@
   function run(){
     ensureStyle();
     var path=(location.pathname||'').toLowerCase();
-    var file=(path.split('/').pop()||'');
+    var clean=path.replace(/\/+$/,'');
+    var file=(clean.split('/').pop()||'');
     if(file===''||file==='index.html'||file==='farmer'){if(!document.getElementById('vp-home-clones'))injectHome();}
-    if(file==='work.html'&&!document.getElementById('vp-work-clones'))injectWork();
+    if((file==='work'||file==='work.html')&&!document.getElementById('vp-work-clones'))injectWork();
   }
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
