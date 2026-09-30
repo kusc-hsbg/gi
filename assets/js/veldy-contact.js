@@ -53,7 +53,7 @@
       '#vc-contact.vc-pill:hover{background:#fff;color:#000;border-color:#fff}' +
       '#vc-contact.vc-pill .vc-roll{height:auto;line-height:1}' +
       '#vc-contact.vc-pill .vc-ch{text-shadow:0 1.2em 0 #000}' +
-      '#vc-contact.vc-pill:hover .vc-ch{text-shadow:0 1.2em 0 #fff}' +'#vc-contact .vc-btt-roll span{transition:transform .5s cubic-bezier(.82,.08,.29,1)}' +'#vc-contact.hover .vc-btt-roll span,#vc-contact:hover .vc-btt-roll span{transform:translateY(-20px)}';
+      '#vc-contact.vc-pill:hover .vc-ch{text-shadow:0 1.2em 0 #fff}' +'#vc-contact .vc-btt-roll{overflow:hidden!important}' +'#vc-contact .vc-btt-roll span{transition:transform .5s cubic-bezier(.82,.08,.29,1)!important}' +'#vc-contact.hover .vc-btt-roll span,#vc-contact:hover .vc-btt-roll span{transform:translateY(-20px)!important}';
     var s = document.createElement('style');
     s.id = 'veldy-contact-style';
     s.textContent = css;
@@ -149,25 +149,27 @@
         n.style.transform = 'none';
       });
 
-      // Reuse the original rolling-text spans, only swap the label.
+      // Rebuild the original rolling-text spans with CONTACT while preserving
+      // Back To Top's typography, text-shadow copy and clipping behavior.
       var rp = el.querySelector('p[class*="rolling-text-inner-"]');
       if (rp) {
         rp.classList.add('vc-btt-roll');
-        var rspans = [].slice.call(rp.querySelectorAll('span'));
+        var firstSpan = rp.querySelector('span');
+        var baseStyle = firstSpan ? firstSpan.getAttribute('style') || '' : '';
+        rp.textContent = '';
         var label = 'CONTACT';
-        for (var ri = 0; ri < rspans.length; ri++) {
-          if (ri < label.length) {
-            rspans[ri].textContent = label.charAt(ri);
-            rspans[ri].style.display = 'block';
-            rspans[ri].style.transition = 'transform .5s cubic-bezier(.82,.08,.29,1)';
-            rspans[ri].style.transitionDelay = ((0.5 / label.length) * ri * 0.35).toFixed(3) + 's';
-          } else {
-            rspans[ri].style.display = 'none';
-          }
+        for (var ri = 0; ri < label.length; ri++) {
+          var sp = document.createElement('span');
+          sp.setAttribute('style', baseStyle);
+          sp.textContent = label.charAt(ri);
+          sp.style.transition = 'transform .5s cubic-bezier(.82,.08,.29,1)';
+          sp.style.transitionDelay = ((0.5 / label.length) * ri * 0.35).toFixed(3) + 's';
+          rp.appendChild(sp);
         }
       }
 
-      // Framer normally toggles this hover variant itself. Mirror it for the clone.
+      // Mirror Framer's hover variant locally so the filler expansion and rolling
+      // text use exactly the same timing every time.
       el.addEventListener('mouseenter', function () { el.classList.add('hover'); });
       el.addEventListener('mouseleave', function () { el.classList.remove('hover'); });
     } else {
@@ -178,12 +180,25 @@
     el.setAttribute('role', 'button');
     el.setAttribute('aria-label', 'Contact');
     el.setAttribute('data-vldy-open', '1');
-    el.style.position = 'absolute';
     el.style.zIndex = '2147483000';
-    el.style.margin = '0';
     el.style.cursor = 'pointer';
     el.addEventListener('click', openInquiry);
-    document.body.appendChild(el);
+    if (mode === 'btt' && anchor && anchor.parentElement && anchor.parentElement.parentElement) {
+      var anchorWrap = anchor.parentElement;
+      var footerColumn = anchorWrap.parentElement;
+      el.style.position = 'relative';
+      el.style.top = 'auto';
+      el.style.left = 'auto';
+      el.style.right = 'auto';
+      el.style.bottom = 'auto';
+      el.style.margin = '-24px 0 0 0';
+      el.style.flex = 'none';
+      footerColumn.insertBefore(el, anchorWrap.nextSibling);
+    } else {
+      el.style.position = 'absolute';
+      el.style.margin = '0';
+      document.body.appendChild(el);
+    }
     if (mode === 'primary') { try { makePrimaryRolling(el); } catch (e) {} }
     return el;
   }
@@ -215,10 +230,11 @@
       el.style.top = (r.bottom + window.scrollY + 10) + 'px';
       el.style.left = (r.left + window.scrollX) + 'px';
     } else if (a.mode === 'btt') {
-      // Exact cloned button footprint; only position it below the source.
+      // Normal-flow sibling of Back To Top. Never recompute left/top on hover.
       el.style.display = 'flex';
-      el.style.top = (r.bottom + window.scrollY + 12) + 'px';
-      el.style.left = (r.left + window.scrollX) + 'px';
+      el.style.position = 'relative';
+      el.style.top = 'auto';
+      el.style.left = 'auto';
     } else {
       // match the footer social row: 14px, grey, right-aligned so it can't overflow
       el.style.height = r.height + 'px';
