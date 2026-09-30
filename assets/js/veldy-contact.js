@@ -162,12 +162,29 @@
     el.style.zIndex = '2147483000';
     el.style.cursor = 'pointer';
     el.addEventListener('click', openInquiry);
-    // Keep Contact outside Framer's managed DOM. Framer replaces the Back To Top
-    // subtree during hover state changes; placing Contact inside that subtree makes
-    // it disappear or collapse. Body-level placement fully decouples the two.
-    el.style.position = 'absolute';
-    el.style.margin = '0';
-    document.body.appendChild(el);
+    if (mode === 'btt' && anchor) {
+      var stableWrap = anchor.closest ? anchor.closest('.framer-1tx43ga-container') : null;
+      var stableParent = stableWrap && stableWrap.parentElement;
+      if (stableWrap && stableParent) {
+        el.style.position = 'relative';
+        el.style.top = 'auto';
+        el.style.left = 'auto';
+        el.style.right = 'auto';
+        el.style.bottom = 'auto';
+        el.style.margin = '-18px 0 0 0';
+        el.style.alignSelf = 'center';
+        el.style.flex = 'none';
+        stableParent.insertBefore(el, stableWrap.nextSibling);
+      } else {
+        el.style.position = 'absolute';
+        el.style.margin = '0';
+        document.body.appendChild(el);
+      }
+    } else {
+      el.style.position = 'absolute';
+      el.style.margin = '0';
+      document.body.appendChild(el);
+    }
     if (mode === 'primary') { try { makePrimaryRolling(el); } catch (e) {} }
     return el;
   }
@@ -203,13 +220,18 @@
       el.style.top = (r.bottom + window.scrollY + 10) + 'px';
       el.style.left = (r.left + window.scrollX) + 'px';
     } else if (a.mode === 'btt') {
-      // Independent body-level button. Recenter below Back To Top without inheriting
-      // any of its hover-state layout or DOM replacement behavior.
+      // Keep Contact in the stable content flow, never positioned from BTT geometry.
+      var stableWrap = a.el.closest ? a.el.closest('.framer-1tx43ga-container') : null;
+      var stableParent = stableWrap && stableWrap.parentElement;
+      if (stableWrap && stableParent && el.parentElement !== stableParent) {
+        stableParent.insertBefore(el, stableWrap.nextSibling);
+      }
       el.style.display = 'inline-flex';
-      el.style.position = 'absolute';
-      el.style.top = (r.bottom + window.scrollY + 12) + 'px';
-      var ew = el.offsetWidth || r.width;
-      el.style.left = (r.left + window.scrollX + (r.width - ew) / 2) + 'px';
+      el.style.position = 'relative';
+      el.style.top = 'auto';
+      el.style.left = 'auto';
+      el.style.right = 'auto';
+      el.style.bottom = 'auto';
     } else {
       // match the footer social row: 14px, grey, right-aligned so it can't overflow
       el.style.height = r.height + 'px';
