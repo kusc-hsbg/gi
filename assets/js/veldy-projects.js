@@ -13,6 +13,7 @@
     st.textContent=
       '#vp-home-clones,#vp-work-clones{box-sizing:border-box;width:100%;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;row-gap:130px;margin:120px 0 0;padding:0;overflow:visible}' +
       '#vp-home-clones>a,#vp-work-clones>a{width:100%!important;max-width:none!important;min-width:0!important;margin:0!important;align-self:start;cursor:none!important}' +
+      'section[data-framer-name="Work"] .vp-work-project{width:100%!important;max-width:none!important;min-width:0!important;margin:0!important;align-self:stretch!important}' +
       '#vp-home-clones>a:nth-child(1),#vp-work-clones>a:nth-child(1){grid-column:1 / span 7}' +
       '#vp-home-clones>a:nth-child(2),#vp-work-clones>a:nth-child(2){grid-column:1 / span 5}' +
       '#vp-home-clones>a:nth-child(3),#vp-work-clones>a:nth-child(3){grid-column:8 / span 5;margin-top:110px!important}' +
@@ -106,11 +107,16 @@
 
   function injectWork(){
     var old=document.getElementById('vp-work-clones');if(old)old.remove();
+    document.querySelectorAll('.vp-work-project').forEach(function(n){n.remove();});
     var sec=document.querySelector('section[data-framer-name="Work"]');if(!sec)return;
     var num=sec.querySelector('[data-framer-name="Number"] h3');if(num)num.textContent='(10)';
     var template=findTemplate(sec);if(!template)return;
     var parent=template.parentElement||sec;
-    parent.appendChild(buildHost('vp-work-clones',template));
+    PROJECTS.forEach(function(p){
+      var card=prepareTemplate(template,p);
+      card.classList.add('vp-work-project');
+      parent.appendChild(card);
+    });
   }
 
   function run(){
@@ -119,7 +125,7 @@
     var clean=path.replace(/\/+$/,'');
     var file=(clean.split('/').pop()||'');
     if(file===''||file==='index.html'||file==='farmer'){if(!document.getElementById('vp-home-clones'))injectHome();}
-    if((file==='work'||file==='work.html')&&!document.getElementById('vp-work-clones'))injectWork();
+    if((file==='work'||file==='work.html')&&!document.querySelector('.vp-work-project'))injectWork();
   }
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
