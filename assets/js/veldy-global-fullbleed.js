@@ -8,7 +8,7 @@
     var s=document.getElementById(STYLE_ID);
     if(!s){s=document.createElement('style');s.id=STYLE_ID;(document.head||document.documentElement).appendChild(s);}
     s.textContent=
-      'html,body{overflow-x:hidden!important}' +
+      'html,body{overflow-x:clip!important}' +
       '.'+FULL+'{box-sizing:border-box!important;width:100vw!important;max-width:none!important;min-width:100vw!important;position:relative!important;left:50%!important;right:auto!important;margin-left:-50vw!important;margin-right:-50vw!important}' +
       '.'+FULL+'-parent{overflow:visible!important}' +
       '[data-framer-name="Line"].'+FULL+'{min-width:100vw!important}' +
@@ -63,6 +63,7 @@
   function markTextStrips(){
     var vw=Math.max(document.documentElement.clientWidth||0,window.innerWidth||0);
     document.querySelectorAll('body *').forEach(function(el){
+      if(el.closest('section[data-framer-name="Testimonial"],section[data-framer-name="Client"]'))return;
       if(el.closest('.veldy-strip-track'))return;
       var r=el.getBoundingClientRect();
       if(!r.width||!r.height||r.height<12||r.height>90)return;
@@ -78,6 +79,7 @@
   function markLogoTickers(){
     var vw=Math.max(document.documentElement.clientWidth||0,window.innerWidth||0);
     document.querySelectorAll('body *').forEach(function(el){
+      if(el.closest('section[data-framer-name="Testimonial"],section[data-framer-name="Client"]'))return;
       if(el.classList.contains(TICKER))return;
       var r=el.getBoundingClientRect();
       if(!r.width||!r.height||r.height<45||r.height>190)return;
