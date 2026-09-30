@@ -193,8 +193,13 @@
     // On contact.html the prominent contact-section list takes priority
     var prim = [].slice.call(document.querySelectorAll('a[href*="pf.kakao.com"][data-framer-name="Primary"]')).filter(visible)[0];
     if (prim) return { el: prim, mode: 'primary' };
-    // On main page, anchor below "Back To Top" button
-    var btt = [].slice.call(document.querySelectorAll('a[href="index.html#top"][data-framer-name="Primary"],a[href="./#top"][data-framer-name="Primary"],a[href="#top"][data-framer-name="Primary"]')).filter(visible)[0];
+    // On every page, anchor below the footer Back To Top button.
+    // Restrict the selector to Framer's stable footer button container so header/logo
+    // links ending in #top are never mistaken for the Back To Top control.
+    var btt = [].slice.call(document.querySelectorAll(
+      '.framer-1tx43ga-container a[href$="#top"][data-framer-name="Primary"],' +
+      '.framer-1tx43ga-container a[href$="#top"][data-framer-name="Secondary"]'
+    )).filter(visible)[0];
     if (btt) return { el: btt, mode: 'btt' };
     // Fallback: footer Kakao link
     var foot = [].slice.call(document.querySelectorAll('a.framer-12fazzh[href*="pf.kakao.com"]')).filter(visible)[0];
