@@ -21,8 +21,11 @@
       '#vp-home-clones>a:nth-child(5),#vp-work-clones>a:nth-child(5){grid-column:8 / span 5}' +
       '#vp-home-clones [data-framer-name="Top"],#vp-work-clones [data-framer-name="Top"]{aspect-ratio:1.16/1!important;height:auto!important;min-height:0!important;overflow:hidden!important}' +
       '#vp-home-clones .vp-project-davinci-code [data-framer-name="Top"],#vp-home-clones .vp-project-teoljabi [data-framer-name="Top"]{aspect-ratio:1/1!important}' +
-      '#vp-home-clones .vp-project-patchking [data-framer-name="Top"]{aspect-ratio:4/5!important}' +
-      '#vp-home-clones .vp-project-soulju [data-framer-name="Top"]{aspect-ratio:16/9!important}' +
+      '#vp-home-clones .vp-project-davinci-code [data-framer-name="Image/Video"] img,#vp-home-clones .vp-project-teoljabi [data-framer-name="Image/Video"] img{object-position:center center!important}' +
+      '#vp-home-clones .vp-project-patchking [data-framer-name="Image/Video"] img{object-position:center center!important}' +
+      '#vp-home-clones .vp-project-soulju [data-framer-name="Image/Video"] img{object-position:center center!important}' +
+      '#vp-home-clones .vp-project-patchking [data-framer-name="Top"]{aspect-ratio:3/4!important}' +
+      '#vp-home-clones .vp-project-soulju [data-framer-name="Top"]{aspect-ratio:2/1!important}' +
       '#vp-home-clones [data-framer-name="Image/Video"],#vp-work-clones [data-framer-name="Image/Video"],#vp-home-clones [data-framer-name="Inner Image"],#vp-work-clones [data-framer-name="Inner Image"]{position:absolute!important;inset:0!important;width:100%!important;height:100%!important}' +
       '#vp-home-clones [data-framer-name="Inner Image"],#vp-work-clones [data-framer-name="Inner Image"]{z-index:2!important;display:flex!important;align-items:center!important;justify-content:center!important;pointer-events:none!important;overflow:visible!important}' +
       '#vp-home-clones [data-framer-name="Inner Image"]>[data-framer-name="Image"],#vp-work-clones [data-framer-name="Inner Image"]>[data-framer-name="Image"]{position:relative!important;width:50%!important;height:50%!important;flex:none!important;border-radius:10px!important;overflow:hidden!important}' +
