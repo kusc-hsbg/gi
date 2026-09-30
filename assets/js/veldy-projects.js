@@ -82,13 +82,19 @@
     document.head.appendChild(style);
   }
 
+  var DISABLED_JOURNAL = [
+    'article/hemingway-audio.html',
+    'article/soulju.html',
+    'article/raven-claw.html',
+    'article/essel.html'
+  ];
+
+  function isDisabledJournalHref(href) {
+    return DISABLED_JOURNAL.some(function (x) { return href === x || href.endsWith('/' + x); });
+  }
+
   function disableJournalLinks() {
-    var disabled = [
-      'article/hemingway-audio.html',
-      'article/soulju.html',
-      'article/raven-claw.html',
-      'article/essel.html'
-    ];
+    var disabled = DISABLED_JOURNAL;
     disabled.forEach(function (href) {
       [].slice.call(document.querySelectorAll('a[href="' + href + '"]')).forEach(function (a) {
         a.removeAttribute('href');
@@ -162,9 +168,24 @@
     if (path.endsWith('/work.html')) injectWork();
   }
 
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (isDisabledJournalHref(href)) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
+  }, true);
+
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
   else run();
 
   setTimeout(run, 500);
   setTimeout(run, 1400);
+  try {
+    new MutationObserver(function () {
+      if (location.pathname.toLowerCase().endsWith('/index.html')) disableJournalLinks();
+    }).observe(document.documentElement, {childList:true, subtree:true});
+  } catch (e) {}
 })();
