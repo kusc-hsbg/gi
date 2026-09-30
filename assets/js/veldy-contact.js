@@ -53,7 +53,7 @@
       '#vc-contact.vc-pill:hover{background:#fff;color:#000;border-color:#fff}' +
       '#vc-contact.vc-pill .vc-roll{height:auto;line-height:1}' +
       '#vc-contact.vc-pill .vc-ch{text-shadow:0 1.2em 0 #000}' +
-      '#vc-contact.vc-pill:hover .vc-ch{text-shadow:0 1.2em 0 #fff}' +'#vc-contact .vc-btt-label{margin:0;font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:23px;font-weight:700;letter-spacing:-.3px;line-height:20px;text-transform:uppercase;color:#fff;white-space:nowrap}' +'#vc-contact:hover .vc-btt-label{color:#000}';
+      '#vc-contact.vc-pill:hover .vc-ch{text-shadow:0 1.2em 0 #fff}' +'#vc-contact .vc-btt-roll span{transition:transform .5s cubic-bezier(.82,.08,.29,1)}' +'#vc-contact.hover .vc-btt-roll span,#vc-contact:hover .vc-btt-roll span{transform:translateY(-20px)}';
     var s = document.createElement('style');
     s.id = 'veldy-contact-style';
     s.textContent = css;
@@ -136,15 +136,40 @@
       });
       relabelText(el, 'Contact');
     } else if (mode === 'btt' && anchor) {
-      el = document.createElement('a');
-      el.className = anchor.className;
-      el.setAttribute('data-border', anchor.getAttribute('data-border') || 'true');
-      el.setAttribute('data-framer-name', 'Primary');
-      el.innerHTML =
-        '<div class="framer-1sl4ib4" data-framer-name="Filler" style="background-color:var(--token-9811e40b-3ed8-4237-98e5-61535bb22d2f, rgb(255,255,255));border-radius:30px"></div>' +
-        '<div class="framer-ultjt1-container"><div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;overflow:hidden;padding:12px 18px;box-sizing:border-box">' +
-        '<p class="vc-btt-label">CONTACT</p></div></div>';
-      el.style.cssText = anchor.getAttribute('style') || '';
+      // Exact Back To Top clone: preserve structure, border, filler and typography.
+      el = anchor.cloneNode(true);
+      el.removeAttribute('href');
+      el.removeAttribute('target');
+      el.removeAttribute('data-framer-appear-id');
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      [].forEach.call(el.querySelectorAll('[data-framer-appear-id]'), function (n) {
+        n.removeAttribute('data-framer-appear-id');
+        n.style.opacity = '1';
+        n.style.transform = 'none';
+      });
+
+      // Reuse the original rolling-text spans, only swap the label.
+      var rp = el.querySelector('p[class*="rolling-text-inner-"]');
+      if (rp) {
+        rp.classList.add('vc-btt-roll');
+        var rspans = [].slice.call(rp.querySelectorAll('span'));
+        var label = 'CONTACT';
+        for (var ri = 0; ri < rspans.length; ri++) {
+          if (ri < label.length) {
+            rspans[ri].textContent = label.charAt(ri);
+            rspans[ri].style.display = 'block';
+            rspans[ri].style.transition = 'transform .5s cubic-bezier(.82,.08,.29,1)';
+            rspans[ri].style.transitionDelay = ((0.5 / label.length) * ri * 0.35).toFixed(3) + 's';
+          } else {
+            rspans[ri].style.display = 'none';
+          }
+        }
+      }
+
+      // Framer normally toggles this hover variant itself. Mirror it for the clone.
+      el.addEventListener('mouseenter', function () { el.classList.add('hover'); });
+      el.addEventListener('mouseleave', function () { el.classList.remove('hover'); });
     } else {
       el = document.createElement('a');
       el.appendChild(buildRollingLabel('Contact'));
@@ -190,12 +215,8 @@
       el.style.top = (r.bottom + window.scrollY + 10) + 'px';
       el.style.left = (r.left + window.scrollX) + 'px';
     } else if (a.mode === 'btt') {
-      // cloned BTT style — place directly below without drifting
-      el.style.display = 'inline-flex';
-      el.style.width = r.width + 'px';
-      el.style.height = r.height + 'px';
-      el.style.alignItems = 'center';
-      el.style.justifyContent = 'center';
+      // Exact cloned button footprint; only position it below the source.
+      el.style.display = 'flex';
       el.style.top = (r.bottom + window.scrollY + 12) + 'px';
       el.style.left = (r.left + window.scrollX) + 'px';
     } else {
