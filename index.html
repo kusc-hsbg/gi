@@ -1169,6 +1169,10 @@ section[data-framer-name="Hero"] .veldy-hero-marquee{
   overflow:hidden!important;
   justify-content:flex-start!important;
   gap:0!important;
+  clip-path:inset(50% 0 50% 0)!important;
+  opacity:0;
+  transform-origin:center center!important;
+  animation:veldyHeroStripReveal 1.05s cubic-bezier(.22,1,.36,1) .35s both!important;
 }
 section[data-framer-name="Hero"] .veldy-hero-marquee > .framer-u73k71{
   z-index:0!important;
@@ -1179,7 +1183,7 @@ section[data-framer-name="Hero"] .veldy-hero-marquee > .framer-u73k71{
   display:flex!important;
   flex:none!important;
   width:max-content!important;
-  animation:veldyHeroStripMove 52s linear infinite!important;
+  animation:veldyHeroStripMove 52s linear .35s infinite!important;
   will-change:transform!important;
 }
 .veldy-hero-marquee-group{
@@ -1194,6 +1198,11 @@ section[data-framer-name="Hero"] .veldy-hero-marquee > .framer-u73k71{
 .veldy-hero-marquee-group > *{
   flex:none!important;
 }
+@keyframes veldyHeroStripReveal{
+  0%{clip-path:inset(50% 0 50% 0);opacity:0}
+  15%{opacity:1}
+  100%{clip-path:inset(0 0 0 0);opacity:1}
+}
 @keyframes veldyHeroStripMove{
   from{transform:translateX(0)}
   to{transform:translateX(-100vw)}
@@ -1201,6 +1210,31 @@ section[data-framer-name="Hero"] .veldy-hero-marquee > .framer-u73k71{
 @media(max-width:809.98px){
   .veldy-hero-marquee-track{animation-duration:42s!important}
   .veldy-hero-marquee-group{gap:32px!important}
+}
+
+
+/* About header divider: match the normal centered Featured Projects divider. */
+section[data-framer-name="About"] > .framer-1njfbtx-container{
+  width:100%!important;
+  max-width:none!important;
+  position:relative!important;
+  left:auto!important;
+  right:auto!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  transform:none!important;
+}
+section[data-framer-name="About"] > .framer-1njfbtx-container .framer-l8tp04{
+  box-sizing:border-box!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  position:relative!important;
+  left:auto!important;
+  right:auto!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  transform:none!important;
 }
 
 /* Remove only the thin line directly below the large top VELDY title. */
