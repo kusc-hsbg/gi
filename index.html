@@ -1121,7 +1121,7 @@
     
     <!-- End of bodyEnd -->
 <!--__veldy_inquiry__--><script src="assets/js/veldy-partners.js" defer></script><script src="assets/js/veldy-inquiry.js" defer></script><script src="assets/js/veldy-projects.js?v=20261001-018" defer></script><style id="veldy-creative-strip-fullbleed">
-/* Keep normal body content constrained; allow only the requested separator/ticker areas to bleed to viewport edges. */
+/* Keep normal body content constrained; only the requested white strips bleed to viewport edges. */
 section[data-framer-name="About"]{
   overflow:visible!important;
 }
@@ -1147,7 +1147,7 @@ section[data-framer-name="About"] > .framer-iysrdq > .framer-1ms48bc-container >
   max-width:none!important;
 }
 
-/* Hero white strip: Art Direction / Branding / Strategy / Web Design */
+/* Hero white strip: full-bleed and slow left marquee. */
 section[data-framer-name="Hero"]{
   overflow:visible!important;
 }
@@ -1164,35 +1164,73 @@ section[data-framer-name="Hero"] > .framer-1y2k8yn-container > .framer-HEDEE{
   min-width:100%!important;
   max-width:none!important;
 }
-
-/* About section label/divider: © Curated Brand Systems / (VELDY® — 02) / Branding Agency */
-section[data-framer-name="About"] > .framer-1njfbtx-container{
+section[data-framer-name="Hero"] .veldy-hero-marquee{
+  background:#fff!important;
+  overflow:hidden!important;
+  justify-content:flex-start!important;
+  gap:0!important;
+}
+section[data-framer-name="Hero"] .veldy-hero-marquee > .framer-u73k71{
+  z-index:0!important;
+}
+.veldy-hero-marquee-track{
+  position:relative!important;
+  z-index:1!important;
+  display:flex!important;
+  flex:none!important;
+  width:max-content!important;
+  animation:veldyHeroStripMove 52s linear infinite!important;
+  will-change:transform!important;
+}
+.veldy-hero-marquee-group{
+  display:flex!important;
+  flex:none!important;
   width:100vw!important;
   min-width:100vw!important;
-  max-width:none!important;
-  position:relative!important;
-  left:50%!important;
-  margin-left:-50vw!important;
-  overflow:visible!important;
+  align-items:center!important;
+  justify-content:space-around!important;
+  gap:48px!important;
 }
-section[data-framer-name="About"] > .framer-1njfbtx-container > .ssr-variant{
-  overflow:visible!important;
+.veldy-hero-marquee-group > *{
+  flex:none!important;
 }
-section[data-framer-name="About"] > .framer-1njfbtx-container > .ssr-variant > .framer-OBpZa{
-  width:100%!important;
-  min-width:100%!important;
-  max-width:none!important;
-  overflow:visible!important;
+@keyframes veldyHeroStripMove{
+  from{transform:translateX(0)}
+  to{transform:translateX(-100vw)}
 }
-section[data-framer-name="About"] > .framer-1njfbtx-container .framer-l8tp04{
-  width:100%!important;
-  min-width:100%!important;
-  max-width:none!important;
-  left:auto!important;
-  margin-left:0!important;
-  margin-right:0!important;
+@media(max-width:809.98px){
+  .veldy-hero-marquee-track{animation-duration:42s!important}
+  .veldy-hero-marquee-group{gap:32px!important}
 }
-</style><!--__veldy_contact__--><script src="assets/js/veldy-contact.js" defer></script><script src="assets/js/veldy-home-fixes.js?v=20261001-002" defer></script><script src="assets/js/veldy-global-fullbleed.js?v=20261001-005" defer></script></body>
+
+/* Remove only the thin line directly below the large top VELDY title. */
+.framer-SRuuD .framer-1oqrrs3{
+  display:none!important;
+}
+</style><script id="veldy-hero-strip-marquee">(function(){
+  function setup(){
+    var strip=document.querySelector('section[data-framer-name="Hero"] > .framer-1y2k8yn-container > .framer-HEDEE');
+    if(!strip||strip.getAttribute('data-veldy-hero-marquee')==='1')return;
+    var kids=[].slice.call(strip.children).filter(function(ch){
+      return ch.getAttribute&&ch.getAttribute('data-framer-component-type')==='RichTextContainer';
+    });
+    if(kids.length<4)return;
+    var group=document.createElement('div');
+    group.className='veldy-hero-marquee-group';
+    kids.forEach(function(k){group.appendChild(k);});
+    var clone=group.cloneNode(true);
+    var track=document.createElement('div');
+    track.className='veldy-hero-marquee-track';
+    track.appendChild(group);
+    track.appendChild(clone);
+    strip.appendChild(track);
+    strip.classList.add('veldy-hero-marquee');
+    strip.setAttribute('data-veldy-hero-marquee','1');
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);else setup();
+  [80,250,700,1500,3000].forEach(function(t){setTimeout(setup,t);});
+  try{new MutationObserver(function(){setup();}).observe(document.documentElement,{childList:true,subtree:true});}catch(e){}
+})();</script><!--__veldy_contact__--><script src="assets/js/veldy-contact.js" defer></script><script src="assets/js/veldy-home-fixes.js?v=20261001-002" defer></script><script src="assets/js/veldy-global-fullbleed.js?v=20261001-005" defer></script></body>
 
 <!-- Mirrored from https://veldy.framer.website/ by HTTrack Website Copier/3.x [XR&CO], Tue, 18 Aug 2026 05:59:43 GMT -->
 </html>
