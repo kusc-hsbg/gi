@@ -121,6 +121,11 @@
       'soulju':2,
       'teoljabi':1
     };
+    var alignToCrop={
+      'davinci-code':true,
+      'patchking':true,
+      'teoljabi':true
+    };
     Object.keys(ratios).forEach(function(slug){
       var card=host.querySelector('.vp-project-'+slug);if(!card)return;
       var top=card.querySelector('[data-framer-name="Top"]');if(!top)return;
@@ -128,15 +133,15 @@
       var th=top.clientHeight||top.getBoundingClientRect().height;
       if(!tw||!th)return;
       var ratio=ratios[slug];
+      var outer=fitRect(tw,th,ratio);
 
       card.querySelectorAll('[data-framer-name="Image/Video"]').forEach(function(bg){
-        var r=fitRect(tw,th,ratio);
         bg.style.setProperty('position','absolute','important');
         bg.style.setProperty('inset','auto','important');
         bg.style.setProperty('left','50%','important');
         bg.style.setProperty('top','50%','important');
-        bg.style.setProperty('width',r.w+'px','important');
-        bg.style.setProperty('height',r.h+'px','important');
+        bg.style.setProperty('width',outer.w+'px','important');
+        bg.style.setProperty('height',outer.h+'px','important');
         bg.style.setProperty('transform','translate(-50%,-50%)','important');
         bg.style.setProperty('border-radius','10px','important');
         bg.style.setProperty('overflow','hidden','important');
@@ -175,6 +180,21 @@
           img.style.setProperty('border-radius','inherit','important');
         });
       });
+
+      if(alignToCrop[slug]){
+        card.querySelectorAll('[data-framer-name="Banner"]').forEach(function(banner){
+          banner.style.setProperty('left','50%','important');
+          banner.style.setProperty('width',outer.w+'px','important');
+          banner.style.setProperty('transform','translate(-50%,-50%)','important');
+        });
+        card.querySelectorAll('[data-framer-name="Bottom"]').forEach(function(bottom){
+          bottom.style.setProperty('width',outer.w+'px','important');
+          bottom.style.setProperty('max-width',outer.w+'px','important');
+          bottom.style.setProperty('align-self','center','important');
+          bottom.style.setProperty('margin-left','auto','important');
+          bottom.style.setProperty('margin-right','auto','important');
+        });
+      }
     });
   }
 
