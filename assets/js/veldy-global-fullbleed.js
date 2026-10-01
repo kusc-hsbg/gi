@@ -5,6 +5,7 @@
   var TICKER='veldy-section-logo-ticker';
   var MARQUEE='veldy-fullbleed-marquee';
   var MARQUEE_ANCESTOR='veldy-fullbleed-marquee-ancestor';
+  var LINE='veldy-section-divider';
 
   function style(){
     var s=document.getElementById(STYLE_ID);
@@ -13,7 +14,7 @@
       'html,body{overflow-x:clip!important}' +
       '.'+FULL+'{box-sizing:border-box!important;width:100vw!important;max-width:none!important;min-width:100vw!important;position:relative!important;left:50%!important;right:auto!important;margin-left:-50vw!important;margin-right:-50vw!important}' +
       '.'+FULL+'-parent{overflow:visible!important}' +
-      '[data-framer-name="Line"].'+FULL+'{min-width:100vw!important}' +
+      'body [data-framer-name="Line"].'+LINE+'.'+LINE+'{box-sizing:border-box!important;flex:none!important;width:min(100%,1480px,calc(100vw - 48px))!important;min-width:0!important;max-width:1480px!important;align-self:center!important;position:relative!important;left:auto!important;right:auto!important;margin-left:auto!important;margin-right:auto!important}' +
       '.'+STRIP+'{overflow:hidden!important;justify-content:flex-start!important;gap:0!important}' +
       '.'+STRIP+'>.veldy-strip-track{display:flex!important;flex:none!important;width:max-content!important;animation:veldyStripMove 34s linear infinite!important;will-change:transform}' +
       '.'+STRIP+' .veldy-strip-group{display:flex!important;flex:none!important;width:100vw!important;min-width:100vw!important;align-items:center!important;justify-content:space-around!important;gap:48px!important}' +
@@ -23,7 +24,7 @@
       '.'+MARQUEE+' .framer-l8l2zr-container{width:100%!important;min-width:100%!important;max-width:none!important}' +
       '.'+MARQUEE+' .framer-l8l2zr-container>section{width:100%!important;min-width:100%!important;max-width:none!important}' +
       '@keyframes veldyStripMove{from{transform:translateX(0)}to{transform:translateX(-100vw)}}' +
-      '@media(max-width:809px){.'+STRIP+'>.veldy-strip-track{animation-duration:26s!important}.'+STRIP+' .veldy-strip-group{gap:32px!important}}';
+      '@media(max-width:809px){body [data-framer-name="Line"].'+LINE+'.'+LINE+'{width:min(100%,calc(100vw - 40px))!important;max-width:none!important}.'+STRIP+'>.veldy-strip-track{animation-duration:26s!important}.'+STRIP+' .veldy-strip-group{gap:32px!important}}';
   }
 
   function rgbWhite(v){
@@ -124,7 +125,8 @@
       var r=el.getBoundingClientRect();
       if(!r.width||r.width<Math.min(vw*.48,520)||r.height>3)return;
       if(interactiveAncestorBeforeSection(el))return;
-      add(el);
+      el.classList.remove(FULL);
+      el.classList.add(LINE);
     });
   }
 
