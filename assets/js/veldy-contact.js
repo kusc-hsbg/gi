@@ -53,7 +53,10 @@
       '#vc-contact.vc-pill:hover{background:#fff;color:#000;border-color:#fff}' +
       '#vc-contact.vc-pill .vc-roll{height:auto;line-height:1}' +
       '#vc-contact.vc-pill .vc-ch{text-shadow:0 1.2em 0 #000}' +
-      '#vc-contact.vc-pill:hover .vc-ch{text-shadow:0 1.2em 0 #fff}' +'#vc-contact.vc-btt-independent{position:relative!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;flex:none!important;height:46px!important;padding:0 16px!important;margin:-24px 0 0 0!important;border:2px solid #fff!important;border-radius:259px!important;background:transparent!important;color:#fff!important;overflow:hidden!important;box-sizing:border-box!important;font-family:"Inter Display","Inter Display Placeholder",sans-serif!important;font-size:23px!important;font-weight:700!important;letter-spacing:-.3px!important;line-height:20px!important;text-transform:uppercase!important;text-decoration:none!important;transition:background-color .28s ease,color .28s ease!important}' +'#vc-contact.vc-btt-independent:hover{background:#fff!important;color:#000!important}' +'#vc-contact.vc-btt-independent .vc-btt-roll{display:flex!important;overflow:hidden!important;height:20px!important;line-height:20px!important;margin:0!important;padding:0!important;white-space:nowrap!important;text-shadow:0 20px 0 #000!important}' +'#vc-contact.vc-btt-independent .vc-btt-roll span{display:block!important;flex:none!important;color:inherit!important;font:inherit!important;line-height:20px!important;white-space:pre!important;transition:transform .5s cubic-bezier(.82,.08,.29,1)!important}' +'#vc-contact.vc-btt-independent:hover .vc-btt-roll span{transform:translateY(-20px)!important}';
+      '#vc-contact.vc-pill:hover .vc-ch{text-shadow:0 1.2em 0 #fff}' +
+      '#vc-contact.vc-contact-clone{isolation:isolate!important}' +
+      '#vc-contact.vc-contact-clone .framer-1sl4ib4{height:6px!important;top:calc(115.909% - 3px)!important}' +
+      '#vc-contact.vc-contact-clone:hover .framer-1sl4ib4{height:186px!important;top:calc(115.909% - 93px)!important}' +'#vc-contact.vc-btt-independent{position:relative!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;flex:none!important;height:46px!important;padding:0 16px!important;margin:-24px 0 0 0!important;border:2px solid #fff!important;border-radius:259px!important;background:transparent!important;color:#fff!important;overflow:hidden!important;box-sizing:border-box!important;font-family:"Inter Display","Inter Display Placeholder",sans-serif!important;font-size:23px!important;font-weight:700!important;letter-spacing:-.3px!important;line-height:20px!important;text-transform:uppercase!important;text-decoration:none!important;transition:background-color .28s ease,color .28s ease!important}' +'#vc-contact.vc-btt-independent:hover{background:#fff!important;color:#000!important}' +'#vc-contact.vc-btt-independent .vc-btt-roll{display:flex!important;overflow:hidden!important;height:20px!important;line-height:20px!important;margin:0!important;padding:0!important;white-space:nowrap!important;text-shadow:0 20px 0 #000!important}' +'#vc-contact.vc-btt-independent .vc-btt-roll span{display:block!important;flex:none!important;color:inherit!important;font:inherit!important;line-height:20px!important;white-space:pre!important;transition:transform .5s cubic-bezier(.82,.08,.29,1)!important}' +'#vc-contact.vc-btt-independent:hover .vc-btt-roll span{transform:translateY(-20px)!important}';
     var s = document.createElement('style');
     s.id = 'veldy-contact-style';
     s.textContent = css;
@@ -179,10 +182,9 @@
         relabelBttClone(el, 'CONTACT');
       }
       el.removeAttribute('data-framer-page-link-current');
+      el.classList.remove('hover');
       el.classList.add('vc-contact-clone');
       el.setAttribute('data-vc-source',(source.getAttribute('data-framer-name') || '') + '|' + source.className);
-      el.addEventListener('mouseenter',function(){el.classList.add('hover');});
-      el.addEventListener('mouseleave',function(){el.classList.remove('hover');});
     } else {
       el = document.createElement('a');
       el.appendChild(buildRollingLabel('Contact'));
@@ -262,6 +264,7 @@
       el.style.top = (r.bottom + window.scrollY + 10) + 'px';
       el.style.left = (r.left + window.scrollX) + 'px';
     } else if (a.mode === 'btt') {
+      el.classList.remove('hover');
       var stableWrap = a.el.closest ? a.el.closest('.framer-1tx43ga-container') : null;
       var stableParent = stableWrap && stableWrap.parentElement;
       if (stableWrap && stableParent && el.parentElement !== stableParent) {
