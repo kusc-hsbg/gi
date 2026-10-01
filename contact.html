@@ -992,7 +992,28 @@
 })();
 </script>
 
-<script src="assets/js/veldy-global-fullbleed.js?v=20261001-011" defer></script></body>
+<script src="assets/js/veldy-global-fullbleed.js?v=20261001-011" defer></script><!--__veldy_contact_hours_stable__--><script id="veldy-contact-hours-stable">(function(){
+  var values={
+    "Text 1":"Business Hours 10–17",
+    "Text 2":"Call Me",
+    "Text 3":"Lunch 12:30–13:30",
+    "Text 4":"Weekends & Holidays Off"
+  };
+  function apply(){
+    var strips=document.querySelectorAll('section[data-framer-name="Contact"] [data-framer-name="Top"] .framer-YOzNv[data-framer-name="L"]');
+    strips.forEach(function(strip){
+      Object.keys(values).forEach(function(name){
+        var el=strip.querySelector('[data-framer-name="'+name+'"] .framer-text');
+        if(el&&el.textContent!==values[name]) el.textContent=values[name];
+      });
+    });
+  }
+  apply();
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",apply,{once:true});
+  try{new MutationObserver(apply).observe(document.documentElement,{childList:true,subtree:true,characterData:true});}catch(e){}
+  setTimeout(apply,0);setTimeout(apply,250);setTimeout(apply,1000);
+})();</script>
+</body>
 
 <!-- Mirrored from https://veldy.framer.website/contact by HTTrack Website Copier/3.x [XR&CO], Tue, 18 Aug 2026 06:01:05 GMT -->
 </html>
