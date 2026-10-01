@@ -28,35 +28,17 @@
   function ensureStyle() {
     if (document.getElementById('veldy-contact-style')) return;
     var css =
-      /* independent Contact link, positioned to match the footer social links */
-      '#vc-contact{position:absolute;z-index:2147483000;margin:0;padding:0;cursor:pointer;' +
-      '--vc-c1:var(--token-af1df47b-ea84-448e-bdf0-a5ce0f875a59,#999);' +
-      '--vc-c2:var(--token-9811e40b-3ed8-4237-98e5-61535bb22d2f,#fff);' +
-      'font-family:"Inter Display","Inter Display Placeholder",sans-serif;font-size:14px;font-weight:600;' +
-      'line-height:17px;letter-spacing:0;white-space:pre;text-decoration:none;' +
-      'color:var(--vc-c1);-webkit-font-smoothing:antialiased}' +
-      /* rolling label — per-letter roll, staggered. Works for both the footer link
-         and the contact.html primary-clone: --vc-line sets the roll distance, the
-         glyph colour is inherited, and text-shadow paints the copy one line below. */
-      '#vc-contact .vc-roll{display:inline-flex;overflow:hidden;' +
-      'height:var(--vc-line,' + LINE + 'px);line-height:var(--vc-line,' + LINE + 'px);vertical-align:top;padding:0}' +
-      '#vc-contact .vc-ch{display:block;white-space:pre;color:inherit;' +
-      'text-shadow:0 var(--vc-line,' + LINE + 'px) 0 var(--vc-c2);' +
-      'transition:transform ' + ROLL_DUR + 's ' + ROLL_EASE + ';' +
-      '-webkit-backface-visibility:hidden;backface-visibility:hidden}' +
+      '#vc-contact{z-index:2147483000;cursor:pointer;-webkit-font-smoothing:antialiased;text-decoration:none}' +
+      '#vc-contact .vc-roll{display:inline-flex;overflow:hidden;height:var(--vc-line,' + LINE + 'px);line-height:var(--vc-line,' + LINE + 'px);vertical-align:top;padding:0}' +
+      '#vc-contact .vc-ch{display:block;white-space:pre;color:inherit;text-shadow:0 var(--vc-line,' + LINE + 'px) 0 currentColor;transition:transform ' + ROLL_DUR + 's ' + ROLL_EASE + ';-webkit-backface-visibility:hidden;backface-visibility:hidden}' +
       '#vc-contact:hover .vc-ch{transform:translateY(calc(-1 * var(--vc-line,' + LINE + 'px)))}' +
-      '#vc-contact.vc-pill{display:inline-flex;align-items:center;justify-content:center;' +
-      'padding:15px 24px;border-radius:100px;border:1px solid rgba(255,255,255,.35);' +
-      'background:transparent;color:#fff;font-family:"Inter Display","Inter Display Placeholder",sans-serif;' +
-      'font-size:14px;font-weight:500;letter-spacing:.02em;white-space:nowrap;line-height:1;' +
-      'text-decoration:none;transition:background .2s,color .2s,border-color .2s}' +
-      '#vc-contact.vc-pill:hover{background:#fff;color:#000;border-color:#fff}' +
-      '#vc-contact.vc-pill .vc-roll{height:auto;line-height:1}' +
-      '#vc-contact.vc-pill .vc-ch{text-shadow:0 1.2em 0 #000}' +
-      '#vc-contact.vc-pill:hover .vc-ch{text-shadow:0 1.2em 0 #fff}' +
-      '#vc-contact.vc-contact-clone{isolation:isolate!important}' +
-      '#vc-contact.vc-contact-clone .framer-1sl4ib4{height:6px!important;top:calc(115.909% - 3px)!important}' +
-      '#vc-contact.vc-contact-clone:hover .framer-1sl4ib4{height:186px!important;top:calc(115.909% - 93px)!important}' +'#vc-contact.vc-btt-independent{position:relative!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;flex:none!important;height:46px!important;padding:0 16px!important;margin:-24px 0 0 0!important;border:2px solid #fff!important;border-radius:259px!important;background:transparent!important;color:#fff!important;overflow:hidden!important;box-sizing:border-box!important;font-family:"Inter Display","Inter Display Placeholder",sans-serif!important;font-size:23px!important;font-weight:700!important;letter-spacing:-.3px!important;line-height:20px!important;text-transform:uppercase!important;text-decoration:none!important;transition:background-color .28s ease,color .28s ease!important}' +'#vc-contact.vc-btt-independent:hover{background:#fff!important;color:#000!important}' +'#vc-contact.vc-btt-independent .vc-btt-roll{display:flex!important;overflow:hidden!important;height:20px!important;line-height:20px!important;margin:0!important;padding:0!important;white-space:nowrap!important;text-shadow:0 20px 0 #000!important}' +'#vc-contact.vc-btt-independent .vc-btt-roll span{display:block!important;flex:none!important;color:inherit!important;font:inherit!important;line-height:20px!important;white-space:pre!important;transition:transform .5s cubic-bezier(.82,.08,.29,1)!important}' +'#vc-contact.vc-btt-independent:hover .vc-btt-roll span{transform:translateY(-20px)!important}';
+      '#vc-contact.vc-footer-contact{position:relative!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;flex:none!important;overflow:hidden!important;box-sizing:border-box!important;padding:12px 18px!important;border:2px solid #fff!important;border-radius:259px!important;background:transparent!important;color:#fff!important;font-family:"Inter Display","Inter Display Placeholder",sans-serif!important;font-size:23px!important;font-weight:700!important;letter-spacing:-.3px!important;line-height:20px!important;text-transform:uppercase!important}' +
+      '#vc-contact.vc-footer-contact .vc-footer-fill{position:absolute!important;left:0!important;right:0!important;height:6px!important;top:calc(115.909% - 3px)!important;background:#fff!important;border-radius:30px!important;transition:height .45s cubic-bezier(.82,.08,.29,1),top .45s cubic-bezier(.82,.08,.29,1)!important;pointer-events:none!important}' +
+      '#vc-contact.vc-footer-contact:hover .vc-footer-fill{height:186px!important;top:calc(115.909% - 93px)!important}' +
+      '#vc-contact.vc-footer-contact .vc-footer-label{position:relative!important;z-index:1!important;mix-blend-mode:difference!important;display:flex!important;overflow:hidden!important;height:20px!important;line-height:20px!important;margin:0!important;padding:0!important;white-space:nowrap!important}' +
+      '#vc-contact.vc-footer-contact .vc-footer-label span{display:block!important;flex:none!important;font:inherit!important;line-height:20px!important;white-space:pre!important;text-shadow:0 20px 0 currentColor!important;transition:transform .5s cubic-bezier(.82,.08,.29,1)!important}' +
+      '#vc-contact.vc-footer-contact:hover .vc-footer-label span{transform:translateY(-20px)!important}' +
+      '@media(max-width:809.98px){#vc-contact.vc-footer-contact{padding:8px 14px!important;font-size:16px!important;line-height:16px!important}#vc-contact.vc-footer-contact .vc-footer-label{height:16px!important;line-height:16px!important}#vc-contact.vc-footer-contact .vc-footer-label span{line-height:16px!important;text-shadow:0 16px 0 currentColor!important}#vc-contact.vc-footer-contact:hover .vc-footer-label span{transform:translateY(-16px)!important}}';
     var s = document.createElement('style');
     s.id = 'veldy-contact-style';
     s.textContent = css;
@@ -149,17 +131,9 @@
   // rolling-text link matching the footer social row.
   function getEl(mode, anchor) {
     var el = document.getElementById('vc-contact');
-    if (el && mode === 'btt' && anchor) {
-      var srcNow = findCanonicalContact() || anchor;
-      var want = (srcNow.getAttribute('data-framer-name') || '') + '|' + srcNow.className;
-      var have = el.getAttribute('data-vc-source') || '';
-      if (want !== have || !el.classList.contains('vc-contact-clone')) {
-        if (el.parentNode) el.parentNode.removeChild(el);
-        el = null;
-      }
-    }
     if (el) return el;
     ensureStyle();
+
     if (mode === 'primary' && anchor) {
       el = anchor.cloneNode(true);
       el.removeAttribute('href');
@@ -168,63 +142,64 @@
       el.style.opacity = '1';
       el.style.transform = 'none';
       [].forEach.call(el.querySelectorAll('[data-framer-appear-id]'), function (n) {
-        n.removeAttribute('data-framer-appear-id'); n.style.opacity = '1'; n.style.transform = 'none';
+        n.removeAttribute('data-framer-appear-id');
+        n.style.opacity = '1';
+        n.style.transform = 'none';
       });
       relabelText(el, 'Contact');
     } else if (mode === 'btt' && anchor) {
-      // Use the exact CONTACT CTA already rendered on the page.
-      // This preserves the correct desktop/mobile Framer variant, typography,
-      // border/padding, href and rolling hover markup.
-      var source = findCanonicalContact() || anchor;
-      el = source.cloneNode(true);
-      if (source === anchor) {
-        el.setAttribute('href','contact.html');
-        relabelBttClone(el, 'CONTACT');
-      }
-      el.removeAttribute('data-framer-page-link-current');
-      el.classList.remove('hover');
-      el.classList.add('vc-contact-clone');
-      el.setAttribute('data-vc-source',(source.getAttribute('data-framer-name') || '') + '|' + source.className);
+      el = document.createElement('a');
+      el.className = 'vc-footer-contact';
+      el.setAttribute('href','#vldy-inquiry');
+      var fill = document.createElement('div');
+      fill.className = 'vc-footer-fill';
+      var p = document.createElement('p');
+      p.className = 'vc-footer-label';
+      'CONTACT'.split('').forEach(function(ch){
+        var sp=document.createElement('span');
+        sp.textContent=ch;
+        p.appendChild(sp);
+      });
+      el.appendChild(fill);
+      el.appendChild(p);
     } else {
       el = document.createElement('a');
       el.appendChild(buildRollingLabel('Contact'));
     }
+
     el.id = 'vc-contact';
-    el.setAttribute('role', 'button');
-    el.setAttribute('aria-label', 'Contact');
-    el.style.zIndex = '2147483000';
-    el.style.cursor = 'pointer';
-    if (mode === 'btt') {
-      el.removeAttribute('data-vldy-open');
-      if (!el.getAttribute('href')) el.setAttribute('href','contact.html');
-    } else {
-      el.setAttribute('data-vldy-open', '1');
-      el.addEventListener('click', openInquiry);
-    }
+    el.setAttribute('role','button');
+    el.setAttribute('aria-label','Contact');
+    el.setAttribute('data-vldy-open','1');
+    el.style.zIndex='2147483000';
+    el.style.cursor='pointer';
+    el.addEventListener('click',openInquiry);
+
     if (mode === 'btt' && anchor) {
       var stableWrap = anchor.closest ? anchor.closest('.framer-1tx43ga-container') : null;
       var stableParent = stableWrap && stableWrap.parentElement;
       if (stableWrap && stableParent) {
-        el.style.position = 'relative';
-        el.style.top = 'auto';
-        el.style.left = 'auto';
-        el.style.right = 'auto';
-        el.style.bottom = 'auto';
-        el.style.margin = '-18px 0 0 0';
-        el.style.alignSelf = 'center';
-        el.style.flex = 'none';
-        stableParent.insertBefore(el, stableWrap.nextSibling);
+        el.style.position='relative';
+        el.style.top='auto';
+        el.style.left='auto';
+        el.style.right='auto';
+        el.style.bottom='auto';
+        el.style.alignSelf='center';
+        el.style.flex='none';
+        stableParent.insertBefore(el,stableWrap.nextSibling);
       } else {
-        el.style.position = 'absolute';
-        el.style.margin = '0';
+        el.style.position='absolute';
         document.body.appendChild(el);
       }
     } else {
-      el.style.position = 'absolute';
-      el.style.margin = '0';
+      el.style.position='absolute';
+      el.style.margin='0';
       document.body.appendChild(el);
     }
-    if (mode === 'primary') { try { makePrimaryRolling(el); } catch (e) {} }
+
+    if (mode === 'primary') {
+      try { makePrimaryRolling(el); } catch (e) {}
+    }
     return el;
   }
 
@@ -264,7 +239,6 @@
       el.style.top = (r.bottom + window.scrollY + 10) + 'px';
       el.style.left = (r.left + window.scrollX) + 'px';
     } else if (a.mode === 'btt') {
-      el.classList.remove('hover');
       var stableWrap = a.el.closest ? a.el.closest('.framer-1tx43ga-container') : null;
       var stableParent = stableWrap && stableWrap.parentElement;
       if (stableWrap && stableParent && el.parentElement !== stableParent) {
