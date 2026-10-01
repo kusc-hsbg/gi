@@ -18,6 +18,7 @@
       'section[data-framer-name="Client"] [data-framer-name="Scroll Animation Section"]{position:relative!important;min-height:2100px!important;height:auto!important}' +
       'section[data-framer-name="Client"] [data-framer-name="Scroll Animation Section"]>[data-framer-name="Sticky"]{position:-webkit-sticky!important;position:sticky!important;top:0!important;height:100vh!important;min-height:100vh!important;z-index:2!important;align-self:stretch!important;overflow:visible!important}' +
       '.framer-1th58uk{position:relative!important;top:auto!important;inset:auto!important;z-index:auto!important}' +
+      '.framer-1th58uk,.framer-1th58uk>a,.framer-1th58uk>a>.ssr-variant,.framer-1th58uk .framer-y6m9g-container{opacity:1!important;transform:none!important;scale:1!important;filter:none!important;clip-path:none!important;animation:none!important;transition:none!important;will-change:auto!important}' +
       '.framer-l8tp04,.framer-hrs0gc,.framer-1ue40ad,.framer-bngqg2,.framer-1snsm42,.framer-1oqrrs3{width:100vw!important;max-width:none!important;position:relative!important;left:50%!important;margin-left:-50vw!important;margin-right:-50vw!important}' +
       '.framer-dlgb9u-container{width:100vw!important;max-width:none!important;position:relative!important;left:50%!important;margin-left:-50vw!important;margin-right:-50vw!important}' +
       '.framer-dlgb9u-container>.framer-YOzNv{width:100%!important;max-width:none!important}' +
@@ -75,6 +76,19 @@
       important(soul,'position','relative');
       important(soul,'top','auto');
       important(soul,'inset','auto');
+      important(soul,'z-index','auto');
+      var soulParts=[soul].concat([].slice.call(soul.querySelectorAll(':scope > a, :scope > a > .ssr-variant, .framer-y6m9g-container')));
+      soulParts.forEach(function(el){
+        important(el,'opacity','1');
+        important(el,'transform','none');
+        important(el,'scale','1');
+        important(el,'filter','none');
+        important(el,'clip-path','none');
+        important(el,'animation','none');
+        important(el,'transition','none');
+        important(el,'will-change','auto');
+        try{el.getAnimations().forEach(function(anim){anim.cancel();});}catch(e){}
+      });
     }
   }
 
@@ -89,5 +103,6 @@
   [60,220,600,1200,2500,5000].forEach(function(t){setTimeout(repair,t);});
   window.addEventListener('load',repair);
   window.addEventListener('resize',schedule);
+  window.addEventListener('scroll',schedule,{passive:true});
   try{new MutationObserver(schedule).observe(document.documentElement,{childList:true,subtree:true});}catch(e){}
 })();
