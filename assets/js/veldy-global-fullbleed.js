@@ -105,6 +105,28 @@
     });
   }
 
+  function forceTextStripFullBleed(el){
+    if(!el)return;
+    add(el);
+    makeTextStrip(el);
+    var p=el.parentElement;
+    while(p&&p!==document.body&&p!==document.documentElement){
+      p.classList.add(FULL+'-parent');
+      if(p.tagName==='SECTION')break;
+      p=p.parentElement;
+    }
+  }
+
+  function markRequestedFullBleedStrips(){
+    [
+      'section[data-framer-name="Services"] .framer-dlgb9u-container > .framer-YOzNv',
+      'section[data-framer-name="Experience"] .framer-1tu45ze-container > .framer-YOzNv',
+      'section[data-framer-name="Contact"] .framer-aizku7-container > .framer-YOzNv'
+    ].forEach(function(sel){
+      document.querySelectorAll(sel).forEach(forceTextStripFullBleed);
+    });
+  }
+
   function markLogoTickers(){
     var vw=Math.max(document.documentElement.clientWidth||0,window.innerWidth||0);
     document.querySelectorAll('body *').forEach(function(el){
@@ -135,6 +157,7 @@
     document.querySelectorAll('header,footer').forEach(add);
     markSectionLines();
     markTextStrips();
+    markRequestedFullBleedStrips();
     markHeaderMarquees();
     markLogoTickers();
   }
