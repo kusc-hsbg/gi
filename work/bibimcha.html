@@ -947,7 +947,48 @@
 	<!-- Start of bodyEnd -->
     
     <!-- End of bodyEnd -->
-<!--__veldy_contact__--><script src="../assets/js/veldy-contact.js" defer></script><script id="veldy-project-image-fix">(function(){var src="../assets/img/projects/bibimcha.svg";function f(){document.querySelectorAll('img[src*="Zmj8hyhHSg3pTROlvOWWC3avQ"],img[src*="aSfOi11V5bXUbU2V8xIkW04YzU"]').forEach(function(i){i.removeAttribute('srcset');i.removeAttribute('sizes');i.src=src;i.alt="BIBIMCHA";i.style.objectFit='cover';});}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',f);else f();setTimeout(f,500);setTimeout(f,1400);try{new MutationObserver(f).observe(document.documentElement,{childList:true,subtree:true});}catch(e){}})();</script><script src="../assets/js/veldy-global-fullbleed.js?v=20261001-001" defer></script></body>
+<!--__veldy_contact__--><script src="../assets/js/veldy-contact.js" defer></script><style id="veldy-bibimcha-gallery-style">
+section[data-framer-name="Work"] [data-framer-name="Images"] .veldy-bibimcha-gallery-item{
+  width:100%;
+  height:auto;
+  flex:none;
+  border-radius:10px;
+  overflow:hidden;
+  position:relative;
+}
+section[data-framer-name="Work"] [data-framer-name="Images"] .veldy-bibimcha-gallery-item img{
+  display:block;
+  width:100%;
+  height:auto;
+  max-width:100%;
+  border-radius:inherit;
+  object-fit:contain;
+}
+</style><script id="veldy-project-image-fix">(function(){
+  var urls=["https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/82c0a1580abfd.png","https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/0b7a1420ba7ce.png","https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/af0ba9bf48dfc.png","https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/63eb1d685c577.png","https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/f57c2c4275501.png","https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/f5ae9be4c49e3.png","https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/98bda52225c5a.png","https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/0881de41247e0.png","https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/62ae363da94b8.png","https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/095102dac10ce.png","https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/71aa57d59ac7d.png","https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/6367df8d03f17.png","https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/19fa6a4f47796.png"];
+  function render(){
+    var gallery=document.querySelector('section[data-framer-name="Work"] [data-framer-name="Images"]');
+    if(!gallery)return;
+    if(gallery.getAttribute('data-veldy-bibimcha-gallery')==='1')return;
+    gallery.innerHTML='';
+    gallery.setAttribute('data-veldy-bibimcha-gallery','1');
+    urls.forEach(function(src,index){
+      var item=document.createElement('div');
+      item.className='veldy-bibimcha-gallery-item';
+      item.setAttribute('data-bibimcha-image',String(index+1));
+      var img=document.createElement('img');
+      img.src=src;
+      img.alt='BIBIMCHA '+String(index+1);
+      img.loading=index<2?'eager':'lazy';
+      img.decoding='async';
+      item.appendChild(img);
+      gallery.appendChild(item);
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',render);else render();
+  [100,400,1000,2200].forEach(function(t){setTimeout(render,t);});
+  try{new MutationObserver(function(){render();}).observe(document.documentElement,{childList:true,subtree:true});}catch(e){}
+})();</script><script src="../assets/js/veldy-global-fullbleed.js?v=20261001-001" defer></script></body>
 
 <!-- Mirrored from https://veldy.framer.website/work/valuechainbooks by HTTrack Website Copier/3.x [XR&CO], Tue, 18 Aug 2026 06:01:07 GMT -->
 </html>
