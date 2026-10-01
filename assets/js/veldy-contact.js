@@ -252,6 +252,12 @@
       el.style.setProperty('bottom','auto','important');
       el.style.setProperty('align-self','center','important');
       el.style.setProperty('flex','none','important');
+      // Keep Contact from being vertically compressed by the footer layout.
+      var br = a.el.getBoundingClientRect();
+      if (br && br.height) {
+        el.style.setProperty('height', br.height + 'px', 'important');
+        el.style.setProperty('min-height', br.height + 'px', 'important');
+      }
       // Footer content uses a 30px gap; offset only enough to leave 12px between buttons.
       var gap = stableParent ? parseFloat(getComputedStyle(stableParent).rowGap || getComputedStyle(stableParent).gap) : 30;
       if (!isFinite(gap)) gap = 30;
