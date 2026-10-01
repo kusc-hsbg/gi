@@ -27,8 +27,32 @@
     if(el)el.style.setProperty(prop,val,'important');
   }
 
+  var ARTICLE_CARD_SELECTOR='a.framer-15ho39z,a.framer-h0rdv8,a.framer-1su5na9,a.framer-14bojy4';
+
+  function disableArticleCards(){
+    document.querySelectorAll(ARTICLE_CARD_SELECTOR).forEach(function(card){
+      card.removeAttribute('href');
+      card.removeAttribute('target');
+      card.setAttribute('data-veldy-article-disabled','1');
+      card.style.setProperty('cursor','default','important');
+      card.querySelectorAll('[data-framer-cursor]').forEach(function(el){
+        el.removeAttribute('data-framer-cursor');
+        el.style.setProperty('cursor','default','important');
+      });
+    });
+  }
+
+  function blockArticleCardClick(e){
+    var card=e.target&&e.target.closest&&e.target.closest(ARTICLE_CARD_SELECTOR);
+    if(!card)return;
+    e.preventDefault();
+    e.stopPropagation();
+    if(e.stopImmediatePropagation)e.stopImmediatePropagation();
+  }
+
   function repair(){
     ensureStyle();
+    disableArticleCards();
 
     var testimonial=document.querySelector('section[data-framer-name="Testimonial"]');
     var tContainer=testimonial&&testimonial.querySelector('[data-framer-name="Container"]');
@@ -78,6 +102,7 @@
     requestAnimationFrame(function(){queued=false;repair();});
   }
 
+  document.addEventListener('click',blockArticleCardClick,true);
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',repair);else repair();
   [60,220,600,1200,2500,5000].forEach(function(t){setTimeout(repair,t);});
   window.addEventListener('load',repair);
