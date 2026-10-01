@@ -947,7 +947,48 @@
 	<!-- Start of bodyEnd -->
     
     <!-- End of bodyEnd -->
-<!--__veldy_contact__--><script src="../assets/js/veldy-contact.js" defer></script><script id="veldy-project-image-fix">(function(){var src="../assets/img/projects/soulju.svg";function f(){document.querySelectorAll('img[src*="Zmj8hyhHSg3pTROlvOWWC3avQ"],img[src*="aSfOi11V5bXUbU2V8xIkW04YzU"]').forEach(function(i){i.removeAttribute('srcset');i.removeAttribute('sizes');i.src=src;i.alt="SOULJU";i.style.objectFit='cover';});}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',f);else f();setTimeout(f,500);setTimeout(f,1400);try{new MutationObserver(f).observe(document.documentElement,{childList:true,subtree:true});}catch(e){}})();</script><script src="../assets/js/veldy-global-fullbleed.js?v=20261001-001" defer></script></body>
+<!--__veldy_contact__--><script src="../assets/js/veldy-contact.js" defer></script><style id="veldy-soulju-gallery-style">
+section[data-framer-name="Work"] [data-framer-name="Images"] .veldy-soulju-gallery-item{
+  width:100%;
+  height:auto;
+  flex:none;
+  border-radius:10px;
+  overflow:hidden;
+  position:relative;
+}
+section[data-framer-name="Work"] [data-framer-name="Images"] .veldy-soulju-gallery-item img{
+  display:block;
+  width:100%;
+  height:auto;
+  max-width:100%;
+  border-radius:inherit;
+  object-fit:contain;
+}
+</style><script id="veldy-project-image-fix">(function(){
+  var urls=["https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/248bd0024be2c.png","https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/ded5edce05c62.png","https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/66c6d3e2d2722.png","https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/8c7f8a0201162.png","https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/96d70665151c5.png","https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/d9745e9c0b29a.png","https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/6e0d4b8650951.png","https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/3ce89bc7254aa.png","https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/d7474c2c95dab.png","https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/66d0b5485ebc9.png","https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/e43772ad84576.png","https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/e43772ad84576.png","https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/de0ae64bc00b9.png","https://cdn.imweb.me/upload/S20200310d1b0c0f80c87d/0d94230e55f3c.png"];
+  function render(){
+    var gallery=document.querySelector('section[data-framer-name="Work"] [data-framer-name="Images"]');
+    if(!gallery)return;
+    if(gallery.getAttribute('data-veldy-soulju-gallery')==='1')return;
+    gallery.innerHTML='';
+    gallery.setAttribute('data-veldy-soulju-gallery','1');
+    urls.forEach(function(src,index){
+      var item=document.createElement('div');
+      item.className='veldy-soulju-gallery-item';
+      item.setAttribute('data-soulju-image',String(index+1));
+      var img=document.createElement('img');
+      img.src=src;
+      img.alt='SOULJU '+String(index+1);
+      img.loading=index<2?'eager':'lazy';
+      img.decoding='async';
+      item.appendChild(img);
+      gallery.appendChild(item);
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',render);else render();
+  [100,400,1000,2200].forEach(function(t){setTimeout(render,t);});
+  try{new MutationObserver(function(){render();}).observe(document.documentElement,{childList:true,subtree:true});}catch(e){}
+})();</script><script src="../assets/js/veldy-global-fullbleed.js?v=20261001-001" defer></script></body>
 
 <!-- Mirrored from https://veldy.framer.website/work/valuechainbooks by HTTrack Website Copier/3.x [XR&CO], Tue, 18 Aug 2026 06:01:07 GMT -->
 </html>
