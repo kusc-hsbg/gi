@@ -1121,16 +1121,27 @@
     
     <!-- End of bodyEnd -->
 <!--__veldy_inquiry__--><script src="assets/js/veldy-partners.js" defer></script><script src="assets/js/veldy-inquiry.js" defer></script><script src="assets/js/veldy-projects.js?v=20261001-018" defer></script><style id="veldy-creative-strip-fullbleed">
-/* Test: extend only the white Visual/Freelancer/Digital Nomad/Creative Developer strip to true viewport edges. */
-.framer-SRuuD .framer-iysrdq > .framer-1ms48bc-container{
+/* Full-bleed only the white About ticker; keep the rest of the About content constrained. */
+section[data-framer-name="About"]{
+  overflow:visible!important;
+}
+section[data-framer-name="About"] > .framer-iysrdq{
+  overflow:visible!important;
+}
+section[data-framer-name="About"] > .framer-iysrdq > .framer-1ms48bc-container{
   width:100vw!important;
+  min-width:100vw!important;
   max-width:none!important;
   left:50%!important;
   right:auto!important;
+  margin-left:0!important;
+  margin-right:0!important;
   transform:translate(-50%,-50%)!important;
+  overflow:visible!important;
 }
-.framer-SRuuD .framer-iysrdq > .framer-1ms48bc-container > .framer-YOzNv{
+section[data-framer-name="About"] > .framer-iysrdq > .framer-1ms48bc-container > .framer-YOzNv{
   width:100%!important;
+  min-width:100%!important;
   max-width:none!important;
 }
 </style><!--__veldy_contact__--><script src="assets/js/veldy-contact.js" defer></script><script src="assets/js/veldy-home-fixes.js?v=20261001-002" defer></script><script src="assets/js/veldy-global-fullbleed.js?v=20261001-005" defer></script></body>
