@@ -115,6 +115,68 @@
 
   function applyHomeImageCrops(){
     var host=document.getElementById('vp-home-clones');if(!host)return;
+
+    // Mobile: projects 06-10 follow the same edge-to-edge card width as projects 01-05 / Work page.
+    if(window.matchMedia&&window.matchMedia('(max-width:809.98px)').matches){
+      host.querySelectorAll('.vp-framer-clone').forEach(function(card){
+        card.style.setProperty('width','100%','important');
+        card.style.setProperty('max-width','none','important');
+
+        card.querySelectorAll('[data-framer-name="Image/Video"]').forEach(function(bg){
+          bg.style.setProperty('position','absolute','important');
+          bg.style.setProperty('inset','0','important');
+          bg.style.setProperty('left','0','important');
+          bg.style.setProperty('top','0','important');
+          bg.style.setProperty('right','0','important');
+          bg.style.setProperty('bottom','0','important');
+          bg.style.setProperty('width','100%','important');
+          bg.style.setProperty('height','100%','important');
+          bg.style.setProperty('aspect-ratio','auto','important');
+          bg.style.setProperty('transform','none','important');
+          bg.style.setProperty('border-radius','10px','important');
+          bg.style.setProperty('overflow','hidden','important');
+          bg.querySelectorAll('img').forEach(function(img){
+            img.style.setProperty('width','100%','important');
+            img.style.setProperty('height','100%','important');
+            img.style.setProperty('object-fit','cover','important');
+            img.style.setProperty('object-position','center center','important');
+          });
+        });
+
+        card.querySelectorAll('[data-framer-name="Inner Image"]').forEach(function(inner){
+          inner.style.setProperty('position','absolute','important');
+          inner.style.setProperty('inset','0','important');
+          inner.style.setProperty('width','100%','important');
+          inner.style.setProperty('height','100%','important');
+          inner.style.setProperty('display','flex','important');
+          inner.style.setProperty('align-items','center','important');
+          inner.style.setProperty('justify-content','center','important');
+          var frame=inner.querySelector(':scope > [data-framer-name="Image"]');
+          if(frame){
+            frame.style.setProperty('position','relative','important');
+            frame.style.setProperty('width','50%','important');
+            frame.style.setProperty('height','50%','important');
+            frame.style.setProperty('aspect-ratio','auto','important');
+            frame.style.setProperty('flex','none','important');
+          }
+        });
+
+        card.querySelectorAll('[data-framer-name="Banner"]').forEach(function(banner){
+          banner.style.setProperty('left','0','important');
+          banner.style.setProperty('width','100%','important');
+          banner.style.setProperty('transform','translateY(-50%)','important');
+        });
+        card.querySelectorAll('[data-framer-name="Bottom"]').forEach(function(bottom){
+          bottom.style.setProperty('width','100%','important');
+          bottom.style.setProperty('max-width','none','important');
+          bottom.style.setProperty('align-self','stretch','important');
+          bottom.style.setProperty('margin-left','0','important');
+          bottom.style.setProperty('margin-right','0','important');
+        });
+      });
+      return;
+    }
+
     var ratios={
       'davinci-code':1,
       'patchking':3/4,
