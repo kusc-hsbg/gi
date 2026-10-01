@@ -130,15 +130,27 @@
     });
   }
 
+  function buttonLabel(a) {
+    var p = a && a.querySelector ? a.querySelector('p[class*="rolling-text-inner"]') : null;
+    if (!p) return '';
+    return [].map.call(p.querySelectorAll('span'), function (s) { return s.textContent; }).join('').replace(/\s+/g, '').toLowerCase();
+  }
+
+  function findCanonicalContact() {
+    var all = [].slice.call(document.querySelectorAll('a.framer-znJo4[href="contact.html"]'));
+    return all.filter(function (a) { return visible(a) && buttonLabel(a) === 'contact'; })[0] || null;
+  }
+
   // Build the Contact element once. On contact.html we clone the "Primary" kakao row
   // so the arrow, divider line and typography match exactly; elsewhere we build a
   // rolling-text link matching the footer social row.
   function getEl(mode, anchor) {
     var el = document.getElementById('vc-contact');
     if (el && mode === 'btt' && anchor) {
-      var want = anchor.getAttribute('data-framer-name') || '';
-      var have = el.getAttribute('data-vc-btt-variant') || '';
-      if (want !== have || !el.classList.contains('vc-btt-clone')) {
+      var srcNow = findCanonicalContact() || anchor;
+      var want = (srcNow.getAttribute('data-framer-name') || '') + '|' + srcNow.className;
+      var have = el.getAttribute('data-vc-source') || '';
+      if (want !== have || !el.classList.contains('vc-contact-clone')) {
         if (el.parentNode) el.parentNode.removeChild(el);
         el = null;
       }
@@ -157,16 +169,20 @@
       });
       relabelText(el, 'Contact');
     } else if (mode === 'btt' && anchor) {
-      // Clone the CURRENT visible Back To Top variant exactly:
-      // desktop Primary stays desktop-sized, mobile Secondary stays mobile-sized.
-      el = anchor.cloneNode(true);
-      el.removeAttribute('href');
-      el.removeAttribute('target');
+      // Use the exact CONTACT CTA already rendered on the page.
+      // This preserves the correct desktop/mobile Framer variant, typography,
+      // border/padding, href and rolling hover markup.
+      var source = findCanonicalContact() || anchor;
+      el = source.cloneNode(true);
+      if (source === anchor) {
+        el.setAttribute('href','contact.html');
+        relabelBttClone(el, 'CONTACT');
+      }
       el.removeAttribute('data-framer-page-link-current');
-      el.removeAttribute('data-highlight');
-      el.setAttribute('data-vc-btt-variant', anchor.getAttribute('data-framer-name') || '');
-      el.classList.add('vc-btt-clone');
-      relabelBttClone(el, 'CONTACT');
+      el.classList.add('vc-contact-clone');
+      el.setAttribute('data-vc-source',(source.getAttribute('data-framer-name') || '') + '|' + source.className);
+      el.addEventListener('mouseenter',function(){el.classList.add('hover');});
+      el.addEventListener('mouseleave',function(){el.classList.remove('hover');});
     } else {
       el = document.createElement('a');
       el.appendChild(buildRollingLabel('Contact'));
@@ -174,10 +190,15 @@
     el.id = 'vc-contact';
     el.setAttribute('role', 'button');
     el.setAttribute('aria-label', 'Contact');
-    el.setAttribute('data-vldy-open', '1');
     el.style.zIndex = '2147483000';
     el.style.cursor = 'pointer';
-    el.addEventListener('click', openInquiry);
+    if (mode === 'btt') {
+      el.removeAttribute('data-vldy-open');
+      if (!el.getAttribute('href')) el.setAttribute('href','contact.html');
+    } else {
+      el.setAttribute('data-vldy-open', '1');
+      el.addEventListener('click', openInquiry);
+    }
     if (mode === 'btt' && anchor) {
       var stableWrap = anchor.closest ? anchor.closest('.framer-1tx43ga-container') : null;
       var stableParent = stableWrap && stableWrap.parentElement;
@@ -295,7 +316,13 @@
   function apply() {
     if (pending) return;
     pending = true;
-    requestAnimationFrame(function () { pending = false; try { position(); fixEmailLinks(); tightenLogoStrips(); } catch (e) {} });
+    requestAnimationFrame(function () {
+      pending = false;
+      try {
+        document.querySelectorAll('.veldy-mobile-footer-contact').forEach(function(n){ if(n.parentNode)n.parentNode.removeChild(n); });
+        position(); fixEmailLinks(); tightenLogoStrips();
+      } catch (e) {}
+    });
   }
 
   function schedule() {
