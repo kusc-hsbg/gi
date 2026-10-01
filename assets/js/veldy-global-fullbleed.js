@@ -29,7 +29,7 @@
       'footer .framer-drotkq-container,footer .framer-ic9f1x{box-sizing:border-box!important;width:min(100%,1480px,calc(100vw - 48px))!important;min-width:0!important;max-width:1480px!important;align-self:center!important;position:relative!important;left:auto!important;right:auto!important;margin-left:auto!important;margin-right:auto!important;transform:none!important}' +
       '@keyframes veldyStripMove{from{transform:translateX(0)}to{transform:translateX(-100vw)}}' +
       '@keyframes veldyStripMoveMobile{from{transform:translateX(0)}to{transform:translateX(-50%)}}' +
-      '@media(max-width:809px){body [data-framer-name="Line"].'+LINE+'.'+LINE+'{width:min(100%,calc(100vw - 40px))!important;max-width:none!important}footer .framer-drotkq-container,footer .framer-ic9f1x{width:min(100%,calc(100vw - 40px))!important;max-width:none!important}.'+STRIP+'>.veldy-strip-track{animation:veldyStripMoveMobile 30s linear infinite!important}.'+STRIP+' .veldy-strip-group{box-sizing:border-box!important;width:max-content!important;min-width:100vw!important;justify-content:flex-start!important;gap:72px!important;padding:0 40px!important}footer .framer-1tx43ga-container{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:12px!important}footer .framer-18jhjwi-container a[href$="contact.html"]{display:none!important}.veldy-mobile-footer-contact{display:flex!important}}';
+      '@media(max-width:809px){body [data-framer-name="Line"].'+LINE+'.'+LINE+'{width:min(100%,calc(100vw - 40px))!important;max-width:none!important}footer .framer-drotkq-container,footer .framer-ic9f1x{width:min(100%,calc(100vw - 40px))!important;max-width:none!important}.'+STRIP+'>.veldy-strip-track{animation:veldyStripMoveMobile 30s linear infinite!important}.'+STRIP+' .veldy-strip-group{box-sizing:border-box!important;width:max-content!important;min-width:100vw!important;justify-content:flex-start!important;gap:72px!important;padding:0 40px!important}}';
   }
 
   function rgbWhite(v){
@@ -142,49 +142,6 @@
     });
   }
 
-  function fixMobileFooterButtons(){
-    if(Math.max(document.documentElement.clientWidth||0,window.innerWidth||0)>809)return;
-    document.querySelectorAll('footer').forEach(function(footer){
-      var back=[].slice.call(footer.querySelectorAll('a[href*="#top"]')).filter(function(a){
-        return /back\s*to\s*top/i.test((a.textContent||'').replace(/\s+/g,' '));
-      })[0];
-      if(!back)return;
-      var parent=back.closest('.framer-1tx43ga-container')||back.parentElement;
-      if(!parent)return;
-
-      parent.style.setProperty('display','flex','important');
-      parent.style.setProperty('flex-direction','column','important');
-      parent.style.setProperty('align-items','center','important');
-      parent.style.setProperty('justify-content','center','important');
-      parent.style.setProperty('gap','12px','important');
-
-      var sourceContact=footer.querySelector('.framer-18jhjwi-container a[href$="contact.html"],a[href$="contact.html"]');
-      var href=sourceContact?sourceContact.getAttribute('href'):'contact.html';
-      var clone=parent.querySelector('.veldy-mobile-footer-contact');
-      if(!clone){
-        clone=back.cloneNode(true);
-        clone.classList.add('veldy-mobile-footer-contact');
-        clone.removeAttribute('data-framer-page-link-current');
-        clone.setAttribute('href',href||'contact.html');
-        var p=clone.querySelector('p');
-        if(p){
-          var spans=[].slice.call(p.querySelectorAll('span'));
-          var spanStyle=spans[0]?spans[0].getAttribute('style'):'';
-          spans.forEach(function(n){n.remove();});
-          'Contact'.split('').forEach(function(ch){
-            var sp=document.createElement('span');
-            if(spanStyle)sp.setAttribute('style',spanStyle);
-            sp.textContent=ch;
-            p.appendChild(sp);
-          });
-        }
-        parent.appendChild(clone);
-      }else{
-        clone.setAttribute('href',href||'contact.html');
-      }
-    });
-  }
-
   function repairDosigokganTitle(){
     document.querySelectorAll('[id="raven-claw-card-3"] .framer-2dlte1 h3').forEach(function(el){
       if((el.textContent||'').trim()!=='Dosigokgan')el.textContent='Dosigokgan';
@@ -223,7 +180,6 @@
     markTextStrips();
     markRequestedFullBleedStrips();
     repairDosigokganTitle();
-    fixMobileFooterButtons();
     markHeaderMarquees();
     markLogoTickers();
   }
