@@ -23,6 +23,8 @@
       '.'+MARQUEE_ANCESTOR+'{overflow:visible!important}' +
       '.'+MARQUEE+' .framer-l8l2zr-container{width:100%!important;min-width:100%!important;max-width:none!important}' +
       '.'+MARQUEE+' .framer-l8l2zr-container>section{width:100%!important;min-width:100%!important;max-width:none!important}' +
+      'section[data-framer-name="Services"] .framer-dlgb9u-container{box-sizing:border-box!important;width:100vw!important;min-width:100vw!important;max-width:none!important;position:relative!important;left:50%!important;right:auto!important;margin-left:0!important;margin-right:0!important;transform:translateX(-50%)!important;overflow:visible!important;background:#fff!important;z-index:2!important}' +
+      'section[data-framer-name="Services"] .framer-dlgb9u-container>.framer-YOzNv{box-sizing:border-box!important;width:100%!important;min-width:100%!important;max-width:none!important;position:relative!important;left:auto!important;right:auto!important;margin-left:0!important;margin-right:0!important;transform:none!important;overflow:hidden!important}' +
       '@keyframes veldyStripMove{from{transform:translateX(0)}to{transform:translateX(-100vw)}}' +
       '@media(max-width:809px){body [data-framer-name="Line"].'+LINE+'.'+LINE+'{width:min(100%,calc(100vw - 40px))!important;max-width:none!important}.'+STRIP+'>.veldy-strip-track{animation-duration:26s!important}.'+STRIP+' .veldy-strip-group{gap:32px!important}}';
   }
