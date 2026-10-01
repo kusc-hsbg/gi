@@ -117,11 +117,32 @@
     fillRolling(p, label);
   }
 
+  function relabelBttClone(root, label) {
+    var p = root.querySelector('.framer-ultjt1-container p') || root.querySelector('p');
+    if (!p) return;
+    var old = [].slice.call(p.querySelectorAll('span'));
+    var proto = old[0] ? old[0].cloneNode(false) : document.createElement('span');
+    old.forEach(function (n) { if (n.parentNode) n.parentNode.removeChild(n); });
+    label.split('').forEach(function (ch) {
+      var sp = proto.cloneNode(false);
+      sp.textContent = ch;
+      p.appendChild(sp);
+    });
+  }
+
   // Build the Contact element once. On contact.html we clone the "Primary" kakao row
   // so the arrow, divider line and typography match exactly; elsewhere we build a
   // rolling-text link matching the footer social row.
   function getEl(mode, anchor) {
     var el = document.getElementById('vc-contact');
+    if (el && mode === 'btt' && anchor) {
+      var want = anchor.getAttribute('data-framer-name') || '';
+      var have = el.getAttribute('data-vc-btt-variant') || '';
+      if (want !== have || !el.classList.contains('vc-btt-clone')) {
+        if (el.parentNode) el.parentNode.removeChild(el);
+        el = null;
+      }
+    }
     if (el) return el;
     ensureStyle();
     if (mode === 'primary' && anchor) {
@@ -136,21 +157,16 @@
       });
       relabelText(el, 'Contact');
     } else if (mode === 'btt' && anchor) {
-      // Fully independent footer Contact. Do not inherit any Framer/BTT classes,
-      // so Back To Top hover/re-render can never alter this button.
-      el = document.createElement('a');
-      el.className = 'vc-btt-independent';
-      var rp = document.createElement('p');
-      rp.className = 'vc-btt-roll';
-      rp.setAttribute('aria-hidden', 'true');
-      var label = 'CONTACT';
-      for (var ri = 0; ri < label.length; ri++) {
-        var sp = document.createElement('span');
-        sp.textContent = label.charAt(ri);
-        sp.style.transitionDelay = ((0.5 / label.length) * ri * 0.35).toFixed(3) + 's';
-        rp.appendChild(sp);
-      }
-      el.appendChild(rp);
+      // Clone the CURRENT visible Back To Top variant exactly:
+      // desktop Primary stays desktop-sized, mobile Secondary stays mobile-sized.
+      el = anchor.cloneNode(true);
+      el.removeAttribute('href');
+      el.removeAttribute('target');
+      el.removeAttribute('data-framer-page-link-current');
+      el.removeAttribute('data-highlight');
+      el.setAttribute('data-vc-btt-variant', anchor.getAttribute('data-framer-name') || '');
+      el.classList.add('vc-btt-clone');
+      relabelBttClone(el, 'CONTACT');
     } else {
       el = document.createElement('a');
       el.appendChild(buildRollingLabel('Contact'));
@@ -225,38 +241,24 @@
       el.style.top = (r.bottom + window.scrollY + 10) + 'px';
       el.style.left = (r.left + window.scrollX) + 'px';
     } else if (a.mode === 'btt') {
-      // Keep Contact in the stable content flow, never positioned from BTT geometry.
       var stableWrap = a.el.closest ? a.el.closest('.framer-1tx43ga-container') : null;
       var stableParent = stableWrap && stableWrap.parentElement;
       if (stableWrap && stableParent && el.parentElement !== stableParent) {
         stableParent.insertBefore(el, stableWrap.nextSibling);
       }
-      el.style.display = 'inline-flex';
-      el.style.position = 'relative';
-      el.style.top = 'auto';
-      el.style.left = 'auto';
-      el.style.right = 'auto';
-      el.style.bottom = 'auto';
-      if (window.matchMedia && window.matchMedia('(max-width:809.98px)').matches) {
-        var br = a.el.getBoundingClientRect();
-        var bcs = getComputedStyle(a.el);
-        el.style.setProperty('width', br.width + 'px', 'important');
-        el.style.setProperty('height', br.height + 'px', 'important');
-        el.style.setProperty('min-width', br.width + 'px', 'important');
-        el.style.setProperty('padding', bcs.padding, 'important');
-        el.style.setProperty('font-size', bcs.fontSize, 'important');
-        el.style.setProperty('line-height', bcs.lineHeight, 'important');
-        el.style.setProperty('border-radius', bcs.borderRadius, 'important');
-        el.style.setProperty('margin-top', '10px', 'important');
-        var roll = el.querySelector('.vc-btt-roll');
-        if (roll) {
-          roll.style.setProperty('height', bcs.lineHeight, 'important');
-          roll.style.setProperty('line-height', bcs.lineHeight, 'important');
-        }
-      } else {
-        el.style.removeProperty('width');
-        el.style.removeProperty('min-width');
-      }
+      el.style.setProperty('display','flex','important');
+      el.style.setProperty('position','relative','important');
+      el.style.setProperty('top','auto','important');
+      el.style.setProperty('left','auto','important');
+      el.style.setProperty('right','auto','important');
+      el.style.setProperty('bottom','auto','important');
+      el.style.setProperty('align-self','center','important');
+      el.style.setProperty('flex','none','important');
+      // Footer content uses a 30px gap; offset only enough to leave 12px between buttons.
+      var gap = stableParent ? parseFloat(getComputedStyle(stableParent).rowGap || getComputedStyle(stableParent).gap) : 30;
+      if (!isFinite(gap)) gap = 30;
+      el.style.setProperty('margin-top', Math.min(0, 12 - gap) + 'px', 'important');
+      el.style.setProperty('margin-bottom','0','important');
     } else {
       // match the footer social row: 14px, grey, right-aligned so it can't overflow
       el.style.height = r.height + 'px';
