@@ -3,6 +3,8 @@
   var FULL='veldy-section-fullbleed';
   var STRIP='veldy-section-strip';
   var TICKER='veldy-section-logo-ticker';
+  var MARQUEE='veldy-fullbleed-marquee';
+  var MARQUEE_ANCESTOR='veldy-fullbleed-marquee-ancestor';
 
   function style(){
     var s=document.getElementById(STYLE_ID);
@@ -16,6 +18,10 @@
       '.'+STRIP+'>.veldy-strip-track{display:flex!important;flex:none!important;width:max-content!important;animation:veldyStripMove 34s linear infinite!important;will-change:transform}' +
       '.'+STRIP+' .veldy-strip-group{display:flex!important;flex:none!important;width:100vw!important;min-width:100vw!important;align-items:center!important;justify-content:space-around!important;gap:48px!important}' +
       '.'+STRIP+' .veldy-strip-group>*{flex:none!important}' +
+      '.'+MARQUEE+'{box-sizing:border-box!important;width:100vw!important;min-width:100vw!important;max-width:none!important;position:relative!important;left:auto!important;right:auto!important;margin-left:calc(50% - 50vw)!important;margin-right:calc(50% - 50vw)!important;overflow:hidden!important}' +
+      '.'+MARQUEE_ANCESTOR+'{overflow:visible!important}' +
+      '.'+MARQUEE+' .framer-l8l2zr-container{width:100%!important;min-width:100%!important;max-width:none!important}' +
+      '.'+MARQUEE+' .framer-l8l2zr-container>section{width:100%!important;min-width:100%!important;max-width:none!important}' +
       '@keyframes veldyStripMove{from{transform:translateX(0)}to{transform:translateX(-100vw)}}' +
       '@media(max-width:809px){.'+STRIP+'>.veldy-strip-track{animation-duration:26s!important}.'+STRIP+' .veldy-strip-group{gap:32px!important}}';
   }
@@ -76,6 +82,28 @@
     });
   }
 
+  function targetMarqueePage(){
+    var p=(location.pathname||'').toLowerCase().replace(/\/+$/,'');
+    var last=(p.split('/').pop()||'');
+    if(last===''||last==='index.html'||last==='farmer')return true;
+    if(last==='work'||last==='work.html')return true;
+    return p.indexOf('/work/')!==-1;
+  }
+
+  function markHeaderMarquees(){
+    if(!targetMarqueePage())return;
+    document.querySelectorAll('.framer-rEGzF').forEach(function(el){
+      if(!el.querySelector('[data-framer-name="Header Text"]'))return;
+      if(!el.classList.contains(MARQUEE))el.classList.add(MARQUEE);
+      var p=el.parentElement;
+      while(p&&p!==document.body&&p!==document.documentElement){
+        p.classList.add(MARQUEE_ANCESTOR);
+        if(p.tagName==='SECTION'&&p.hasAttribute('data-framer-name'))break;
+        p=p.parentElement;
+      }
+    });
+  }
+
   function markLogoTickers(){
     var vw=Math.max(document.documentElement.clientWidth||0,window.innerWidth||0);
     document.querySelectorAll('body *').forEach(function(el){
@@ -105,6 +133,7 @@
     document.querySelectorAll('header,footer').forEach(add);
     markSectionLines();
     markTextStrips();
+    markHeaderMarquees();
     markLogoTickers();
   }
 
