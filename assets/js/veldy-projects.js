@@ -19,7 +19,7 @@
       '#vp-home-clones>a:nth-child(3),#vp-work-clones>a:nth-child(3){grid-column:8 / span 5;margin-top:110px!important}' +
       '#vp-home-clones>a:nth-child(4),#vp-work-clones>a:nth-child(4){grid-column:3 / span 7}' +
       '#vp-home-clones>a:nth-child(5),#vp-work-clones>a:nth-child(5){grid-column:8 / span 5}' +
-      /* HOME: crop background + actual center image only; keep card group/title/count untouched. */ +
+      /* HOME: crop background + actual center image only; keep card group/title/count untouched. */
       '#vp-home-clones .vp-project-davinci-code [data-framer-name="Image/Video"],#vp-home-clones .vp-project-teoljabi [data-framer-name="Image/Video"]{position:absolute!important;inset:auto!important;left:50%!important;top:50%!important;height:100%!important;width:auto!important;aspect-ratio:1/1!important;transform:translate(-50%,-50%)!important;border-radius:10px!important;overflow:hidden!important}' +
       '#vp-home-clones .vp-project-patchking [data-framer-name="Image/Video"]{position:absolute!important;inset:auto!important;left:50%!important;top:50%!important;height:100%!important;width:auto!important;aspect-ratio:3/4!important;transform:translate(-50%,-50%)!important;border-radius:10px!important;overflow:hidden!important}' +
       '#vp-home-clones .vp-project-soulju [data-framer-name="Image/Video"]{position:absolute!important;inset:auto!important;left:50%!important;top:50%!important;width:100%!important;height:auto!important;aspect-ratio:2/1!important;transform:translate(-50%,-50%)!important;border-radius:10px!important;overflow:hidden!important}' +
@@ -106,6 +106,78 @@
     return host;
   }
 
+  function fitRect(maxW,maxH,ratio){
+    if(!maxW||!maxH)return {w:0,h:0};
+    var w=maxW,h=w/ratio;
+    if(h>maxH){h=maxH;w=h*ratio;}
+    return {w:Math.round(w),h:Math.round(h)};
+  }
+
+  function applyHomeImageCrops(){
+    var host=document.getElementById('vp-home-clones');if(!host)return;
+    var ratios={
+      'davinci-code':1,
+      'patchking':3/4,
+      'soulju':2,
+      'teoljabi':1
+    };
+    Object.keys(ratios).forEach(function(slug){
+      var card=host.querySelector('.vp-project-'+slug);if(!card)return;
+      var top=card.querySelector('[data-framer-name="Top"]');if(!top)return;
+      var tw=top.clientWidth||top.getBoundingClientRect().width;
+      var th=top.clientHeight||top.getBoundingClientRect().height;
+      if(!tw||!th)return;
+      var ratio=ratios[slug];
+
+      card.querySelectorAll('[data-framer-name="Image/Video"]').forEach(function(bg){
+        var r=fitRect(tw,th,ratio);
+        bg.style.setProperty('position','absolute','important');
+        bg.style.setProperty('inset','auto','important');
+        bg.style.setProperty('left','50%','important');
+        bg.style.setProperty('top','50%','important');
+        bg.style.setProperty('width',r.w+'px','important');
+        bg.style.setProperty('height',r.h+'px','important');
+        bg.style.setProperty('transform','translate(-50%,-50%)','important');
+        bg.style.setProperty('border-radius','10px','important');
+        bg.style.setProperty('overflow','hidden','important');
+        bg.querySelectorAll('img').forEach(function(img){
+          img.style.setProperty('width','100%','important');
+          img.style.setProperty('height','100%','important');
+          img.style.setProperty('object-fit','cover','important');
+          img.style.setProperty('object-position','center center','important');
+          img.style.setProperty('border-radius','inherit','important');
+        });
+      });
+
+      card.querySelectorAll('[data-framer-name="Inner Image"]').forEach(function(inner){
+        inner.style.setProperty('position','absolute','important');
+        inner.style.setProperty('inset','0','important');
+        inner.style.setProperty('width','100%','important');
+        inner.style.setProperty('height','100%','important');
+        inner.style.setProperty('display','flex','important');
+        inner.style.setProperty('align-items','center','important');
+        inner.style.setProperty('justify-content','center','important');
+        inner.style.setProperty('overflow','visible','important');
+
+        var frame=inner.querySelector(':scope > [data-framer-name="Image"]');if(!frame)return;
+        var r=fitRect(tw*.5,th*.5,ratio);
+        frame.style.setProperty('position','relative','important');
+        frame.style.setProperty('width',r.w+'px','important');
+        frame.style.setProperty('height',r.h+'px','important');
+        frame.style.setProperty('flex','none','important');
+        frame.style.setProperty('border-radius','10px','important');
+        frame.style.setProperty('overflow','hidden','important');
+        frame.querySelectorAll('img').forEach(function(img){
+          img.style.setProperty('width','100%','important');
+          img.style.setProperty('height','100%','important');
+          img.style.setProperty('object-fit','cover','important');
+          img.style.setProperty('object-position','center center','important');
+          img.style.setProperty('border-radius','inherit','important');
+        });
+      });
+    });
+  }
+
   function findTemplate(sec){
     return sec.querySelector('a[data-framer-name="Project"][href="work/crystaloz.html"]') ||
            sec.querySelector('a[data-framer-name="Project"][href$="/work/crystaloz.html"]') ||
@@ -118,6 +190,9 @@
     var cards=sec.querySelector('[data-framer-name="Cards"]');if(!cards)return;
     var template=findTemplate(sec);if(!template)return;
     cards.appendChild(buildHost('vp-home-clones',template));
+    requestAnimationFrame(applyHomeImageCrops);
+    setTimeout(applyHomeImageCrops,80);
+    setTimeout(applyHomeImageCrops,300);
   }
 
   function injectWork(){
@@ -144,5 +219,6 @@
   }
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
-  [80,250,600,1200,2500,5000].forEach(function(t){setTimeout(run,t);});
+  [80,250,600,1200,2500,5000].forEach(function(t){setTimeout(function(){run();applyHomeImageCrops();},t);});
+  window.addEventListener('resize',function(){requestAnimationFrame(applyHomeImageCrops);});
 })();
