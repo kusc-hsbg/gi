@@ -206,7 +206,11 @@
     line-height:17px!important;
   }
 }
-</style><style data-mobile-client-logo-boost>@media(max-width:809.98px){.framer-SRuuD .framer-jx0221 .framer-RIdoQ .framer-1bcygkq{width:140px!important}}</style></head>
+</style><style data-mobile-client-logo-boost>@media(max-width:809.98px){.framer-SRuuD .framer-jx0221 .framer-RIdoQ .framer-1bcygkq{width:140px!important}}</style><style id="veldy-client-card-logo-fixes">
+@media(max-width:809.98px){
+  .framer-SRuuD .framer-jx0221 .framer-RIdoQ:has(img[src*="1akY0QJtrLNWa7MJLwlEbqUpsWg"]) .framer-1bcygkq{width:125px!important}
+}
+</style></head>
 <body>
 	
 	<!-- Start of bodyStart -->
@@ -1276,7 +1280,19 @@ section[data-framer-name="About"] > .framer-1njfbtx-container .framer-l8tp04{
   [80,250,700,1500,3000].forEach(function(t){setTimeout(setup,t);});
   try{new MutationObserver(function(){setup();}).observe(document.documentElement,{childList:true,subtree:true});}catch(e){}
 })();</script><!--__veldy_contact__--><script src="assets/js/veldy-contact.js?v=20261001-022" defer></script><script src="assets/js/veldy-home-fixes.js?v=20261001-005" defer></script><script src="assets/js/veldy-global-fullbleed.js?v=20261001-015" defer></script>
-</body>
+<script id="veldy-yeonkodari-logo-fix">(function(){
+  var LOGO='assets/img/logos/yeonkodari-logo.png';
+  function run(){
+    var sec=document.querySelector('section[data-framer-name="Client"]');
+    if(!sec)return;
+    sec.querySelectorAll('img[src*="Txll5v92KO9e0GyuotRFjfyO"]').forEach(function(img){
+      img.removeAttribute('srcset');img.removeAttribute('sizes');img.removeAttribute('width');img.removeAttribute('height');
+      img.setAttribute('src',LOGO);img.setAttribute('alt','YEONKODARI');
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
+  [100,400,1000,2500].forEach(function(t){setTimeout(run,t);});
+})();</script></body>
 
 <!-- Mirrored from https://veldy.framer.website/ by HTTrack Website Copier/3.x [XR&CO], Tue, 18 Aug 2026 05:59:43 GMT -->
 </html>
