@@ -945,14 +945,11 @@
       card.querySelectorAll('[data-framer-name="Title"] p').forEach(function(n){n.textContent='JJJD';});
       card.querySelectorAll('[data-framer-name="Count"] p').forEach(function(n){n.textContent='(11)';});
       card.querySelectorAll('[data-framer-name="Banner"] [data-framer-name="Text"] p').forEach(function(n){n.textContent='Package Design';});
-      parent.appendChild(card);
+      if(bibim.nextSibling)parent.insertBefore(card,bibim.nextSibling);else parent.appendChild(card);
       addCursor(card);
-    }else if(card.parentElement!==parent || parent.lastElementChild!==card){
-      parent.appendChild(card);
+    }else if(card.parentElement!==parent || bibim.nextElementSibling!==card){
+      if(bibim.nextSibling)parent.insertBefore(card,bibim.nextSibling);else parent.appendChild(card);
     }
-
-    var num=sec.querySelector('[data-framer-name="Number"] h3');
-    if(num && num.textContent!=='(11)')num.textContent='(11)';
   }
   function run(){build();}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
