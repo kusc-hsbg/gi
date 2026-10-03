@@ -975,32 +975,10 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 [100,400,1000,2200].forEach(function(t){setTimeout(render,t);});
 try{new MutationObserver(function(){render();}).observe(document.documentElement,{childList:true,subtree:true});}catch(e){}
 })();</script><script id="veldy-mobiltech-content-fix">(function(){
-var DESC="Mobiltech는 보유하고 있는 방대한 3D 공간 정보 기술력을 누구나 직관적으로 이해할 수 있도록 비즈니스 통합 브로슈어 디자인을 진행했습니다. 이번 프로젝트는 자율주행과 디지털 트윈이라는 복잡한 기술적 개념을 논리적인 비주얼 시스템으로 재해석하여, 모빌테크의 첨단 기술 이미지를 극대화하는 동시에 기업의 전문성이 고스란히 느껴지는 미래지향적 톤앤매너를 구축하는 데 집중했습니다. 정돈된 타이포그래피와 고감도 비주얼 체계를 통해 일반적인 홍보물을 넘어 글로벌 시장에서의 비즈니스 신뢰도를 뒷받침할 수 있는 강력한 브랜드 가이드를 완성하며 모빌테크의 혁신적 기술이 손에 잡히는 비즈니스 경험으로 전달되도록 구현했습니다.",CAT="Brochure Design";
-function setLabeled(label,value){
-  document.querySelectorAll('p').forEach(function(p){
-    if((p.textContent||'').trim()===label){
-      var c=p.closest('[data-framer-name="Content"]');if(!c)return;
-      var ps=c.querySelectorAll('p');if(ps.length>1)ps[1].textContent=value;
-    }
-  });
-}
-function run(){
-  document.querySelectorAll('[data-framer-name="Header Text"] h1').forEach(function(n){n.textContent='Mobiltech /';});
-  document.querySelectorAll('h1,p').forEach(function(n){
-    var t=(n.textContent||'').trim();
-    if(t==='DreamU'||t==='DreamU /')n.textContent=t.indexOf('/')>=0?'Mobiltech /':'Mobiltech';
-  });
-  var tm=document.querySelector('time');
-  if(tm){tm.setAttribute('datetime','2026-02-20T00:00:00.000Z');tm.textContent='Friday, February 20, 2026';}
-  var b=document.querySelector('[data-framer-name="Body Text"] p');if(b)b.textContent=DESC;
-  setLabeled('Category:',CAT);setLabeled('Duration:','3 weeks');setLabeled('Location:','Seoul, South Korea');
-  document.querySelectorAll('.framer-szu4ny-container').forEach(function(c){
-    if(c.querySelector('a[target="_blank"]'))c.remove();
-  });
-}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
-[100,400,1000,2200].forEach(function(t){setTimeout(run,t);});
-try{new MutationObserver(function(){run();}).observe(document.documentElement,{childList:true,subtree:true});}catch(e){}
+var DESC="Mobiltech는 보유하고 있는 방대한 3D 공간 정보 기술력을 누구나 직관적으로 이해할 수 있도록 비즈니스 통합 브로슈어 디자인을 진행했습니다. 이번 프로젝트는 자율주행과 디지털 트윈이라는 복잡한 기술적 개념을 논리적인 비주얼 시스템으로 재해석하여, 모빌테크의 첨단 기술 이미지를 극대화하는 동시에 기업의 전문성이 고스란히 느껴지는 미래지향적 톤앤매너를 구축하는 데 집중했습니다. 정돈된 타이포그래피와 고감도 비주얼 체계를 통해 일반적인 홍보물을 넘어 글로벌 시장에서의 비즈니스 신뢰도를 뒷받침할 수 있는 강력한 브랜드 가이드를 완성하며 모빌테크의 혁신적 기술이 손에 잡히는 비즈니스 경험으로 전달되도록 구현했습니다.",CAT='Brochure Design';
+function setLabeled(label,value){document.querySelectorAll('p').forEach(function(p){if((p.textContent||'').trim()===label){var c=p.closest('[data-framer-name="Content"]');if(!c)return;var ps=c.querySelectorAll('p');if(ps.length>1)ps[1].textContent=value;}});}
+function run(){document.querySelectorAll('[data-framer-name="Header Text"] h1').forEach(function(n){n.textContent='Mobiltech /';});var t=document.querySelector('time');if(t){t.setAttribute('datetime','2026-02-20T00:00:00.000Z');t.textContent='Friday, February 20, 2026';}var b=document.querySelector('[data-framer-name="Body Text"] p');if(b)b.textContent=DESC;setLabeled('Category:',CAT);setLabeled('Duration:','3 weeks');setLabeled('Location:','Seoul, South Korea');document.querySelectorAll('.framer-szu4ny-container').forEach(function(c){if(c.querySelector('a[target="_blank"]'))c.remove();});}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();[100,400,1000].forEach(function(t){setTimeout(run,t);});
 })();</script><script src="../assets/js/veldy-global-fullbleed.js?v=20261001-013" defer></script></body>
 
 <!-- Mirrored from https://veldy.framer.website/work/dreamu by HTTrack Website Copier/3.x [XR&CO], Tue, 18 Aug 2026 06:01:07 GMT -->
