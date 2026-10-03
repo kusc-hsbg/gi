@@ -207,8 +207,24 @@
   }
 }
 </style><style data-mobile-client-logo-boost>@media(max-width:809.98px){.framer-SRuuD .framer-jx0221 .framer-RIdoQ .framer-1bcygkq{width:140px!important}}</style><style id="veldy-client-card-logo-fixes">
+/* YEONKODARI: render the supplied logo in white and scale it up slightly. */
+.framer-SRuuD .framer-jx0221 .framer-RIdoQ:has(img[alt="YEONKODARI"]) .framer-1bcygkq{
+  width:112px!important;
+  height:42px!important;
+  aspect-ratio:auto!important;
+}
+.framer-SRuuD .framer-jx0221 img[alt="YEONKODARI"]{
+  filter:brightness(0) invert(1)!important;
+  -webkit-filter:brightness(0) invert(1)!important;
+}
 @media(max-width:809.98px){
-  .framer-SRuuD .framer-jx0221 .framer-RIdoQ:has(img[src*="1akY0QJtrLNWa7MJLwlEbqUpsWg"]) .framer-1bcygkq{width:125px!important}
+  .framer-SRuuD .framer-jx0221 .framer-RIdoQ:has(img[alt="YEONKODARI"]) .framer-1bcygkq{
+    width:150px!important;
+    height:48px!important;
+  }
+  .framer-SRuuD .framer-jx0221 .framer-RIdoQ:has(img[src*="1akY0QJtrLNWa7MJLwlEbqUpsWg"]) .framer-1bcygkq{
+    width:125px!important;
+  }
 }
 </style></head>
 <body>
@@ -1287,7 +1303,7 @@ section[data-framer-name="About"] > .framer-1njfbtx-container .framer-l8tp04{
     if(!sec)return;
     sec.querySelectorAll('img[src*="Txll5v92KO9e0GyuotRFjfyO"]').forEach(function(img){
       img.removeAttribute('srcset');img.removeAttribute('sizes');img.removeAttribute('width');img.removeAttribute('height');
-      img.setAttribute('src',LOGO);img.setAttribute('alt','YEONKODARI');
+      img.setAttribute('src',LOGO);img.setAttribute('alt','YEONKODARI');img.style.filter='brightness(0) invert(1)';img.style.webkitFilter='brightness(0) invert(1)';
     });
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
